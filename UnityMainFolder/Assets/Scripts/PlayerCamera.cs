@@ -3,33 +3,53 @@ using System.Collections;
 
 public class PlayerCamera : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-}
+    [SerializeField] private Transform target;
+ 
+    public float distance = 10.0f;
+    public float height = 5.0f;
+    public float heightDamping = 2.0f;
+    public float rotationDamping = 3.0f;
 
-/*
-public class ThirdPersonCamera : MonoBehaviour
-{
-    public float smooth = 3f;		// a public variable to adjust smoothing of camera motion
-    Transform standardPos;			// the usual position for the camera, specified by a transform in the game
-    Transform lookAtPos;			// the position to move the camera to when using head look
-	
-    void Start()
-    {
-        // initialising references
-        standardPos = GameObject.Find ("CamPos").transform;
-		
-        if(GameObject.Find ("LookAtPos"))
-            lookAtPos = GameObject.Find ("LookAtPos").transform;
+    private float wantedRotationAngle;
+    private float wantedHeight;
+    private float currentRotationAngle;
+    private float currentHeight;
+
+    void LateUpdate() {
+        if (!target) {
+            Debug.LogWarning("No target set!");
+            return;
+        }
+
+        // Calculate the current rotation angles
+        wantedRotationAngle = target.eulerAngles.y;
+        wantedHeight = target.position.y + height;
+        currentRotationAngle = transform.eulerAngles.y;
+        currentHeight = transform.position.y;
+
+        // Damp the rotation around the y-axis
+        currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotationDamping * Time.deltaTime);
+
+        // Damp the height
+        currentHeight = Mathf.Lerp(currentHeight, wantedHeight, heightDamping * Time.deltaTime);
+
+        // Convert the angle into a rotation
+        Quaternion currentRotation = Quaternion.Euler(0, currentRotationAngle, 0);
+
+        // Set the position of the camera on the x-z plane
+        transform.position = target.position;
+        transform.position -= currentRotation * Vector3.forward * distance;
+
+        // Set the height of the camera
+        transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
+
+        // Always look at the target
+        transform.LookAt(target);
     }
+
 	
+    /*
+    // For looking at something, maybe at character when in inventory?
     void FixedUpdate ()
     {
         // if we hold Alt
@@ -45,8 +65,7 @@ public class ThirdPersonCamera : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, standardPos.position, Time.deltaTime * smooth);	
             transform.forward = Vector3.Lerp(transform.forward, standardPos.forward, Time.deltaTime * smooth);
         }
-		
     }
+    */
 }
 
-*/
