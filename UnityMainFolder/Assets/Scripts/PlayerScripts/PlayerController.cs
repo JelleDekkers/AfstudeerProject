@@ -30,12 +30,12 @@ public class PlayerController : MonoBehaviour {
 
         xRotation = transform.eulerAngles.x;
         yRotation = transform.eulerAngles.y;
+
+        if (hideCursor)
+            Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update() {
-        if (hideCursor)
-            Cursor.visible = false;
-
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
         Vector3 input = new Vector3(horizontalInput, 0, verticalInput);
