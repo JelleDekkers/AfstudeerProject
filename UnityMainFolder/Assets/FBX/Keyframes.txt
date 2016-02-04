@@ -1,0 +1,10 @@
+0-10 = block up
+10-25= block down
+
+
+30-50=attack right 
+50-60=attack to idle
+
+
+65-75=attack left
+75/85=attack left to idle
