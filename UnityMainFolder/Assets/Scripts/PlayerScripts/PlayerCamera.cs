@@ -17,7 +17,7 @@ public class PlayerCamera : MonoBehaviour {
 
     void LateUpdate() {
         if (!target) {
-            Debug.LogWarning("No target set!");
+            Debug.LogWarning("No target set for PlayerCamera!");
             return;
         }
 

@@ -1,13 +1,38 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class Pathfinder : MonoBehaviour {
 
-    public GameObject AI;
-    public GameObject Target;
+    public GameObject target;
+    public float fovAngle;
+    public float speed;
+    public float rayLength = 10;
 
-    public List<Node> OpenNodes = new List<Node>();
-    public List<Node> ClosedNodes = new List<Node>();
+    private Rigidbody rigidbody;
+    private float gravity = 0;
+    private Vector3 movement;
 
+    void Start() {
+        rigidbody = GetComponent<Rigidbody>();
+        //rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+        //rigidbody.useGravity = false;
+    }
+
+    void Update() {
+        RaycastHit hit;
+        Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        if (Physics.Raycast(transform.position, fwd, out hit, rayLength)) {
+            //if(hit.collider.gameObject.layer == target.layer) {
+               
+            //}
+        }
+        MoveToTarget(target);
+        Debug.DrawRay(transform.position, fwd * rayLength, Color.red);
+    }
+
+    private void MoveToTarget(GameObject target) {
+        transform.LookAt(target.transform);
+        //rigidbody.AddRelativeForce(Vector3.forward * speed, ForceMode.Force);
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+    }
 }

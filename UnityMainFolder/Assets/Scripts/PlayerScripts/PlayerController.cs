@@ -7,7 +7,7 @@ public enum MovementState {
     WalkingBack = 2,
 }
 
-[RequireComponent (typeof(Rigidbody))]
+//[RequireComponent (typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour {
     [SerializeField] private float forwardSpeed = 8;
     [SerializeField] private float backSpeed = 5;
@@ -23,49 +23,45 @@ public class PlayerController : MonoBehaviour {
     private float horizontalInput;
     private float verticalInput;
 
-    void Start() {
-        rigidBody = GetComponent<Rigidbody>();
-        rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
-        rigidBody.useGravity = false;
+    //void Start() {
+    //    rigidBody = GetComponent<Rigidbody>();
+    //    rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
+    //    rigidBody.useGravity = false;
 
-        xRotation = transform.eulerAngles.x;
-        yRotation = transform.eulerAngles.y;
+    //    xRotation = transform.eulerAngles.x;
+    //    yRotation = transform.eulerAngles.y;
 
-        if (hideCursor)
-            Cursor.lockState = CursorLockMode.Locked;
-    }
+    //    if (hideCursor)
+    //        Cursor.lockState = CursorLockMode.Locked;
+    //}
 
-    void Update() {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-        Vector3 input = new Vector3(horizontalInput, 0, verticalInput);
-        if (input.magnitude > 1) 
-            input.Normalize();
+    //void Update() {
+    //    horizontalInput = Input.GetAxis("Horizontal");
+    //    verticalInput = Input.GetAxis("Vertical");
+    //    Vector3 input = new Vector3(horizontalInput, 0, verticalInput);
+    //    if (input.magnitude > 1) 
+    //        input.Normalize();
 
-        gravity = Physics.gravity.y * 3;
-        float forwardMovement = forwardSpeed * input.z;
-        if (verticalInput < 0)
-            forwardMovement = backSpeed * input.z;
-        movement = new Vector3(sideSpeed * input.x, 0, forwardMovement);
-        movement = transform.TransformDirection(movement);
-        movement.y = gravity * Time.deltaTime;
+    //    gravity = Physics.gravity.y * 3;
+    //    float forwardMovement = forwardSpeed * input.z;
+    //    if (verticalInput < 0)
+    //        forwardMovement = backSpeed * input.z;
+    //    movement = new Vector3(sideSpeed * input.x, 0, forwardMovement);
+    //    movement = transform.TransformDirection(movement);
+    //    movement.y = gravity * Time.deltaTime;
 
-        transform.rotation = Quaternion.Euler(yRotation, xRotation, 0);
-        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
-        rigidBody.velocity = movement;
+    //    transform.rotation = Quaternion.Euler(yRotation, xRotation, 0);
+    //    transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+    //    rigidBody.velocity = movement;
 
-        xRotation += Input.GetAxis("Mouse X") * rotationSpeed;
-        yRotation -= Input.GetAxis("Mouse Y") * rotationSpeed;
+    //    xRotation += Input.GetAxis("Mouse X") * rotationSpeed;
+    //    yRotation -= Input.GetAxis("Mouse Y") * rotationSpeed;
 
-        // Prevent strange rotations:
-        if (yRotation > 180)
-            yRotation -= 360;
-        if (yRotation < -180)
-            yRotation += 360;
-        yRotation = Mathf.Clamp(yRotation, -60, 60);
-
-        // placeholder voor playerCamera
-        //Camera.main.transform.rotation = transform.rotation;
-        //Camera.main.transform.position = Camera.main.transform.rotation * new Vector3(0, 0, -3) + transform.position;
-    }
+    //    // Prevent strange rotations:
+    //    if (yRotation > 180)
+    //        yRotation -= 360;
+    //    if (yRotation < -180)
+    //        yRotation += 360;
+    //    yRotation = Mathf.Clamp(yRotation, -60, 60);
+    //}
 }
