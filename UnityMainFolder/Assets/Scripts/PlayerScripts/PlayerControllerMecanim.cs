@@ -4,12 +4,10 @@ using System.Collections;
 public class PlayerControllerMecanim : MonoBehaviour {
 
     private Animator anim;
-
+    private bool pressingForward = false;
     private float speed = 0;
     private float xRotation = 0;
     private float yRotation = 0;
-
-    private float horizontalInput;
     private float verticalInput;
 
     [SerializeField]
@@ -23,18 +21,32 @@ public class PlayerControllerMecanim : MonoBehaviour {
     }
 
     private void Update() {
-        verticalInput = Input.GetAxis("Vertical");
-        speed = verticalInput;          
-        anim.SetFloat("Speed", speed);
+        //float gravity = Physics.gravity.y * 3;
+        //Vector3 movement = Vector3.zero;
+        //movement.y = gravity * Time.deltaTime;
+        //GetComponent<Rigidbody>().velocity = movement;
 
+        // Look rotation:
         transform.rotation = Quaternion.Euler(yRotation, xRotation, 0);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
-
         xRotation += Input.GetAxis("Mouse X") * rotationSpeed;
         yRotation -= Input.GetAxis("Mouse Y") * rotationSpeed;
+
+        //Prevent strange rotations:
+        if (yRotation > 180)
+            yRotation -= 360;
+        if (yRotation < -180)
+            yRotation += 360;
+        yRotation = Mathf.Clamp(yRotation, -60, 60);
+
+        //Moving Forward:
+        anim.SetBool("MoveForward", Input.GetKey(KeyCode.W)); //RoundDownToZeroAndOne(Input.GetAxis("Vertical")));
     }
 
-    private void OnGUI() {
-        GUI.Label(new Rect(10, 10, 1000, 20), "Speed: " + speed);
+    private bool RoundDownToZeroAndOne(float value) {
+        if (value > 0.1f)
+            return true;
+        else
+            return false;
     }
 }
