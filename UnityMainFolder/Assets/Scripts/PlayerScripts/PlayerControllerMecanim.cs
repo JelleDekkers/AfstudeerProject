@@ -19,6 +19,9 @@ public class PlayerControllerMecanim : MonoBehaviour {
 
         xRotation = transform.eulerAngles.x;
         yRotation = transform.eulerAngles.y;
+
+        if (anim.layerCount == 2)
+            anim.SetLayerWeight(1, 1);
     }
 
     private void Update() {
@@ -42,6 +45,14 @@ public class PlayerControllerMecanim : MonoBehaviour {
         //anim.SetFloat("HorizontalDirection", horizontalInput);
         anim.SetFloat("MovementZ", verticalInput);
         anim.SetFloat("MovementX", horizontalInput);
+
+        //Attacking:
+        if (Input.GetMouseButtonDown(0)) {
+            anim.SetBool("Attacking", true);
+        }
+        if (Input.GetMouseButtonDown(1)) {
+            anim.SetBool("Attacking", false);
+        }
     }
 
     private float RoundDownForMecanim(float value) {
