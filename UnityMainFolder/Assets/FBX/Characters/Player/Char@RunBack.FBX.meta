@@ -1,53 +1,59 @@
 fileFormatVersion: 2
-guid: d4253a9eb0b6e1247b6549fad32560f5
-timeCreated: 1454615496
+guid: 20382cd281d389740b89b677e51d70a8
+timeCreated: 1454682136
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Base HumanHead
-    100002: Base HumanLCalf
-    100004: Base HumanLCollarbone
-    100006: Base HumanLFoot
-    100008: Base HumanLForearm
-    100010: Base HumanLPalm
-    100012: Base HumanLThigh
-    100014: Base HumanLUpperarm
-    100016: Base HumanNeck
-    100018: Base HumanPelvis
-    100020: Base HumanRCalf
-    100022: Base HumanRCollarbone
-    100024: Base HumanRFoot
-    100026: Base HumanRForearm
-    100028: Base HumanRibcage
-    100030: Base HumanRPalm
-    100032: Base HumanRThigh
-    100034: Base HumanRUpperarm
-    100036: Base HumanSpine1
-    100038: Base HumanSpine2
-    100040: //RootNode
-    400000: Base HumanHead
-    400002: Base HumanLCalf
-    400004: Base HumanLCollarbone
-    400006: Base HumanLFoot
-    400008: Base HumanLForearm
-    400010: Base HumanLPalm
-    400012: Base HumanLThigh
-    400014: Base HumanLUpperarm
-    400016: Base HumanNeck
-    400018: Base HumanPelvis
-    400020: Base HumanRCalf
-    400022: Base HumanRCollarbone
-    400024: Base HumanRFoot
-    400026: Base HumanRForearm
-    400028: Base HumanRibcage
-    400030: Base HumanRPalm
-    400032: Base HumanRThigh
-    400034: Base HumanRUpperarm
-    400036: Base HumanSpine1
-    400038: Base HumanSpine2
-    400040: //RootNode
-    7400000: Run
+    100000: Base Human
+    100002: Base HumanHead
+    100004: Base HumanLCalf
+    100006: Base HumanLCollarbone
+    100008: Base HumanLFoot
+    100010: Base HumanLForearm
+    100012: Base HumanLPalm
+    100014: Base HumanLPlatform
+    100016: Base HumanLThigh
+    100018: Base HumanLUpperarm
+    100020: Base HumanNeck
+    100022: Base HumanPelvis
+    100024: Base HumanRCalf
+    100026: Base HumanRCollarbone
+    100028: Base HumanRFoot
+    100030: Base HumanRForearm
+    100032: Base HumanRibcage
+    100034: Base HumanRPalm
+    100036: Base HumanRPlatform
+    100038: Base HumanRThigh
+    100040: Base HumanRUpperarm
+    100042: Base HumanSpine1
+    100044: Base HumanSpine2
+    100046: //RootNode
+    400000: Base Human
+    400002: Base HumanHead
+    400004: Base HumanLCalf
+    400006: Base HumanLCollarbone
+    400008: Base HumanLFoot
+    400010: Base HumanLForearm
+    400012: Base HumanLPalm
+    400014: Base HumanLPlatform
+    400016: Base HumanLThigh
+    400018: Base HumanLUpperarm
+    400020: Base HumanNeck
+    400022: Base HumanPelvis
+    400024: Base HumanRCalf
+    400026: Base HumanRCollarbone
+    400028: Base HumanRFoot
+    400030: Base HumanRForearm
+    400032: Base HumanRibcage
+    400034: Base HumanRPalm
+    400036: Base HumanRPlatform
+    400038: Base HumanRThigh
+    400040: Base HumanRUpperarm
+    400042: Base HumanSpine1
+    400044: Base HumanSpine2
+    400046: //RootNode
+    7400000: RunBack
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -83,7 +89,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Run
+      name: RunBack
       takeName: Take 001
       firstFrame: 0
       lastFrame: 100
@@ -95,10 +101,10 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 1
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -109,6 +115,10 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
+      - path: Base Human
+        weight: 0
+      - path: Base HumanLPlatform
+        weight: 0
       - path: Base HumanPelvis
         weight: 1
       - path: Base HumanPelvis/Base HumanLThigh
@@ -159,6 +169,8 @@ ModelImporter:
       - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
           HumanRCollarbone/Base HumanRUpperarm/Base HumanRForearm/Base HumanRPalm
         weight: 1
+      - path: Base HumanRPlatform
+        weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0

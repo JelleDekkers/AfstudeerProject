@@ -9,6 +9,7 @@ public class PlayerControllerMecanim : MonoBehaviour {
     private float xRotation = 0;
     private float yRotation = 0;
     private float verticalInput;
+    private float horizontalInput;
 
     [SerializeField]
     private float rotationSpeed = 8;
@@ -36,7 +37,11 @@ public class PlayerControllerMecanim : MonoBehaviour {
 
         //Moving Forward:
         verticalInput = Input.GetAxis("Vertical");
-        anim.SetFloat("Speed", verticalInput); 
+        horizontalInput = Input.GetAxis("Horizontal");
+        //anim.SetFloat("VerticalDirection", verticalInput); 
+        //anim.SetFloat("HorizontalDirection", horizontalInput);
+        anim.SetFloat("MovementZ", verticalInput);
+        anim.SetFloat("MovementX", horizontalInput);
     }
 
     private float RoundDownForMecanim(float value) {
