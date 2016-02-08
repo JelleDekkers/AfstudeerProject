@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class Inventory {
 
-    private List<Item> items;
+    public List<Item> Items { get; private set; } 
 
 	public Inventory(Item[] items) {
-        this.items = items.ToList();
+        Items = items.ToList();
     }
 
     public Inventory() {
+        Items = new List<Item>();
     }
 
-    public void Add(Item item) {
-        Debug.Log("Adding " + item + " to inventory");
+    public void AddItem(Item item) {
+        Items.Add(item);
     }
 
     //checken of uberhaupt werkt? misschien via properties? misschien via zelf als parameter invullen welke type?
     public List<Armor> GetAllArmor() {
-        var armors = items.OfType<Armor>();
+        var armors = Items.OfType<Armor>();
         return armors.ToList();
     }
 }

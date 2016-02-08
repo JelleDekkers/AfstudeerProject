@@ -16,4 +16,5 @@ public enum ArmorType {
 public abstract class Item : InteractableObject {
     public override abstract void InteractWith();
     protected abstract void OnPickedUp();
+    public Sprite Sprite;
 }

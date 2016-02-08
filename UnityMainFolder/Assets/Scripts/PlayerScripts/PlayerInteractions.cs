@@ -10,13 +10,10 @@ public class PlayerInteractions : MonoBehaviour {
     public Collider[] nearbyItemColliders;
     private RaycastHit[] hits;
     private LayerMask layerMask;
-    private float curItemDistance = 0;
-    private Inventory playerInventory;
 
     private void Start() {
         // Set layerMask to InteractableObject layer
         layerMask = 1 << 14;
-        playerInventory = GetComponent<Actor>().Inventory;
     }
 
     private void Update() {
@@ -50,12 +47,9 @@ public class PlayerInteractions : MonoBehaviour {
     }
 
     private void Interact(InteractableObject item) {
-        Debug.Log("Interacting with: " + item);
         item.InteractWith();
-
-        Debug.Log(item.GetType());
         if (item.GetComponent<Item>()) {
-            playerInventory.Add(item.GetComponent<Item>());
+            Player.Inventory.AddItem(item.GetComponent<Item>());
             Destroy(item.gameObject);
         }
     }
