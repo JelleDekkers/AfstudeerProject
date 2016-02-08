@@ -15,12 +15,12 @@ TagManager:
   - 
   - Player
   - Enemy
-  - Environment
+  - Props
   - Trap
-  - Wall
-  - Gate
-  - 
-  - 
+  - Foundation
+  - Weapon
+  - InteractableObject
+  - Projectile
   - 
   - 
   - 

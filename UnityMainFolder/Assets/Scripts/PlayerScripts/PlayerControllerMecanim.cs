@@ -9,6 +9,7 @@ public class PlayerControllerMecanim : MonoBehaviour {
     private float xRotation = 0;
     private float yRotation = 0;
     private float verticalInput;
+    private float horizontalInput;
 
     [SerializeField]
     private float rotationSpeed = 8;
@@ -18,14 +19,12 @@ public class PlayerControllerMecanim : MonoBehaviour {
 
         xRotation = transform.eulerAngles.x;
         yRotation = transform.eulerAngles.y;
+
+        if (anim.layerCount == 2)
+            anim.SetLayerWeight(1, 1);
     }
 
     private void Update() {
-        //float gravity = Physics.gravity.y * 3;
-        //Vector3 movement = Vector3.zero;
-        //movement.y = gravity * Time.deltaTime;
-        //GetComponent<Rigidbody>().velocity = movement;
-
         // Look rotation:
         transform.rotation = Quaternion.Euler(yRotation, xRotation, 0);
         transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
@@ -40,13 +39,28 @@ public class PlayerControllerMecanim : MonoBehaviour {
         yRotation = Mathf.Clamp(yRotation, -60, 60);
 
         //Moving Forward:
-        anim.SetBool("MoveForward", Input.GetKey(KeyCode.W)); //RoundDownToZeroAndOne(Input.GetAxis("Vertical")));
+        verticalInput = Input.GetAxis("Vertical");
+        horizontalInput = Input.GetAxis("Horizontal");
+        //anim.SetFloat("VerticalDirection", verticalInput); 
+        //anim.SetFloat("HorizontalDirection", horizontalInput);
+        anim.SetFloat("MovementZ", verticalInput);
+        anim.SetFloat("MovementX", horizontalInput);
+
+        //Attacking:
+        if (Input.GetMouseButtonDown(0)) {
+            anim.SetBool("Attacking", true);
+        }
+        if (Input.GetMouseButtonDown(1)) {
+            anim.SetBool("Attacking", false);
+        }
     }
 
-    private bool RoundDownToZeroAndOne(float value) {
+    private float RoundDownForMecanim(float value) {
         if (value > 0.1f)
-            return true;
-        else
-            return false;
+            return 1f;
+        else if (value < -0.1f)
+            return -1;
+        else 
+            return 0;
     }
 }
