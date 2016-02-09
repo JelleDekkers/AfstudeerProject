@@ -2,17 +2,24 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class UIInventoryItem : MonoBehaviour {
+namespace AfstudeerProject.UI {
 
-    private Image img;
-    private Item itemRef;
+    public class UIInventoryItem : MonoBehaviour {
 
-    public void Init(UIInventory parent, Item item) {
-        img = transform.GetChild(0).GetComponent<Image>();
-        itemRef = item;
-        img.sprite = itemRef.Sprite;
-        GetComponent<Button>().onClick.AddListener(() => {
-            parent.ShowItemInfo(itemRef);
-        });
+        private Image img;
+
+        public Item ItemRef { get; private set; }
+
+        public void Init(UIInventory parent, Item item) {
+            if(img == null)
+                img = transform.GetChild(0).GetComponent<Image>();
+
+            ItemRef = item;
+            img.sprite = ItemRef.Sprite;
+            GetComponent<Button>().enabled = true;
+            GetComponent<Button>().onClick.AddListener(() => {
+                UIInventory.ActivateOnItemSelected(ItemRef);
+            });
+        }
     }
 }

@@ -18,6 +18,10 @@ public class Inventory {
         Items.Add(item);
     }
 
+    public void RemoveItem(Item item) {
+        Items.Remove(item);
+    }
+
     //checken of uberhaupt werkt? misschien via properties? misschien via zelf als parameter invullen welke type?
     public List<Armor> GetAllArmor() {
         var armors = Items.OfType<Armor>();

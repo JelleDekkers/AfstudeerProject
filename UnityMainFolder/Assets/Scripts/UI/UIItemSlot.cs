@@ -2,18 +2,26 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class UIItemSlot : MonoBehaviour {
+namespace AfstudeerProject.UI {
 
-    public Sprite emptySlotSprite;
-    private Image slotImage;
-    private Item equippedItem;
+    public class UIItemSlot : MonoBehaviour {
 
-    private void Start() {
-        if (equippedItem == null)
-            slotImage.sprite = emptySlotSprite;
-    }
+        public Sprite emptySlotSprite;
+        private Image slotImage;
+        public Item equippedItem { get; private set; }
 
-    public void UpdateSlot(Item item) {
-        slotImage.sprite = item.Sprite;
+        private void Start() {
+            slotImage = transform.GetChild(0).GetComponent<Image>();
+            if (equippedItem == null)
+                slotImage.sprite = emptySlotSprite;
+        }
+
+        public void UpdateSlot(Item item) {
+            slotImage.sprite = item.Sprite;
+            //Player.equippedItemManager.ParentItemOnTransform(item)
+            GetComponent<Button>().onClick.AddListener(() => {
+                UIInventory.ActivateOnItemSelected(equippedItem);
+            });
+        }
     }
 }
