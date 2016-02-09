@@ -7,8 +7,6 @@ public enum ArmorType {
     Cuirass,
     LeftPauldron,
     RightPauldron,
-    LeftBracers,
-    RightBracers,
     LeftGreave,
     RightGreave
 }
