@@ -9,7 +9,7 @@ namespace AfstudeerProject.UI {
 
         [SerializeField] private UIInventoryItem inventoryItemPrefab;
         [SerializeField] private Transform inventoryItemsGrid;
-        [SerializeField] private ItemInfoPanel infoPanel;
+        [SerializeField] private InventoryItemInfoPanel infoPanel;
 
         private Item currentSelectedItem;
 

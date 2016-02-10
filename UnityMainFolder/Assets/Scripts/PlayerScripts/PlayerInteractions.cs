@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -11,8 +12,11 @@ public class PlayerInteractions : MonoBehaviour {
     private RaycastHit[] hits;
     private LayerMask layerMask;
 
+    public static event Action<InteractableObject> OnNearbyItemSelectable;
+    public static event Action OnNoNearbyItemSelectable;
+
     private void Start() {
-        // Set layerMask to InteractableObject layer
+        // Sets layerMask to InteractableObject layer (14):
         layerMask = 1 << 14;
     }
 
@@ -22,17 +26,29 @@ public class PlayerInteractions : MonoBehaviour {
         nearbyItemColliders = Physics.OverlapSphere(transform.position, interactionMaxRange, layerMask);
 
         if (nearbyItemColliders.Length > 0) {
-            nearestItem = GetNearestItem();
-            //Highlight nearestItem
+            if (nearestItem != GetNearestItem()) {
+                nearestItem = GetNearestItem();
+                OnNearbyItemSelectable(nearestItem);
+            }
             if (Input.GetKeyDown(KeyCode.E)) {
                 Interact(nearestItem);
+                nearestItem = GetNearestItem();
+                OnNoNearbyItemSelectable();
+                nearestItem = null;
             }
         } else {
-            nearestItem = null;
+            if (nearestItem != null) {
+                OnNoNearbyItemSelectable();
+                nearestItem = null;
+            }
         }
     }
 
     private InteractableObject GetNearestItem() {
+        if (nearbyItemColliders.Length == 0) {
+            OnNoNearbyItemSelectable();
+            return null;
+        }
         InteractableObject nearestItem = null;
         float closestDistanceSqr = Mathf.Infinity;
         foreach (Collider col in nearbyItemColliders) {
@@ -52,17 +68,12 @@ public class PlayerInteractions : MonoBehaviour {
             Player.Inventory.AddItem(item.GetComponent<Item>());
             Destroy(item.gameObject);
         }
+       // nearestItem = null;
+       // nearestItem = GetNearestItem();
     }
 
     private void OnDrawGizmos() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, interactionMaxRange);
-    }
-
-    private void OnGUI() {
-        if (nearestItem == null)
-            return;
-
-        GUI.Label(new Rect(Screen.width / 2 - 30, Screen.height - 30, 1000, 20), nearestItem.Name);
     }
 }

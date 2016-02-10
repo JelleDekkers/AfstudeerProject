@@ -29,6 +29,7 @@ GameObject:
   - 224: {fileID: 22443130}
   - 222: {fileID: 22226004}
   - 114: {fileID: 11442678}
+  - 114: {fileID: 11458020}
   m_Layer: 5
   m_Name: ItemSprite
   m_TagString: Untagged
@@ -131,6 +132,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11458020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 198138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4ef81dcc9a74ab458e8d3f9793b299b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dragOnSurfaces: 1
 --- !u!114 &11490072
 MonoBehaviour:
   m_ObjectHideFlags: 1

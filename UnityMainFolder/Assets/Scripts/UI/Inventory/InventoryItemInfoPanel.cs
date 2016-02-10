@@ -4,7 +4,7 @@ using System.Collections;
 
 namespace AfstudeerProject.UI {
 
-    public class ItemInfoPanel : MonoBehaviour {
+    public class InventoryItemInfoPanel : MonoBehaviour {
 
         [SerializeField] private Text nameTxt;
 
