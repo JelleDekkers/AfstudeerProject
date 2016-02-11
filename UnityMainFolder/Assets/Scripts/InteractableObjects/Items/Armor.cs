@@ -1,13 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class Shield : Item {
-
-    [SerializeField] private float blockPoints = 1;
-    public float BlockPoints { get { return blockPoints; } }
+public class Armor : Item {
 
     public override void InteractWith() {
-        print("interacting");
         OnPickedUp();
     }
 

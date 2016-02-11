@@ -17,4 +17,16 @@ public class EquippedItemManager : MonoBehaviour {
         //item.transform.SetParent(parent, true);
         //item.transform.localPosition = Vector3.zero;
     }
+
+    public float GetTotalArmorPoints() {
+        return 2;
+    }
+
+    public float GetTotalAttackPoints() {
+        return 2;
+    }
+
+    public float GetTotalBlockPoints() {
+        return 2;
+    }
 }

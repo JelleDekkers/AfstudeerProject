@@ -10,6 +10,9 @@ namespace AfstudeerProject.UI {
         [SerializeField] private UIInventoryItem inventoryItemPrefab;
         [SerializeField] private Transform inventoryItemsGrid;
         [SerializeField] private InventoryItemInfoPanel infoPanel;
+        [SerializeField] private Text armorPointsText;
+        [SerializeField] private Text attackPointsText;
+        [SerializeField] private Text healthPointsText;
 
         private Item currentSelectedItem;
 
@@ -21,6 +24,9 @@ namespace AfstudeerProject.UI {
                 ShowItemsInGrid(Player.Inventory.Items.ToArray());
             OnSelectedItemIsNull += OnSelectedItemIsNullFunction;
             OnItemSelected += ShowItemInfo;
+            armorPointsText.text = Player.ArmorPoints.ToString();
+            attackPointsText.text = Player.AttackPoints.ToString();
+            healthPointsText.text = Player.HealthPoints.ToString();
         }
 
         private void Update() {

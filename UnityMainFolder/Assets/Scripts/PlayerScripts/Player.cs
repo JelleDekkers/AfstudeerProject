@@ -6,8 +6,9 @@ public class Player : MonoBehaviour {
     public static Inventory Inventory;
     public static EquippedItemManager equippedItemManager;
 
-    public float attackPoints = 1;
-    public float armorPoints = 1;
+    public static float HealthPoints;
+    public static float AttackPoints = 1;
+    public static float ArmorPoints = 1;
 
     public int InventoryLength; //testing
 

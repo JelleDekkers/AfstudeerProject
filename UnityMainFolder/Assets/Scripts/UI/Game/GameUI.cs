@@ -17,7 +17,6 @@ public class GameUI : MonoBehaviour {
     }
 
     private void HideInfoPanel() {
-        print("hiding");
         infoPanel.gameObject.SetActive(false);
     }
 }
