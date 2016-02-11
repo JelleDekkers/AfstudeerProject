@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace AfstudeerProject.UI {
 
-    public class DropComponent : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler {
+    public class UIDropComponent : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler {
         public Image containerImage; // The drop box
         public Image receivingImage; // The image that will change
         private Color normalColor;
@@ -17,22 +17,26 @@ namespace AfstudeerProject.UI {
         }
 
         public void OnDrop(PointerEventData data) {
-            //if(GetComponent<UIItemSlot>()) is !valid return
-            print("OnDrop()");
             containerImage.color = normalColor;
 
             if (receivingImage == null)
                 return;
 
-            Sprite dropSprite = GetDropSprite(data);
-            if (dropSprite != null) {
-                //if (transform.GetChild(0).GetComponent<GridLayoutGroup>()) {
-                    
-                //} else {
-                //    print("no grid detected");
+            ItemData draggedItem = GetDraggedItem(data);
+            // Put item into ItemSlot:
+            if (draggedItem.Type == GetComponent<UIItemSlot>().itemType) {
+                if(UIDragComponent.m_DraggingIcon!= null)
+                    Destroy(UIDragComponent.m_DraggingIcon);
+
+                Sprite dropSprite = GetDropSprite(data);
+                if (dropSprite != null)
                     receivingImage.sprite = dropSprite;
-                //}
-            }
+
+                GetComponent<UIItemSlot>().UpdateSlot(draggedItem);
+
+                Player.Inventory.RemoveItem(draggedItem);
+                UIInventory.UpdateItemsGrid();
+            } //else if getComponent<grid>
         }
 
         public void OnPointerEnter(PointerEventData data) {
@@ -56,11 +60,19 @@ namespace AfstudeerProject.UI {
             if (originalObj == null)
                 return null;
 
-            var srcImage = originalObj.GetComponent<Image>();
-            if (srcImage == null)
+            var childImg = originalObj.transform.GetChild(0).GetComponent<Image>();
+            if (childImg == null)
                 return null;
 
-            return srcImage.sprite;
+            return childImg.sprite;
+        }
+
+        private ItemData GetDraggedItem(PointerEventData data) {
+            var originalObj = data.pointerDrag;
+            if (originalObj == null)
+                return null;
+
+            return data.pointerDrag.GetComponent<UIInventoryItem>().ItemRef;
         }
     }
 }

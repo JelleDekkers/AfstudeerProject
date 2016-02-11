@@ -9,7 +9,8 @@ namespace AfstudeerProject.UI {
         private Sprite emptySlotSprite;
         private Image slotImage;
 
-        public Item equippedItem { get; private set; }
+        public ItemType itemType;
+        public ItemData equippedItem { get; private set; }
 
         private void Start() {
             slotImage = transform.GetChild(0).GetComponent<Image>();
@@ -18,16 +19,19 @@ namespace AfstudeerProject.UI {
                 slotImage.sprite = emptySlotSprite;
         }
 
-        public void UpdateSlot(Item item) {
-            if(item == null) {
+        public void UpdateSlot(ItemData item) {
+            if (item == null) {
+                print("null");
                 slotImage.sprite = emptySlotSprite;
+                GetComponent<Button>().onClick.RemoveAllListeners();
                 return;
+            } else {
+                equippedItem = item;
+                slotImage.sprite = equippedItem.Sprite;
+                GetComponent<Button>().onClick.AddListener(() => {
+                    UIInventory.ActivateOnItemSelected(equippedItem);
+                });
             }
-            slotImage.sprite = item.Sprite;
-            //Player.equippedItemManager.ParentItemOnTransform(item)
-            //GetComponent<Button>().onClick.AddListener(() => {
-            //    UIInventory.ActivateOnItemSelected(equippedItem);
-            //});
         }
 
         public void ShowItemInfo() {

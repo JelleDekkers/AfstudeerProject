@@ -1,27 +1,26 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 namespace AfstudeerProject.UI {
 
     [RequireComponent(typeof(Image))]
-    public class DragComponent : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+    public class UIDragComponent : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
         public bool dragOnSurfaces = true;
-
-        private GameObject m_DraggingIcon;
+        private ItemData draggedItem;
+        private Image draggedImage;
+        public static GameObject m_DraggingIcon;
         private RectTransform m_DraggingPlane;
-        public GameObject draggedParent;
 
-        public Item draggedItem;
+        public static event Action<ItemData> OnBeginDragEvent; //highlight correct itemslots
+        public static event Action OnEndEventDrag;
 
         public void OnBeginDrag(PointerEventData eventData) {
+            draggedImage = transform.GetChild(0).GetComponent<Image>();
             var canvas = FindInParents<Canvas>(gameObject);
-            if (canvas == null)
+            if (canvas == null || draggedImage == null)
                 return;
-
-            //draggedParent = transform.parent.gameObject;
-            //draggedItem = transform.parent.GetComponent<UIInventoryItem>().ItemRef;
-            //print(draggedItem);
             
             // We have clicked something that can be dragged.
             // What we want to do is create an icon for this.
@@ -36,9 +35,9 @@ namespace AfstudeerProject.UI {
             CanvasGroup group = m_DraggingIcon.AddComponent<CanvasGroup>();
             group.blocksRaycasts = false;
 
-            image.sprite = GetComponent<Image>().sprite;
+            image.sprite = draggedImage.sprite; // GetComponent<Image>().sprite;
             //image.SetNativeSize();
-
+           
             if (dragOnSurfaces)
                 m_DraggingPlane = transform as RectTransform;
             else
@@ -65,6 +64,7 @@ namespace AfstudeerProject.UI {
         }
 
         public void OnEndDrag(PointerEventData eventData) {
+            print("OnEndDrag");
             if (m_DraggingIcon != null) {
                 Destroy(m_DraggingIcon);
             }

@@ -11,6 +11,8 @@ public class Player : MonoBehaviour {
     public static float ArmorPoints = 1;
 
     public int InventoryLength; //testing
+    public ItemData[] items;
+
 
     private void Start() {
         Inventory = new Inventory();
@@ -18,6 +20,7 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
+        items = Inventory.Items.ToArray();
         InventoryLength = Inventory.Items.Count;
     }
 }

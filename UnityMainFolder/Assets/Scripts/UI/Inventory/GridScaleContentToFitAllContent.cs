@@ -13,7 +13,6 @@ namespace AfstudeerProject.UI {
         private bool fitY = true;
 
         private float itemAmount;
-        private bool useSpacing = false;
         private GridLayoutGroup grid;
         private Rect rect;
 

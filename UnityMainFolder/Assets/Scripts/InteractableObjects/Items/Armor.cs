@@ -2,9 +2,9 @@
 using System.Collections;
 using System;
 
-public class Armor : Item {
+public class Armor : ItemGameObject {
 
-    public override void InteractWith() {
+    public override void Interact() {
         OnPickedUp();
     }
 

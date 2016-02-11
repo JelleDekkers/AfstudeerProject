@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Iron Longsword
+  Type: 6
   meshName: 
   Sprite: {fileID: 21300000, guid: 2b970eb869583c6468d94a423c117eab, type: 3}
   Points: 5

@@ -63,9 +63,10 @@ public class PlayerInteractions : MonoBehaviour {
     }
 
     private void Interact(InteractableObject item) {
-        item.InteractWith();
-        if (item.GetComponent<Item>()) {
-            Player.Inventory.AddItem(item.GetComponent<Item>());
+        item.Interact();
+        if (item.GetComponent<ItemGameObject>()) {
+            ItemGameObject i = item.GetComponent<ItemGameObject>();
+            Player.Inventory.AddItem(new ItemData(i.Name, i.Type, i.MeshName, i.Sprite, i.Points));
             Destroy(item.gameObject);
         }
        // nearestItem = null;

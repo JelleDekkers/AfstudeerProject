@@ -10,7 +10,6 @@ GameObject:
   - 224: {fileID: 22484912}
   - 222: {fileID: 22205130}
   - 114: {fileID: 11410386}
-  - 114: {fileID: 11438884}
   m_Layer: 5
   m_Name: ItemSprite
   m_TagString: Untagged
@@ -90,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e414506ef6f6734188d3ad932e8e879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemType: 0
 --- !u!114 &11410386
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,7 +109,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 60105efddaf9116458150811d4a7675e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d92ba97a873e6db4fa117d5f5508583d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -117,18 +117,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11438884
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 134918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4ef81dcc9a74ab458e8d3f9793b299b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dragOnSurfaces: 1
 --- !u!114 &11444456
 MonoBehaviour:
   m_ObjectHideFlags: 1

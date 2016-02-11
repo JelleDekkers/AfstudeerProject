@@ -14,16 +14,25 @@ namespace AfstudeerProject.UI {
         [SerializeField] private Text attackPointsText;
         [SerializeField] private Text healthPointsText;
 
-        private Item currentSelectedItem;
+        private ItemData currentSelectedItem;
+        //private type typeItemShown;
+        private ItemData[] itemsBeingShown;
 
-        public static event Action<Item> OnItemSelected;
+        private static UIInventory instance;
+        public static event Action<ItemData> OnItemSelected;
         public static event Action OnSelectedItemIsNull;
+
+        private void Awake() {
+            if (instance == null)
+                instance = this;
+        }
 
         private void OnEnable() {
             if (Player.Inventory.Items.Count != 0)
                 ShowItemsInGrid(Player.Inventory.Items.ToArray());
             OnSelectedItemIsNull += OnSelectedItemIsNullFunction;
             OnItemSelected += ShowItemInfo;
+
             armorPointsText.text = Player.ArmorPoints.ToString();
             attackPointsText.text = Player.AttackPoints.ToString();
             healthPointsText.text = Player.HealthPoints.ToString();
@@ -49,11 +58,12 @@ namespace AfstudeerProject.UI {
             infoPanel.gameObject.SetActive(false);
         }
 
-        public static void ActivateOnItemSelected(Item item) {
+        public static void ActivateOnItemSelected(ItemData item) {
             OnItemSelected(item);
         }
 
-        public void ShowItemsInGrid(Item[] items) {
+        public void ShowItemsInGrid(ItemData[] items) {
+            itemsBeingShown = items;
             if(inventoryItemsGrid.childCount > 0) {
                 foreach (Transform t in inventoryItemsGrid.transform)
                     Destroy(t.gameObject);
@@ -66,7 +76,12 @@ namespace AfstudeerProject.UI {
             }
         }
 
-        private void ShowItemInfo(Item item) {
+        public static void UpdateItemsGrid() {
+            // TODO: dynamisch maken
+            instance.ShowItemsInGrid(Player.Inventory.Items.ToArray());
+        }
+
+        private void ShowItemInfo(ItemData item) {
             currentSelectedItem = item;
             infoPanel.gameObject.SetActive(true);
             infoPanel.UpdateInfo(currentSelectedItem);

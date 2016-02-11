@@ -8,15 +8,8 @@ public class Pathfinder : MonoBehaviour {
     public float speed;
     public float rayLength = 10;
 
-    private Rigidbody rigidbody;
-    private float gravity = 0;
     private Vector3 movement;
 
-    void Start() {
-        rigidbody = GetComponent<Rigidbody>();
-        //rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
-        //rigidbody.useGravity = false;
-    }
 
     void Update() {
         RaycastHit hit;

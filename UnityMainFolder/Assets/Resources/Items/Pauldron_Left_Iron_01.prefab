@@ -104,6 +104,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectName: Iron Left Pauldron
+  Type: 2
   meshName: 
   Sprite: {fileID: 21300000, guid: bb51f33416df0c440aa5271414686b64, type: 3}
   Points: 3

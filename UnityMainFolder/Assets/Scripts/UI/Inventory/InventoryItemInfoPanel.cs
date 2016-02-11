@@ -8,7 +8,7 @@ namespace AfstudeerProject.UI {
 
         [SerializeField] private Text nameTxt;
 
-        public void UpdateInfo(Item item) {
+        public void UpdateInfo(ItemData item) {
             if(nameTxt == null)
                 nameTxt = transform.GetChild(0).GetComponent<Text>();
 

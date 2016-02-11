@@ -11,9 +11,9 @@ public class GameItemInfoPanel : MonoBehaviour {
 
     public void UpdateInfo(InteractableObject item) {
         itemNameTxt.text = item.Name;
-        if (item.GetComponent<Item>()) {
-            itemImg.sprite = item.GetComponent<Item>().Sprite;
-            itemPointsTxt.text = item.GetComponent<Item>().Points.ToString();
+        if (item.GetComponent<ItemGameObject>()) {
+            itemImg.sprite = item.GetComponent<ItemGameObject>().Sprite;
+            itemPointsTxt.text = item.GetComponent<ItemGameObject>().Points.ToString();
 
             if (item.GetComponent<Weapon>())
                 itemTypeImg.sprite = IconManager.WeaponIcon;

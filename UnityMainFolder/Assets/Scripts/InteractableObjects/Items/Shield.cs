@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Shield : Item {
+public class Shield : ItemGameObject {
 
-    public override void InteractWith() {
+    public override void Interact() {
         OnPickedUp();
     }
 

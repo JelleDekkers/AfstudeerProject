@@ -4,8 +4,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
 
     private Animator anim;
-    private bool pressingForward = false;
-    private float speed = 0;
+    private float speed = 1;
     private float xRotation = 0;
     private float yRotation = 0;
     private float verticalInput;
