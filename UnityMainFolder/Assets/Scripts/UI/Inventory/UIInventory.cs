@@ -7,16 +7,22 @@ namespace AfstudeerProject.UI {
 
     public class UIInventory : MonoBehaviour {
 
-        [SerializeField] private UIInventoryItem inventoryItemPrefab;
-        [SerializeField] private Transform inventoryItemsGrid;
-        [SerializeField] private InventoryItemInfoPanel infoPanel;
-        [SerializeField] private Text armorPointsText;
-        [SerializeField] private Text attackPointsText;
-        [SerializeField] private Text healthPointsText;
+        public enum shownItemsCategory {
+            All,
+            Weapons,
+            Shields,
+            Armor,
+            Misc
+        }
+
+        [SerializeField] private UIInventoryGrid inventoryGrid;
+        [SerializeField] private InventoryItemInfoPanel itemInfoPanel;
+        [SerializeField] private UIPlayerInfoPanel playerInfoPanel;
 
         private ItemData currentSelectedItem;
-        //private type typeItemShown;
-        private ItemData[] itemsBeingShown;
+
+        public static shownItemsCategory ShownCategory = shownItemsCategory.All;
+        public static ItemData[] itemsBeingShown;
 
         private static UIInventory instance;
         public static event Action<ItemData> OnItemSelected;
@@ -28,17 +34,11 @@ namespace AfstudeerProject.UI {
         }
 
         private void OnEnable() {
-            if (Player.Inventory.Items.Count != 0)
-                ShowItemsInGrid(Player.Inventory.Items.ToArray());
             OnSelectedItemIsNull += OnSelectedItemIsNullFunction;
             OnItemSelected += ShowItemInfo;
-
-            armorPointsText.text = Player.ArmorPoints.ToString();
-            attackPointsText.text = Player.AttackPoints.ToString();
-            healthPointsText.text = Player.HealthPoints.ToString();
         }
 
-        private void Update() {
+        private void Update() { 
             if (Input.GetMouseButtonUp(0)) {
                 if (!EventSystem.current.IsPointerOverGameObject()) {
                     OnSelectedItemIsNull();
@@ -55,7 +55,7 @@ namespace AfstudeerProject.UI {
 
         private void OnSelectedItemIsNullFunction() {
             currentSelectedItem = null;
-            infoPanel.gameObject.SetActive(false);
+            itemInfoPanel.gameObject.SetActive(false);
         }
 
         public static void ActivateOnItemSelected(ItemData item) {
@@ -63,28 +63,18 @@ namespace AfstudeerProject.UI {
         }
 
         public void ShowItemsInGrid(ItemData[] items) {
-            itemsBeingShown = items;
-            if(inventoryItemsGrid.childCount > 0) {
-                foreach (Transform t in inventoryItemsGrid.transform)
-                    Destroy(t.gameObject);
-            }
-
-            for (int i = 0; i < items.Length; i++) {
-                UIInventoryItem obj = Instantiate(inventoryItemPrefab);
-                obj.transform.SetParent(inventoryItemsGrid, false);
-                obj.Init(this, items[i]);
-            }
+            inventoryGrid.ShowItemsInGrid(items);
         }
 
         public static void UpdateItemsGrid() {
             // TODO: dynamisch maken
-            instance.ShowItemsInGrid(Player.Inventory.Items.ToArray());
+            instance.inventoryGrid.ShowItemsInGrid(Player.Inventory.Items.ToArray());
         }
 
         private void ShowItemInfo(ItemData item) {
             currentSelectedItem = item;
-            infoPanel.gameObject.SetActive(true);
-            infoPanel.UpdateInfo(currentSelectedItem);
+            itemInfoPanel.gameObject.SetActive(true);
+            itemInfoPanel.UpdateInfo(currentSelectedItem);
         }
 
         public void DiscardSelectedItem() {

@@ -10,7 +10,7 @@ GameObject:
   - 224: {fileID: 22434078}
   - 222: {fileID: 22252650}
   - 114: {fileID: 11454054}
-  - 114: {fileID: 11416658}
+  - 114: {fileID: 11420144}
   - 114: {fileID: 11490072}
   - 114: {fileID: 11439742}
   m_Layer: 5
@@ -37,7 +37,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &11416658
+--- !u!114 &11420144
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -57,8 +57,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.44117647, g: 0.42495674, b: 0.42495674, a: 1}
-    m_PressedColor: {r: 0.7058823, g: 0.63200086, b: 0.03633217, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -90,9 +90,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragOnSurfaces: 1
-  draggedImage: {fileID: 11442678}
-  draggedParent: {fileID: 0}
-  draggedItem: {fileID: 0}
 --- !u!114 &11442678
 MonoBehaviour:
   m_ObjectHideFlags: 1

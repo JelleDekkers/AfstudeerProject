@@ -64,7 +64,6 @@ namespace AfstudeerProject.UI {
         }
 
         public void OnEndDrag(PointerEventData eventData) {
-            print("OnEndDrag");
             if (m_DraggingIcon != null) {
                 Destroy(m_DraggingIcon);
             }

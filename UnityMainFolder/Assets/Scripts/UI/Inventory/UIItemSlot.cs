@@ -21,7 +21,6 @@ namespace AfstudeerProject.UI {
 
         public void UpdateSlot(ItemData item) {
             if (item == null) {
-                print("null");
                 slotImage.sprite = emptySlotSprite;
                 GetComponent<Button>().onClick.RemoveAllListeners();
                 return;

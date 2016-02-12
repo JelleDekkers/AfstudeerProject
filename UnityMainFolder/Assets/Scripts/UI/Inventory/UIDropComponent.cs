@@ -18,13 +18,17 @@ namespace AfstudeerProject.UI {
 
         public void OnDrop(PointerEventData data) {
             containerImage.color = normalColor;
+            print("OnDrop()");
 
-            if (receivingImage == null)
+            if (receivingImage == null && !GetComponent<GridLayoutGroup>())
                 return;
-
+            
             ItemData draggedItem = GetDraggedItem(data);
-            // Put item into ItemSlot:
-            if (draggedItem.Type == GetComponent<UIItemSlot>().itemType) {
+            // Used to check if being dragged from grid or from itemslot, kan netter.
+            UIItemSlot itemSlot = GetItemSlotBeingDraggedFrom(data);
+
+            // Put item into valid ItemSlot:
+            if (GetComponent<UIItemSlot>() && draggedItem.Type == GetComponent<UIItemSlot>().itemType) {
                 if(UIDragComponent.m_DraggingIcon!= null)
                     Destroy(UIDragComponent.m_DraggingIcon);
 
@@ -33,10 +37,16 @@ namespace AfstudeerProject.UI {
                     receivingImage.sprite = dropSprite;
 
                 GetComponent<UIItemSlot>().UpdateSlot(draggedItem);
-
                 Player.Inventory.RemoveItem(draggedItem);
                 UIInventory.UpdateItemsGrid();
-            } //else if getComponent<grid>
+            } // put Item from item slot back to inventory: 
+            else if(GetComponent<UIInventoryGrid>() && itemSlot != null) {
+                print(draggedItem.Name);
+                Player.Inventory.AddItem(draggedItem);
+                UIInventory.UpdateItemsGrid();
+                itemSlot.UpdateSlot(null);
+                //TODO: update item slot (via even?)
+            }
         }
 
         public void OnPointerEnter(PointerEventData data) {
@@ -72,7 +82,18 @@ namespace AfstudeerProject.UI {
             if (originalObj == null)
                 return null;
 
-            return data.pointerDrag.GetComponent<UIInventoryItem>().ItemRef;
+            if (data.pointerDrag.GetComponent<UIInventoryItem>())
+                return data.pointerDrag.GetComponent<UIInventoryItem>().ItemRef;
+            else
+                return data.pointerDrag.GetComponent<UIItemSlot>().equippedItem;
+        }
+
+        private UIItemSlot GetItemSlotBeingDraggedFrom(PointerEventData data) {
+            var originalObj = data.pointerDrag;
+            if (originalObj == null)
+                return null;
+
+            return data.pointerDrag.GetComponent<UIItemSlot>();
         }
     }
 }

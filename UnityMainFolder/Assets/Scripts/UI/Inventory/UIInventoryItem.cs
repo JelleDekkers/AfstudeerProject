@@ -10,7 +10,7 @@ namespace AfstudeerProject.UI {
 
         public ItemData ItemRef { get; private set; }
 
-        public void Init(UIInventory parent, ItemData item) {
+        public void Init(ItemData item) {
             if(img == null)
                 img = transform.GetChild(0).GetComponent<Image>();
 

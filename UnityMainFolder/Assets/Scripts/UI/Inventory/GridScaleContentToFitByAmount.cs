@@ -4,21 +4,22 @@ using System.Collections;
 
 namespace AfstudeerProject.UI {
 
-    [ExecuteInEditMode]
     public class GridScaleContentToFitByAmount : MonoBehaviour {
 
         [SerializeField]
-        private int itemsPerColumn = 5;
+        private int preferredItemsPerColumn = 5;
 
-        private GridLayoutGroup grid;
         private Rect rect;
 
-        private void OnEnable() {
-            grid = GetComponent<GridLayoutGroup>();
+        private void Start() {
+            GetComponent<GridLayoutGroup>().cellSize = CalculateScale();
+        }
+
+        private Vector2 CalculateScale() {
             rect = GetComponentInChildren<RectTransform>().rect;
-            float xSize = rect.width / itemsPerColumn;
+            float xSize = rect.width / preferredItemsPerColumn;
             float ySize = xSize;
-            grid.cellSize = new Vector2(xSize, ySize);
+            return new Vector2(xSize, ySize);
         }
     }
 }
