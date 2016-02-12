@@ -3,7 +3,8 @@ using System.Collections;
 
 public class EquippedItemHolder : MonoBehaviour {
 
-	public void UpdateHolder(ItemGameObject item) {
+	public void UpdateHolder(ItemData item) {
+        // instantiate item
         if(transform.childCount > 0) {
             Destroy(transform.GetChild(0).gameObject);
         }

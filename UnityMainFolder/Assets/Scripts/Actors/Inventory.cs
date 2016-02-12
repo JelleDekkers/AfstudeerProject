@@ -6,8 +6,20 @@ using UnityEngine;
 public class Inventory {
 
     public List<ItemData> Items;// { get; private set; }
+    public EquippedItem[] equippedItems = new EquippedItem[] {
+        new EquippedItem(ItemType.Helmet, null),
+        new EquippedItem(ItemType.Cuirass, null),
+        new EquippedItem(ItemType.Weapon, null),
+        new EquippedItem(ItemType.Shield, null),
+        new EquippedItem(ItemType.LeftGreave, null),
+        new EquippedItem(ItemType.RightGreave, null),
+        new EquippedItem(ItemType.RightPauldron, null),
+        new EquippedItem(ItemType.LeftPauldron, null)
+    };
 
-	public Inventory(ItemData[] items) {
+    public event Action OnEquipmentChanged;
+
+    public Inventory(ItemData[] items) {
         Items = items.ToList();
     }
 
@@ -17,17 +29,60 @@ public class Inventory {
 
     public void AddItem(ItemData item) {
         Items.Add(item);
-        //OnInventoryWasChanged();
     }
 
     public void RemoveItem(ItemData item) {
+        Debug.Log("remove:  " + item.Name);
         Items.Remove(item);
-        //OnInventoryWasChanged();
     }
 
-    //checken of uberhaupt werkt? misschien via properties? misschien via zelf als parameter invullen welke type?
+    public float GetTotalArmorPoints() {
+        float points = 0;
+        foreach (EquippedItem i in equippedItems)
+            if (i.Item != null && (int)i.Type < 6) // all armortype enums to int
+                points += i.Item.Points;
+        return points;
+    }
+
+    public float GetShieldPoints() {
+        float points = 0;
+        foreach (EquippedItem i in equippedItems)
+            if (i.Item != null && i.Type == ItemType.Shield)
+                points += i.Item.Points;
+        return points;
+    }
+
+    public float GetWeaponAttackPoints() {
+        float points = 0;
+        foreach (EquippedItem i in equippedItems)
+            if(i.Item != null && i.Type == ItemType.Weapon)
+                points += i.Item.Points;
+        return points;
+    }
+
     public List<ItemData> GetAllType(Type type) {
         //var items = Items.OfType<type>();
         return null;
+    }
+
+    public void EquipItem(ItemData item) {
+        Debug.Log("equip item from inventory");
+        foreach(EquippedItem i in equippedItems) {
+            if (i.Type == item.Type) {
+                i.Item = item;
+                OnEquipmentChanged();
+                return;
+            }
+        }
+    }
+
+    public void UnequipItem(ItemData item) {
+       foreach(EquippedItem i in equippedItems) {
+            if (i.Item == item) {
+                i.Item = null;
+                OnEquipmentChanged();
+                return;
+            }
+        }
     }
 }

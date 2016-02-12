@@ -8,12 +8,17 @@ namespace AfstudeerProject.UI {
 
         [SerializeField] private Text armorPointsText;
         [SerializeField] private Text attackPointsText;
-        [SerializeField] private Text healthPointsText;
+        [SerializeField] private Text shieldPointsText;
 
         private void OnEnable() {
+            UIItemSlot.OnItemSlotChanged += UpdateText;
+            UpdateText();
+        }
+        
+        private void UpdateText() {
             armorPointsText.text = Player.ArmorPoints.ToString();
             attackPointsText.text = Player.AttackPoints.ToString();
-            healthPointsText.text = Player.HealthPoints.ToString();
+            shieldPointsText.text = Player.ShieldPoints.ToString();
         }
     }
 }

@@ -17,6 +17,9 @@ namespace AfstudeerProject.UI {
         public static event Action OnEndEventDrag;
 
         public void OnBeginDrag(PointerEventData eventData) {
+            if (GetComponent<UIItemSlot>() && GetComponent<UIItemSlot>().equippedItem == null)
+                return;
+
             draggedImage = transform.GetChild(0).GetComponent<Image>();
             var canvas = FindInParents<Canvas>(gameObject);
             if (canvas == null || draggedImage == null)

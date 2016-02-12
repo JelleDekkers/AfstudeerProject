@@ -18,7 +18,6 @@ namespace AfstudeerProject.UI {
 
         public void OnDrop(PointerEventData data) {
             containerImage.color = normalColor;
-            print("OnDrop()");
 
             if (receivingImage == null && !GetComponent<GridLayoutGroup>())
                 return;
@@ -27,7 +26,7 @@ namespace AfstudeerProject.UI {
             // Used to check if being dragged from grid or from itemslot, kan netter.
             UIItemSlot itemSlot = GetItemSlotBeingDraggedFrom(data);
 
-            // Put item into valid ItemSlot:
+            // Put item for inventory into valid ItemSlot:
             if (GetComponent<UIItemSlot>() && draggedItem.Type == GetComponent<UIItemSlot>().itemType) {
                 if(UIDragComponent.m_DraggingIcon!= null)
                     Destroy(UIDragComponent.m_DraggingIcon);
@@ -39,13 +38,11 @@ namespace AfstudeerProject.UI {
                 GetComponent<UIItemSlot>().UpdateSlot(draggedItem);
                 Player.Inventory.RemoveItem(draggedItem);
                 UIInventory.UpdateItemsGrid();
-            } // put Item from item slot back to inventory: 
-            else if(GetComponent<UIInventoryGrid>() && itemSlot != null) {
-                print(draggedItem.Name);
+            } // Put Item from item slot back to inventory: 
+            else if(GetComponent<UIInventoryGrid>() && itemSlot != null && itemSlot.equippedItem != null) {
                 Player.Inventory.AddItem(draggedItem);
                 UIInventory.UpdateItemsGrid();
                 itemSlot.UpdateSlot(null);
-                //TODO: update item slot (via even?)
             }
         }
 

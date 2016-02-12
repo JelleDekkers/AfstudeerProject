@@ -21,10 +21,10 @@ namespace AfstudeerProject.UI {
 
         private ItemData currentSelectedItem;
 
+        private static UIInventory instance;
+
         public static shownItemsCategory ShownCategory = shownItemsCategory.All;
         public static ItemData[] itemsBeingShown;
-
-        private static UIInventory instance;
         public static event Action<ItemData> OnItemSelected;
         public static event Action OnSelectedItemIsNull;
 
@@ -35,6 +35,7 @@ namespace AfstudeerProject.UI {
 
         private void OnEnable() {
             OnSelectedItemIsNull += OnSelectedItemIsNullFunction;
+            OnSelectedItemIsNull += UpdateItemsGrid;
             OnItemSelected += ShowItemInfo;
         }
 
@@ -78,11 +79,9 @@ namespace AfstudeerProject.UI {
         }
 
         public void DiscardSelectedItem() {
-            OnSelectedItemIsNull();
             Player.Inventory.RemoveItem(currentSelectedItem);
-            ShowItemsInGrid(Player.Inventory.Items.ToArray());
-            //rekening houden met update item slot of update item grid
-            //drop currentSelectedItem on ground and remove from inventory selected item;
+            ItemGameObject.InstantiateFromResources(currentSelectedItem);
+            OnSelectedItemIsNull();
         }
     }
 }
