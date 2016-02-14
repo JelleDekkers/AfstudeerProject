@@ -1,20 +1,23 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class EquippedItemManager : MonoBehaviour {
 
-    [SerializeField] private EquippedItemHolder helmetHolder;
-    [SerializeField] private EquippedItemHolder cuirassHolder;
-    [SerializeField] private EquippedItemHolder PauldronLeftHolder;
-    [SerializeField] private EquippedItemHolder PauldronRightHolder;
-    [SerializeField] private EquippedItemHolder WeaponHolder;
-    [SerializeField] private EquippedItemHolder ShieldHolder;
-    [SerializeField] private EquippedItemHolder GreaveLeftHolder;
-    [SerializeField] private EquippedItemHolder GreaveRightHolder;
+    [SerializeField]
+    private EquippedItemHolder[] equippedItemHolders;
 
-    public void ParentItemOnTransform(GameObject item, EquippedItemHolder parent) {
-        //parent.UpdateHolder(item);
-        //item.transform.SetParent(parent, true);
-        //item.transform.localPosition = Vector3.zero;
+    private void Start() {
+        equippedItemHolders = GetComponentsInChildren<EquippedItemHolder>();
+        Debug.Log(Player.Inventory);
+        Player.Inventory.OnEquipmentChangedTo += UpdateEquipment;
+    }
+
+    public void UpdateEquipment(ItemType type, ItemData item) {
+        foreach (EquippedItemHolder holder in equippedItemHolders) {
+            if (holder.Type == type) {
+                holder.UpdateHolder(item);
+                return;
+            }
+        }
+        Debug.LogWarning("No EquippedItemHolder found with type: " + type + " for item: " + item.Name);
     }
 }

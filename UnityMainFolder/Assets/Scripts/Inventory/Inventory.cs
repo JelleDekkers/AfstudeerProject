@@ -19,6 +19,7 @@ public class Inventory {
     };
 
     public event Action OnEquipmentChanged;
+    public event Action<ItemType, ItemData> OnEquipmentChangedTo;
 
     public Inventory(InventoryItem[] items) {
         Items = items.ToList();
@@ -29,7 +30,6 @@ public class Inventory {
     }
 
     public void AddItem(ItemData item) {
-        Debug.Log("adding item");
         if(Items.Count == 0) {
             Items.Add(new InventoryItem(item));
             return;
@@ -63,9 +63,10 @@ public class Inventory {
     }
 
     public float GetTotalArmorPoints() {
+        int armorEnums = 6;
         float points = 0;
         foreach (EquippedItem i in equippedItems)
-            if (i.Item != null && (int)i.Type < 6) // all armortype enums to int
+            if (i.Item != null && (int)i.Type < armorEnums)
                 points += i.Item.Points;
         return points;
     }
@@ -86,26 +87,26 @@ public class Inventory {
         return points;
     }
 
-    public List<ItemData> GetAllType(Type type) {
-        //var items = Items.OfType<type>();
-        return null;
-    }
-
     public void EquipItem(ItemData item) {
         Debug.Log("equip item from inventory");
         foreach(EquippedItem i in equippedItems) {
             if (i.Type == item.Type) {
                 i.Item = item;
+                OnEquipmentChangedTo(item.Type, item);
                 OnEquipmentChanged();
                 return;
             }
         }
     }
 
-    public void UnequipItem(ItemData item) {
-       foreach(EquippedItem i in equippedItems) {
-            if (i.Item == item) {
+    public void UnequipItem(ItemType type) {
+        Debug.Log("unequip item from itemslot");
+        foreach (EquippedItem i in equippedItems) {
+            if (i.Item == null)
+                continue;
+            else if (i.Type == type) {
                 i.Item = null;
+                OnEquipmentChangedTo(type, null);
                 OnEquipmentChanged();
                 return;
             }

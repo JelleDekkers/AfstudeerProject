@@ -16,6 +16,7 @@ namespace AfstudeerProject.UI {
         }
         
         private void UpdateText() {
+            Debug.Log("updating text");
             armorPointsText.text = Player.ArmorPoints.ToString();
             attackPointsText.text = Player.AttackPoints.ToString();
             shieldPointsText.text = Player.ShieldPoints.ToString();

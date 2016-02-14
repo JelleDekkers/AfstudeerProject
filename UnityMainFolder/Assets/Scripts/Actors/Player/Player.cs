@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
 
     public static Player Instance;
 
-    private void Start() {
+    private void Awake() {
         if (Instance == null)
             Instance = this;
         Inventory = new Inventory();
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour {
     }
 
     private void UpdateStats() {
-        print("updatestats");
+        print("updating stats");
         ArmorPoints = Inventory.GetTotalArmorPoints();
         AttackPoints = Inventory.GetWeaponAttackPoints();
         ShieldPoints = Inventory.GetShieldPoints();

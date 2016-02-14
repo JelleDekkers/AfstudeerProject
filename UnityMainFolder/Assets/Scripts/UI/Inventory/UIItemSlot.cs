@@ -23,14 +23,12 @@ namespace AfstudeerProject.UI {
         public void UpdateSlot(ItemData item) {
             if (item == null) {
                 slotImage.sprite = emptySlotSprite;
+                Player.Inventory.UnequipItem(equippedItem.Type);
                 equippedItem = null;
-                //Player.Inventory.
                 GetComponent<Button>().onClick.RemoveAllListeners();
-                return;
             } else {
-                if (equippedItem != null) {
+                if (equippedItem != null) 
                     Player.Inventory.AddItem(equippedItem);
-                }
                 equippedItem = item;
                 slotImage.sprite = equippedItem.Sprite;
                 Player.Inventory.EquipItem(item);
