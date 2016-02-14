@@ -10,27 +10,27 @@ namespace AfstudeerProject.UI {
         private Image img;
         private Text countTxt;
 
-        public List<ItemData> Items = new List<ItemData>();
+        public InventoryItem Item;
 
-        public void Init(List<ItemData> itemsList) {
+        public void Init(InventoryItem item) {
             if (img == null)
                 img = transform.GetChild(0).GetComponent<Image>();
             if (countTxt == null)
                 countTxt = transform.GetChild(1).GetComponent<Text>();
 
-            Items = itemsList;
-            img.sprite = Items[0].Sprite;
+            Item = item;
+            img.sprite = Item.Item.Sprite;
 
-            if (Items.Count == 1)
+            if (Item.Count == 1)
                 countTxt.gameObject.SetActive(false);
             else {
                 countTxt.gameObject.SetActive(true);
-                countTxt.text = "x" + Items.Count.ToString();
+                countTxt.text = "x" + Item.Count.ToString();
             }
 
             GetComponent<Button>().enabled = true;
             GetComponent<Button>().onClick.AddListener(() => {
-                UIInventoryManager.ActivateOnItemSelected(Items[0], true);
+                UIInventoryManager.ActivateOnItemSelected(Item.Item, true);
             });
         }
     }

@@ -205,7 +205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e7a4806bcd2f76459cd13ac8ae3a44d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Items: []
 --- !u!222 &22226004
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -322,6 +321,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a667bef734b8f604a9c0ebd5db8fc5de,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_FillCenter
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

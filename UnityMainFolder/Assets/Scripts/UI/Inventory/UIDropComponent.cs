@@ -82,7 +82,7 @@ namespace AfstudeerProject.UI {
                 return null;
 
             if (data.pointerDrag.GetComponent<UIInventoryItem>())
-                return data.pointerDrag.GetComponent<UIInventoryItem>().Items[0];
+                return data.pointerDrag.GetComponent<UIInventoryItem>().Item.Item;
             else
                 return data.pointerDrag.GetComponent<UIItemSlot>().equippedItem;
         }

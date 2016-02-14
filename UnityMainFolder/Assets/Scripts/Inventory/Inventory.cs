@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class Inventory {
 
-    public List<ItemData> Items;// { get; private set; }
-    public List<List<ItemData>> itemLists = new List<List<ItemData>>();
+    public List<InventoryItem> Items { get; private set; }
 
     public EquippedItem[] equippedItems = new EquippedItem[] {
         new EquippedItem(ItemType.Helmet, null),
@@ -21,49 +20,46 @@ public class Inventory {
 
     public event Action OnEquipmentChanged;
 
-    public Inventory(ItemData[] items) {
+    public Inventory(InventoryItem[] items) {
         Items = items.ToList();
     }
 
     public Inventory() {
-        Items = new List<ItemData>();
+        Items = new List<InventoryItem>();
     }
 
     public void AddItem(ItemData item) {
         Debug.Log("adding item");
-        // Check if a similar item already exists in the inventory:
-        foreach(List<ItemData> list in itemLists) {
-            // check if list is empty:
-            if (!list.Any()) {
-                list.Add(item);
-            } else if (CompareItems(list[0], item)) {
-                list.Add(item);
-                return;
-            }
+        if(Items.Count == 0) {
+            Items.Add(new InventoryItem(item));
+            return;
         }
-        // else, create a new one:
-        List<ItemData> newUniqueItem = new List<ItemData>();
-        newUniqueItem.Add(item);
-        itemLists.Add(newUniqueItem);
+
+        // Check if a similar item already exists in the inventory, else add new
+        for (int i = 0; i < Items.Count; i++) {
+            if (Items[i] == null || Items[i].Count == 0) {
+                Items[i] = new InventoryItem(item);
+                return;
+            } else if (CompareItems(Items[i].Item, item)) {
+                Items[i].Count++;
+                return;
+            } 
+        }
+        Items.Add(new InventoryItem(item));
     }
 
     public void RemoveItem(ItemData item) {
-        //Items.Remove(item);
-        foreach (List<ItemData> list in itemLists) {
-            if (CompareItems(list[0], item)) {
-                list.RemoveAt(0);
+        foreach (InventoryItem i in Items) {
+            if (CompareItems(i.Item, item)) {
+                if (i.Count > 1)
+                    i.Count--;
+                else {
+                    Items.Remove(i);
+                }
                 return;
             }
         }
-        Debug.LogError("No item found in inventory: + " + item.Name);
-    }
-
-    public int GetTotalAmountOfItems() {
-        int amount = 0;
-        foreach(List<ItemData> list in itemLists) {
-            amount += list.Count();
-        }
-        return amount;
+        Debug.LogError("No item found in inventory with name: + " + item.Name);
     }
 
     public float GetTotalArmorPoints() {
