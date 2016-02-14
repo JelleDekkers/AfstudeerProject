@@ -6,6 +6,8 @@ using UnityEngine;
 public class Inventory {
 
     public List<ItemData> Items;// { get; private set; }
+    public List<List<ItemData>> itemLists = new List<List<ItemData>>();
+
     public EquippedItem[] equippedItems = new EquippedItem[] {
         new EquippedItem(ItemType.Helmet, null),
         new EquippedItem(ItemType.Cuirass, null),
@@ -28,12 +30,40 @@ public class Inventory {
     }
 
     public void AddItem(ItemData item) {
-        Items.Add(item);
+        Debug.Log("adding item");
+        // Check if a similar item already exists in the inventory:
+        foreach(List<ItemData> list in itemLists) {
+            // check if list is empty:
+            if (!list.Any()) {
+                list.Add(item);
+            } else if (CompareItems(list[0], item)) {
+                list.Add(item);
+                return;
+            }
+        }
+        // else, create a new one:
+        List<ItemData> newUniqueItem = new List<ItemData>();
+        newUniqueItem.Add(item);
+        itemLists.Add(newUniqueItem);
     }
 
     public void RemoveItem(ItemData item) {
-        Debug.Log("remove:  " + item.Name);
-        Items.Remove(item);
+        //Items.Remove(item);
+        foreach (List<ItemData> list in itemLists) {
+            if (CompareItems(list[0], item)) {
+                list.RemoveAt(0);
+                return;
+            }
+        }
+        Debug.LogError("No item found in inventory: + " + item.Name);
+    }
+
+    public int GetTotalAmountOfItems() {
+        int amount = 0;
+        foreach(List<ItemData> list in itemLists) {
+            amount += list.Count();
+        }
+        return amount;
     }
 
     public float GetTotalArmorPoints() {
@@ -84,5 +114,19 @@ public class Inventory {
                 return;
             }
         }
+    }
+
+    private bool CompareItems(ItemData originalItem, ItemData itemToCompare) {
+        if (originalItem.Name != itemToCompare.Name)
+            return false;
+        else if(originalItem.Type != itemToCompare.Type)
+            return false;
+        else if(originalItem.MeshName != itemToCompare.MeshName)
+            return false;
+        else if(originalItem.Sprite != itemToCompare.Sprite)
+            return false;
+        else if (originalItem.Points != itemToCompare.Points)
+            return false;
+        return true;
     }
 }

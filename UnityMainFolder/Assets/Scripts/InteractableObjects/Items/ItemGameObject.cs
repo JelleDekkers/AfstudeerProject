@@ -2,21 +2,6 @@
 using System.Collections;
 using System;
 
-/// <summary>
-/// Type of item, 0 to 6 is armor.
-/// </summary>
-public enum ItemType {
-    Helmet = 0,
-    Cuirass = 1,
-    LeftPauldron = 2,
-    RightPauldron = 3,
-    LeftGreave = 4,
-    RightGreave = 5,
-    Weapon = 6,
-    Shield = 7,
-    Quest = 8
-}
-
 public class ItemGameObject : InteractableObject {
 
     protected virtual void OnPickedUp() {
@@ -41,7 +26,7 @@ public class ItemGameObject : InteractableObject {
         Points = item.Points;
     }
 
-    public static void InstantiateFromResources(ItemData item) {
+    public static void InstantiateFromResourcesFolder(ItemData item) {
         GameObject droppedItem = Instantiate(Resources.Load("Items/" + item.MeshName)) as GameObject;
         Vector3 playerPos = Player.Instance.transform.position;
         droppedItem.transform.position = new Vector3(playerPos.x + UnityEngine.Random.Range(-1, 1), 

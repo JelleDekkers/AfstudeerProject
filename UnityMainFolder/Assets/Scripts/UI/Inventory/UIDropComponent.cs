@@ -23,7 +23,7 @@ namespace AfstudeerProject.UI {
                 return;
             
             ItemData draggedItem = GetDraggedItem(data);
-            // Used to check if being dragged from grid or from itemslot, kan netter.
+            // Used to check if being dragged from grid or from itemslot
             UIItemSlot itemSlot = GetItemSlotBeingDraggedFrom(data);
 
             // Put item for inventory into valid ItemSlot:
@@ -37,12 +37,14 @@ namespace AfstudeerProject.UI {
 
                 GetComponent<UIItemSlot>().UpdateSlot(draggedItem);
                 Player.Inventory.RemoveItem(draggedItem);
-                UIInventory.UpdateItemsGrid();
+                UIInventoryManager.UpdateItemsGrid();
+                UIInventoryManager.OnItemMovedFunction();
             } // Put Item from item slot back to inventory: 
             else if(GetComponent<UIInventoryGrid>() && itemSlot != null && itemSlot.equippedItem != null) {
                 Player.Inventory.AddItem(draggedItem);
-                UIInventory.UpdateItemsGrid();
+                UIInventoryManager.UpdateItemsGrid();
                 itemSlot.UpdateSlot(null);
+                UIInventoryManager.OnItemMovedFunction();
             }
         }
 
@@ -80,7 +82,7 @@ namespace AfstudeerProject.UI {
                 return null;
 
             if (data.pointerDrag.GetComponent<UIInventoryItem>())
-                return data.pointerDrag.GetComponent<UIInventoryItem>().ItemRef;
+                return data.pointerDrag.GetComponent<UIInventoryItem>().Items[0];
             else
                 return data.pointerDrag.GetComponent<UIItemSlot>().equippedItem;
         }

@@ -2,10 +2,11 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
+using System.Collections.Generic;
 
 namespace AfstudeerProject.UI {
 
-    public class UIInventory : MonoBehaviour {
+    public class UIInventoryManager : MonoBehaviour {
 
         public enum shownItemsCategory {
             All,
@@ -16,16 +17,15 @@ namespace AfstudeerProject.UI {
         }
 
         [SerializeField] private UIInventoryGrid inventoryGrid;
-        [SerializeField] private InventoryItemInfoPanel itemInfoPanel;
+        [SerializeField] private UIItemInfoPanel itemInfoPanel;
         [SerializeField] private UIPlayerInfoPanel playerInfoPanel;
 
         private ItemData currentSelectedItem;
 
-        private static UIInventory instance;
+        private static UIInventoryManager instance;
 
         public static shownItemsCategory ShownCategory = shownItemsCategory.All;
-        public static ItemData[] itemsBeingShown;
-        public static event Action<ItemData> OnItemSelected;
+        public static List<List<ItemData>> itemsInGrid;
         public static event Action OnSelectedItemIsNull;
 
         private void Awake() {
@@ -35,8 +35,7 @@ namespace AfstudeerProject.UI {
 
         private void OnEnable() {
             OnSelectedItemIsNull += OnSelectedItemIsNullFunction;
-            OnSelectedItemIsNull += UpdateItemsGrid;
-            OnItemSelected += ShowItemInfo;
+            ShowItemsInGrid(Player.Inventory.itemLists);
         }
 
         private void Update() { 
@@ -59,29 +58,49 @@ namespace AfstudeerProject.UI {
             itemInfoPanel.gameObject.SetActive(false);
         }
 
-        public static void ActivateOnItemSelected(ItemData item) {
-            OnItemSelected(item);
+        public static void OnItemMovedFunction() {
+            instance.HideItemInfo();
         }
 
-        public void ShowItemsInGrid(ItemData[] items) {
+        public static void ActivateOnItemSelected(ItemData item, bool showDiscardedBtn) {
+            instance.ShowItemInfo(item, showDiscardedBtn);
+        }
+
+        public void ShowItemsInGrid(List<List<ItemData>> items) {
             inventoryGrid.ShowItemsInGrid(items);
         }
 
-        public static void UpdateItemsGrid() {
-            // TODO: dynamisch maken
-            instance.inventoryGrid.ShowItemsInGrid(Player.Inventory.Items.ToArray());
+        public static void UpdateItemsGrid() { 
+            instance.HideItemInfo();
+            // TODO: dynamisch maken via cat tabs
+            instance.inventoryGrid.ShowItemsInGrid(Player.Inventory.itemLists);
         }
 
-        private void ShowItemInfo(ItemData item) {
+        private void ShowItemInfo(ItemData item, bool showDiscardedBtn) {
             currentSelectedItem = item;
             itemInfoPanel.gameObject.SetActive(true);
-            itemInfoPanel.UpdateInfo(currentSelectedItem);
+            itemInfoPanel.UpdateInfo(currentSelectedItem, showDiscardedBtn);
         }
 
+        private void HideItemInfo() {
+            currentSelectedItem = null;
+            itemInfoPanel.gameObject.SetActive(false);
+        }
+
+        #region UI Buttons
         public void DiscardSelectedItem() {
             Player.Inventory.RemoveItem(currentSelectedItem);
-            ItemGameObject.InstantiateFromResources(currentSelectedItem);
-            OnSelectedItemIsNull();
+            ItemGameObject.InstantiateFromResourcesFolder(currentSelectedItem);
+            UpdateItemsGrid();
         }
+
+        public void SetItemsShownCategory(int cat) {
+            if (cat > Enum.GetNames(typeof(shownItemsCategory)).Length) {
+                Debug.LogWarning("Entered Category number is too high, setting category to 'All'.");
+                ShownCategory = shownItemsCategory.All;
+            }
+            ShownCategory = (shownItemsCategory)cat;
+        }
+        #endregion
     }
 }

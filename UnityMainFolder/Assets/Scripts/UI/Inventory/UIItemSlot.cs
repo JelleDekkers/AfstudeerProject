@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 namespace AfstudeerProject.UI {
 
@@ -29,11 +28,15 @@ namespace AfstudeerProject.UI {
                 GetComponent<Button>().onClick.RemoveAllListeners();
                 return;
             } else {
+                if (equippedItem != null) {
+                    Player.Inventory.AddItem(equippedItem);
+                }
                 equippedItem = item;
                 slotImage.sprite = equippedItem.Sprite;
                 Player.Inventory.EquipItem(item);
+                GetComponent<Button>().onClick.RemoveAllListeners();
                 GetComponent<Button>().onClick.AddListener(() => {
-                    UIInventory.ActivateOnItemSelected(equippedItem);
+                    UIInventoryManager.ActivateOnItemSelected(equippedItem, false);
                 });
             }
             OnItemSlotChanged();
@@ -41,7 +44,7 @@ namespace AfstudeerProject.UI {
 
         public void ShowItemInfo() {
             if (equippedItem != null)
-                UIInventory.ActivateOnItemSelected(equippedItem);
+                UIInventoryManager.ActivateOnItemSelected(equippedItem, false);
         }
     }
 }

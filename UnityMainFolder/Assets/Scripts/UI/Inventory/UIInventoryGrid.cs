@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace AfstudeerProject.UI {
 
@@ -10,17 +11,19 @@ namespace AfstudeerProject.UI {
         private void OnEnable() {
             ClearGrid();
             if (Player.Inventory.Items.Count != 0)
-                ShowItemsInGrid(Player.Inventory.Items.ToArray());
+                ShowItemsInGrid(Player.Inventory.itemLists);
         }
 
-        public void ShowItemsInGrid(ItemData[] items) {
-            UIInventory.itemsBeingShown = items;
+        public void ShowItemsInGrid(List<List<ItemData>> items) {
+            UIInventoryManager.itemsInGrid = items;
             ClearGrid();
 
-            for (int i = 0; i < items.Length; i++) {
+            for (int i = 0; i < items.Count; i++) {
+                if (items[i].Count == 0)
+                    continue;
                 UIInventoryItem obj = Instantiate(inventoryGridItemPrefab);
-                obj.transform.SetParent(transform, false);
                 obj.Init(items[i]);
+                obj.transform.SetParent(transform, false);
             }
         }
 

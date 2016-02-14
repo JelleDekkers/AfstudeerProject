@@ -15,10 +15,8 @@ public class GameItemInfoPanel : MonoBehaviour {
             itemImg.sprite = item.GetComponent<ItemGameObject>().Sprite;
             itemPointsTxt.text = item.GetComponent<ItemGameObject>().Points.ToString();
 
-            if (item.GetComponent<Weapon>())
-                itemTypeImg.sprite = IconManager.WeaponIcon;
-            if (item.GetComponent<Armor>())
-                itemTypeImg.sprite = IconManager.ArmorIcon;
+            if(item.GetComponent<ItemGameObject>())
+                itemTypeImg.sprite = IconManager.GetItemTypeIcon(item.GetComponent<ItemGameObject>());
         }
     }
 }
