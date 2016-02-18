@@ -18,7 +18,7 @@ TagManager:
   - Props
   - Trap
   - Foundation
-  - EquippedWeapon
+  - EquippedItem
   - InteractableObject
   - Projectile
   - 

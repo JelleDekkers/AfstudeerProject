@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using AfstudeerProject.Triggers;
 
 public class GameItemInfoPanel : MonoBehaviour {
 
@@ -13,13 +14,20 @@ public class GameItemInfoPanel : MonoBehaviour {
         if (item == null)
             return;
 
-        itemNameTxt.text = item.Name;
+        // if item:
         if (item.GetComponent<ItemGameObject>()) {
+            itemNameTxt.text = item.Name;
             itemImg.sprite = item.GetComponent<ItemGameObject>().Sprite;
             itemPointsTxt.text = item.GetComponent<ItemGameObject>().Points.ToString();
 
             if (item.GetComponent<ItemGameObject>())
                 itemTypeImg.sprite = IconManager.GetItemTypeIcon(item.GetComponent<ItemGameObject>());
+        } else if(item.GetComponent<Lever>()){
+            itemNameTxt.text = "Use " + item.Name.ToString();
         }
+
+        itemPointsTxt.enabled = item.GetComponent<ItemGameObject>();
+        itemTypeImg.enabled = item.GetComponent<ItemGameObject>();
+        itemImg.enabled = item.GetComponent<ItemGameObject>();
     }
 }
