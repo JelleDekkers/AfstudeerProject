@@ -9,9 +9,18 @@ public class PlayerController : MonoBehaviour {
     private float yRotation = 0;
     private float verticalInput;
     private float horizontalInput;
+    private AnimatorStateInfo baseLayerState;
+    private AnimatorStateInfo rightArmLayerState;
 
-    [SerializeField]
-    private float rotationSpeed = 8;
+    private int baseLayer = 0;
+    private int rightArmLayer = 1;
+
+    private int baseLayer_locoState = Animator.StringToHash("Base Layer.Locomotion");
+    private int UpperBodyLayer_nothingState = Animator.StringToHash("UpperBodyLayer.Nothing");
+    private int UpperBodyLayer_LeftSwingState = Animator.StringToHash("UpperBodyLayer.Swing Left");
+    private int UpperBodyLayer_rightSwingState = Animator.StringToHash("UpperBodyLayer.Swing Right");
+
+    [SerializeField] private float rotationSpeed = 8;
 
     private void Start() {
         anim = GetComponent<Animator>();
@@ -19,8 +28,7 @@ public class PlayerController : MonoBehaviour {
         xRotation = transform.eulerAngles.x;
         yRotation = transform.eulerAngles.y;
 
-        if (anim.layerCount == 2)
-            anim.SetLayerWeight(1, 1);
+        anim.SetLayerWeight(rightArmLayer, 1);
     }
 
     private void Update() {
@@ -32,12 +40,26 @@ public class PlayerController : MonoBehaviour {
             xRotation += Input.GetAxis("Mouse X") * rotationSpeed;
             yRotation -= Input.GetAxis("Mouse Y") * rotationSpeed;
 
-            //Attacking:
-            if (Input.GetMouseButtonDown(0)) {
+            baseLayerState = anim.GetCurrentAnimatorStateInfo(0);
+            rightArmLayerState = anim.GetCurrentAnimatorStateInfo(1);
+
+            if (rightArmLayerState.fullPathHash == UpperBodyLayer_LeftSwingState) {
+
+            }
+
+            //if (Player.Inventory.GetWeapon != null) {
+            // Attacking:
+            if (Input.GetMouseButtonDown(PlayerInput.AttackButton)) {
                 anim.SetBool("Attacking", true);
             }
-            if (Input.GetMouseButtonDown(1)) {
+            if (rightArmLayerState.fullPathHash == UpperBodyLayer_LeftSwingState) {
                 anim.SetBool("Attacking", false);
+            }
+            if(Input.GetMouseButtonDown(PlayerInput.BlockButton)) {
+                anim.SetBool("Blocking", true);
+            } else if(Input.GetMouseButtonUp(PlayerInput.BlockButton)) {
+                anim.SetBool("Blocking", false);
+                Player.Instance.Unblock();
             }
         }
 

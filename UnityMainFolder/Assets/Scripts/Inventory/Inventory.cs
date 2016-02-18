@@ -21,9 +21,11 @@ public class Inventory {
     public event Action OnEquipmentChanged;
     public event Action<ItemType, ItemData> OnEquipmentChangedTo;
 
-    public Inventory(InventoryItem[] items) {
-        Items = items.ToList();
-    }
+    public const int WEAPON_SLOT_NR = 2;
+    public const int SHIELD_SLOT_NR = 3;
+
+    public ItemData GetWeapon { get { return equippedItems[WEAPON_SLOT_NR].Item; } }
+    public ItemData GetShield { get { return equippedItems[SHIELD_SLOT_NR].Item; } }
 
     public Inventory() {
         Items = new List<InventoryItem>();
@@ -88,19 +90,18 @@ public class Inventory {
     }
 
     public void EquipItem(ItemData item) {
-        Debug.Log("equip item from inventory");
         foreach(EquippedItem i in equippedItems) {
             if (i.Type == item.Type) {
                 i.Item = item;
                 OnEquipmentChangedTo(item.Type, item);
                 OnEquipmentChanged();
+                Debug.Log("equip item from inventory");
                 return;
             }
         }
     }
 
     public void UnequipItem(ItemType type) {
-        Debug.Log("unequip item from itemslot");
         foreach (EquippedItem i in equippedItems) {
             if (i.Item == null)
                 continue;
@@ -108,6 +109,7 @@ public class Inventory {
                 i.Item = null;
                 OnEquipmentChangedTo(type, null);
                 OnEquipmentChanged();
+                Debug.Log("unequip item from itemslot");
                 return;
             }
         }

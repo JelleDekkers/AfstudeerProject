@@ -9,7 +9,6 @@ public class PlayerInteractions : MonoBehaviour {
     private float interactionMaxRange = 4;
     public InteractableObject nearestItem = null;
     public Collider[] nearbyItemColliders;
-    private RaycastHit[] hits;
     private LayerMask layerMask;
 
     public static event Action<InteractableObject> OnNearbyItemSelectable;
@@ -22,7 +21,6 @@ public class PlayerInteractions : MonoBehaviour {
 
     private void Update() {
         //TODO: block rays against foundation layer
-        hits = Physics.RaycastAll(transform.position, transform.forward, 100.0F);
         nearbyItemColliders = Physics.OverlapSphere(transform.position, interactionMaxRange, layerMask);
 
         if (nearbyItemColliders.Length > 0) {

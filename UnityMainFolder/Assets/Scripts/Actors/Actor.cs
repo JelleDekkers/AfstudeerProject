@@ -14,15 +14,24 @@ public enum ActorState {
     Dead = 4
 }
 
-public class Actor : MonoBehaviour { //met interfaces IKillable, IDamageable???? met player en enemy class?
+public class Actor : MonoBehaviour { //met interfaces IKillable, IDamageable???? 
 
-    public float HealthPoints { get; private set; }
-    public GameObject Target { get; private set; }
-    public Inventory Inventory { get { return inventory; } }
+    //public static float HealthPoints { get; private set; }
+    //public static float AttackPoints { get; private set; }
+    //public static float ArmorPoints { get; private set; }
+    //public static float ShieldPoints { get; private set; }
 
-    protected int currentAlertLevel = 0;
-    protected float speed = 1;
-    protected float fovAngle;
+    //protected int currentAlertLevel = 0;
+    //protected float speed = 1;
+    //protected float fovAngle;
 
-    private Inventory inventory = new Inventory();
+    //private Inventory inventory = new Inventory();
+
+    public virtual void AttackActor(Actor actor) {
+        actor.TakeDamage(7f, this);
+    }
+
+    public virtual void TakeDamage(float amount, Actor sender) {
+        print("Taking damage: " + amount + " from " + sender);
+    }
 }
