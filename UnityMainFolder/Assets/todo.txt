@@ -1,7 +1,3 @@
-meerdere items in hetzelfde vakje,
 volledig grid in item list,
 scrollbaar list wanneer nodig
 
-
-item dupe glitch fixen bij drag en drop
-daarna items op characters

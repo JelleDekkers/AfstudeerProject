@@ -16,9 +16,9 @@ namespace AfstudeerProject.UI {
         }
         
         private void UpdateText() {
-            armorPointsText.text = Player.ArmorPoints.ToString();
-            attackPointsText.text = Player.AttackPoints.ToString();
-            shieldPointsText.text = Player.ShieldPoints.ToString();
+            armorPointsText.text = Player.Instance.ArmorPoints.ToString();
+            attackPointsText.text = Player.Instance.AttackPoints.ToString();
+            shieldPointsText.text = Player.Instance.ShieldPoints.ToString();
         }
     }
 }

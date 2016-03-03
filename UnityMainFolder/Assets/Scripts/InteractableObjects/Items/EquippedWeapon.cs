@@ -3,15 +3,21 @@ using System.Collections;
 
 public class EquippedWeapon : MonoBehaviour {
 
-    private Actor actor;
+    private Actor wielder;
+    private Collider collider;
 
     public void Init(Actor actor) {
-        this.actor = actor;
+        wielder = actor;
     }
 
-	private void OnTriggerEnter(Collider col) {
+    public void Start() {
+        collider = GetComponent<Collider>();
+        collider.enabled = false;
+    }
+
+    private void OnTriggerEnter(Collider col) {
         if (col.GetComponent<Actor>())
-            actor.AttackActor(col.GetComponent<Actor>());
+            wielder.AttackActor(col.GetComponent<Actor>());
         else
             Debug.Log("Col " + col.name + " has enemy layer but no actor component!");
     }

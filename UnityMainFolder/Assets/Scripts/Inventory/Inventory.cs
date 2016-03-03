@@ -95,7 +95,6 @@ public class Inventory {
                 i.Item = item;
                 OnEquipmentChangedTo(item.Type, item);
                 OnEquipmentChanged();
-                Debug.Log("equip item from inventory");
                 return;
             }
         }
@@ -109,7 +108,6 @@ public class Inventory {
                 i.Item = null;
                 OnEquipmentChangedTo(type, null);
                 OnEquipmentChanged();
-                Debug.Log("unequip item from itemslot");
                 return;
             }
         }

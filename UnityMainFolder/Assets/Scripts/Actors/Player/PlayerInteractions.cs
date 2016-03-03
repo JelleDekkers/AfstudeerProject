@@ -5,9 +5,8 @@ using System.Collections.Generic;
 
 public class PlayerInteractions : MonoBehaviour {
 
-    //[SerializeField]
     private float interactionMaxRange = 4;
-    public InteractableObject nearestItem = null;
+    public InteractableObject nearestItem = null; // private
     public Collider[] nearbyItemColliders;
     private LayerMask layerMask;
 
@@ -64,7 +63,7 @@ public class PlayerInteractions : MonoBehaviour {
         item.Interact();
         if (item.GetComponent<ItemGameObject>()) {
             ItemGameObject i = item.GetComponent<ItemGameObject>();
-            Player.Inventory.AddItem(new ItemData(i.Name, i.Type, i.MeshName, i.Sprite, i.Points));
+            Player.Instance.Inventory.AddItem(new ItemData(i.Name, i.Type, i.MeshName, i.Sprite, i.Points));
             Destroy(item.gameObject);
         }
        // nearestItem = null;

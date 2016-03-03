@@ -10,8 +10,8 @@ public class CheatClass : MonoBehaviour {
 
     void Start() {
         ItemData item = new ItemData(weapon.Name, weapon.Type, weapon.MeshName, weapon.Sprite, weapon.Points);
-        Player.Inventory.EquipItem(item);
+        Player.Instance.Inventory.EquipItem(item);
         item = new ItemData(shield.Name, shield.Type, shield.MeshName, shield.Sprite, shield.Points);
-        Player.Inventory.EquipItem(item);
+        Player.Instance.Inventory.EquipItem(item);
     }
 }

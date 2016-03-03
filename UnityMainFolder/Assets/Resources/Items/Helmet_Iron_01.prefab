@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 433438}
   - 33: {fileID: 3373134}
   - 23: {fileID: 2394708}
-  - 64: {fileID: 6481430}
   - 54: {fileID: 5453794}
+  - 64: {fileID: 6478230}
   - 114: {fileID: 11407906}
   m_Layer: 14
   m_Name: Helmet_Iron_01
@@ -80,7 +80,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &6481430
+--- !u!64 &6478230
 MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -113,7 +113,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 105444}

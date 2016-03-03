@@ -12,7 +12,10 @@ public class ItemGameObject : InteractableObject {
     public Sprite Sprite;
     public float Points;
 
-    public string MeshName { get; private set; }
+    public string MeshName {
+        get { return name; }
+        private set { MeshName = value; }
+    }
 
     private void Awake() {
         if(MeshName == null)

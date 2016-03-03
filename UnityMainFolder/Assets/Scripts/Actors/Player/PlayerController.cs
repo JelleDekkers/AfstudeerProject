@@ -1,38 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : HumanoidController {
 
-    private Animator anim;
-    private float speed = 1;
     private float xRotation = 0;
     private float yRotation = 0;
     private float verticalInput;
     private float horizontalInput;
-    private AnimatorStateInfo baseLayerState;
-    private AnimatorStateInfo rightArmLayerState;
-
-    private int baseLayer = 0;
-    private int rightArmLayer = 1;
-
-    private int baseLayer_locoState = Animator.StringToHash("Base Layer.Locomotion");
-    private int UpperBodyLayer_nothingState = Animator.StringToHash("UpperBodyLayer.Nothing");
-    private int UpperBodyLayer_LeftSwingState = Animator.StringToHash("UpperBodyLayer.Swing Left");
-    private int UpperBodyLayer_rightSwingState = Animator.StringToHash("UpperBodyLayer.Swing Right");
 
     [SerializeField] private float rotationSpeed = 8;
 
     private void Start() {
-        anim = GetComponent<Animator>();
+        InitController();
 
         xRotation = transform.eulerAngles.x;
         yRotation = transform.eulerAngles.y;
-
-        anim.SetLayerWeight(rightArmLayer, 1);
     }
 
     private void Update() {
-
         if (PlayerState.State == playerState.InGame) {
             // Look rotation:
             transform.rotation = Quaternion.Euler(yRotation, xRotation, 0);
@@ -52,11 +37,12 @@ public class PlayerController : MonoBehaviour {
             if (Input.GetMouseButtonDown(PlayerInput.AttackButton)) {
                 anim.SetBool("Attacking", true);
             }
-            if (rightArmLayerState.fullPathHash == UpperBodyLayer_LeftSwingState) {
+            if (rightArmLayerState.fullPathHash == UpperBodyLayer_LeftSwingState) { // if is attacking set to to false to prevent loop
                 anim.SetBool("Attacking", false);
             }
             if(Input.GetMouseButtonDown(PlayerInput.BlockButton)) {
                 anim.SetBool("Blocking", true);
+                Player.Instance.Block();
             } else if(Input.GetMouseButtonUp(PlayerInput.BlockButton)) {
                 anim.SetBool("Blocking", false);
                 Player.Instance.Unblock();

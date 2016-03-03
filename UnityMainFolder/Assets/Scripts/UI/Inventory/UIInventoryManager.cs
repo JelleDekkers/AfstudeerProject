@@ -34,7 +34,7 @@ namespace AfstudeerProject.UI {
 
         private void OnEnable() {
             OnSelectedItemIsNull += OnSelectedItemIsNullFunction;
-            ShowItemsInGrid(Player.Inventory.Items);
+            ShowItemsInGrid(Player.Instance.Inventory.Items);
         }
 
         private void Update() { 
@@ -72,7 +72,7 @@ namespace AfstudeerProject.UI {
         public static void UpdateItemsGrid() { 
             instance.HideItemInfo();
             // TODO: dynamisch maken via cat tabs
-            instance.inventoryGrid.ShowItemsInGrid(Player.Inventory.Items);
+            instance.inventoryGrid.ShowItemsInGrid(Player.Instance.Inventory.Items);
         }
 
         private void ShowItemInfo(ItemData item, bool showDiscardedBtn) {
@@ -87,9 +87,9 @@ namespace AfstudeerProject.UI {
         }
 
         #region UI Buttons
-        public void DiscardSelectedItem() {
-            Player.Inventory.RemoveItem(currentSelectedItem);
-            ItemGameObject.InstantiateFromResourcesFolder(currentSelectedItem);
+        public void Destroy() {
+            Player.Instance.Inventory.RemoveItem(currentSelectedItem);
+            //ItemGameObject.InstantiateFromResourcesFolder(currentSelectedItem);
             UpdateItemsGrid();
         }
 
