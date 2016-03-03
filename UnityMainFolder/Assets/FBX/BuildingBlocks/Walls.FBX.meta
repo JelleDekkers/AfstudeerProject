@@ -15,6 +15,17 @@ ModelImporter:
     100014: Plane001
     100016: Plane002
     100018: //RootNode
+    100020: Arch1
+    100022: Arch2
+    100024: Arch3
+    100026: Blackground
+    100028: Bricks1
+    100030: Bricks2
+    100032: Floor1
+    100034: Floor2
+    100036: Pillar 2
+    100038: Pllar1
+    100040: Trims
     400000: Box002
     400002: Box003
     400004: Box004
@@ -25,6 +36,17 @@ ModelImporter:
     400014: Plane001
     400016: Plane002
     400018: //RootNode
+    400020: Arch1
+    400022: Arch2
+    400024: Arch3
+    400026: Blackground
+    400028: Bricks1
+    400030: Bricks2
+    400032: Floor1
+    400034: Floor2
+    400036: Pillar 2
+    400038: Pllar1
+    400040: Trims
     2300000: Box002
     2300002: Box003
     2300004: Box004
@@ -34,6 +56,17 @@ ModelImporter:
     2300012: Line004
     2300014: Plane001
     2300016: Plane002
+    2300018: Arch1
+    2300020: Arch2
+    2300022: Arch3
+    2300024: Blackground
+    2300026: Bricks1
+    2300028: Bricks2
+    2300030: Floor1
+    2300032: Floor2
+    2300034: Pillar 2
+    2300036: Pllar1
+    2300038: Trims
     3300000: Box002
     3300002: Box003
     3300004: Box004
@@ -43,6 +76,17 @@ ModelImporter:
     3300012: Line004
     3300014: Plane001
     3300016: Plane002
+    3300018: Arch1
+    3300020: Arch2
+    3300022: Arch3
+    3300024: Blackground
+    3300026: Bricks1
+    3300028: Bricks2
+    3300030: Floor1
+    3300032: Floor2
+    3300034: Pillar 2
+    3300036: Pllar1
+    3300038: Trims
     4300000: Plane002
     4300002: Box002
     4300004: Plane001
@@ -52,6 +96,17 @@ ModelImporter:
     4300012: Line004
     4300014: Box005
     4300016: Line001
+    4300018: Trims
+    4300020: Bricks1
+    4300022: Bricks2
+    4300024: Arch1
+    4300026: Arch2
+    4300028: Arch3
+    4300030: Pllar1
+    4300032: Pillar 2
+    4300034: Floor1
+    4300036: Floor2
+    4300038: Blackground
     9500000: //RootNode
   materials:
     importMaterials: 1
