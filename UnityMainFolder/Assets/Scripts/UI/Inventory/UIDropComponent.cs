@@ -26,7 +26,7 @@ namespace AfstudeerProject.UI {
             // Used to check if being dragged from grid or from itemslot
             UIItemSlot itemSlot = GetItemSlotBeingDraggedFrom(data);
 
-            // Put item for inventory into valid ItemSlot:
+            // Put item from inventory into valid ItemSlot:
             if (GetComponent<UIItemSlot>() && draggedItem.Type == GetComponent<UIItemSlot>().itemType) {
                 if(UIDragComponent.m_DraggingIcon!= null)
                     Destroy(UIDragComponent.m_DraggingIcon);
@@ -36,12 +36,12 @@ namespace AfstudeerProject.UI {
                     receivingImage.sprite = dropSprite;
 
                 GetComponent<UIItemSlot>().UpdateSlot(draggedItem);
-                Player.Inventory.RemoveItem(draggedItem);
+                Player.Instance.Inventory.RemoveItem(draggedItem);
                 UIInventoryManager.UpdateItemsGrid();
                 UIInventoryManager.OnItemMovedFunction();
             } // Put Item from item slot back to inventory: 
             else if(GetComponent<UIInventoryGrid>() && itemSlot != null && itemSlot.equippedItem != null) {
-                Player.Inventory.AddItem(draggedItem);
+                Player.Instance.Inventory.AddItem(draggedItem);
                 UIInventoryManager.UpdateItemsGrid();
                 itemSlot.UpdateSlot(null);
                 UIInventoryManager.OnItemMovedFunction();

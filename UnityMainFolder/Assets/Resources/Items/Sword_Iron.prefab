@@ -42,8 +42,8 @@ GameObject:
   - 4: {fileID: 499634}
   - 114: {fileID: 11481900}
   - 54: {fileID: 5477174}
-  - 65: {fileID: 6576506}
   - 136: {fileID: 13669584}
+  - 64: {fileID: 6442680}
   m_Layer: 14
   m_Name: Sword_Iron
   m_TagString: Untagged
@@ -137,8 +137,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &6576506
-BoxCollider:
+--- !u!64 &6442680
+MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -147,8 +147,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.07, y: 0.18, z: 0.63}
-  m_Center: {x: -2.02, y: 0, z: 0}
+  m_Convex: 1
+  m_Mesh: {fileID: 0}
 --- !u!114 &11481900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -172,7 +172,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 186566}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.83
   m_Height: 6.08
   m_Direction: 0
@@ -183,7 +183,19 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186566}

@@ -10,7 +10,8 @@ public class EquippedItemHolderManager : MonoBehaviour {
 
     private void Start() {
         equippedItemHolders = GetComponentsInChildren<EquippedItemHolder>();
-        Player.Inventory.OnEquipmentChangedTo += UpdateEquipment;
+
+        GetComponent<Actor>().Inventory.OnEquipmentChangedTo += UpdateEquipment;
 
         foreach(EquippedItemHolder holder in equippedItemHolders) {
             if (holder.Type == ItemType.Weapon)
@@ -20,13 +21,18 @@ public class EquippedItemHolderManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Updates the player model with models of the equipped items.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="item"></param>
     public void UpdateEquipment(ItemType type, ItemData item) {
         foreach (EquippedItemHolder holder in equippedItemHolders) {
             if (holder.Type == type) {
-                holder.UpdateHolder(item);
+                holder.UpdateHolder(item, GetComponent<Actor>());
                 return;
             }
         }
-        Debug.LogWarning("No EquippedItemHolder found with type: " + type + " for item: " + item.Name);
+        Debug.LogError("No EquippedItemHolder found with type: " + type + " for item: " + item.Name);
     }
 }

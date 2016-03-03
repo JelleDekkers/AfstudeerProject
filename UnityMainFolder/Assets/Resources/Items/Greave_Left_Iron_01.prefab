@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 407294}
   - 33: {fileID: 3347828}
   - 23: {fileID: 2305680}
-  - 64: {fileID: 6484908}
   - 54: {fileID: 5465400}
+  - 64: {fileID: 6478032}
   - 114: {fileID: 11476310}
   m_Layer: 14
   m_Name: Greave_Left_Iron_01
@@ -80,7 +80,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &6484908
+--- !u!64 &6478032
 MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,7 +105,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: Iron Left Greave
   Type: 4
-  meshName: 
   Sprite: {fileID: 21300000, guid: 132ac3d9e7c2f094db6bbe245b3bb306, type: 3}
   Points: 2
 --- !u!1001 &100100000
@@ -114,7 +113,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 108688}

@@ -10,8 +10,8 @@ namespace AfstudeerProject.UI {
 
         private void OnEnable() {
             ClearGrid();
-            if (Player.Inventory.Items.Count != 0)
-                ShowItemsInGrid(Player.Inventory.Items);
+            if (Player.Instance.Inventory.Items.Count != 0)
+                ShowItemsInGrid(Player.Instance.Inventory.Items);
         }
 
         public void ShowItemsInGrid(List<InventoryItem> items) {

@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 451202}
   - 33: {fileID: 3315182}
   - 23: {fileID: 2386404}
-  - 64: {fileID: 6463184}
   - 54: {fileID: 5486522}
+  - 64: {fileID: 6415294}
   - 114: {fileID: 11488890}
   m_Layer: 14
   m_Name: Pauldron_Left_Iron_01
@@ -80,7 +80,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &6463184
+--- !u!64 &6415294
 MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,7 +105,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: Iron Left Pauldron
   Type: 2
-  meshName: 
   Sprite: {fileID: 21300000, guid: bb51f33416df0c440aa5271414686b64, type: 3}
   Points: 3
 --- !u!1001 &100100000
@@ -114,7 +113,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 173886}

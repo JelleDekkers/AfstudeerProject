@@ -3,14 +3,24 @@ using System.Collections;
 
 public class EquippedShield : MonoBehaviour {
 
-    private Actor actor;
+    private Actor wielder;
+    private Collider collider;
 
     public void Init(Actor actor) {
-        this.actor = actor;
+        wielder = actor;
+    }
+
+    public void Start() {
+        collider = GetComponent<CapsuleCollider>();
+        collider.enabled = false;
     }
 
     public void Block() {
-        //actor.block
+        collider.enabled = true;
+    }
+
+    public void UnBlock() {
+        collider.enabled = false;
     }
 
     //private void OnTriggerEnter(Collider col) {
