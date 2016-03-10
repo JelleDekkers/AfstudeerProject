@@ -20,4 +20,8 @@ public class ActorAI : Actor {
     protected float fovAngle;
     protected bool isRagdolled = false;
     protected bool isStaggered = false;
+
+    public override void Update() {
+        base.Update();
+    }
 }

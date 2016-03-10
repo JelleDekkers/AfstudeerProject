@@ -107,6 +107,8 @@ MonoBehaviour:
   Type: 4
   Sprite: {fileID: 21300000, guid: 132ac3d9e7c2f094db6bbe245b3bb306, type: 3}
   Points: 2
+  WeaponLength: 1
+  AttackAngle: 30
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -116,6 +118,10 @@ Prefab:
     m_Modifications:
     - target: {fileID: 0}
       propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

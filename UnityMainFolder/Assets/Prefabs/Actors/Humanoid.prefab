@@ -271,6 +271,9 @@ GameObject:
   - 54: {fileID: 5452072}
   - 136: {fileID: 13611582}
   - 114: {fileID: 11488354}
+  - 114: {fileID: 11494446}
+  - 114: {fileID: 11451198}
+  - 114: {fileID: 11401424}
   m_Layer: 9
   m_Name: Humanoid
   m_TagString: Player
@@ -321,6 +324,21 @@ GameObject:
   m_Name: GreaveRightHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &155742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 415502}
+  m_Layer: 0
+  m_Name: AttackCentre
+  m_TagString: Untagged
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -515,6 +533,18 @@ Transform:
   - {fileID: 411124}
   m_Father: {fileID: 425336}
   m_RootOrder: 0
+--- !u!4 &415502
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155742}
+  m_LocalRotation: {x: 0, y: 1, z: -0, w: -0.00000010430813}
+  m_LocalPosition: {x: 0, y: 1.932, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 495478}
+  m_RootOrder: 2
 --- !u!4 &416684
 Transform:
   m_ObjectHideFlags: 1
@@ -804,12 +834,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146112}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: -0.00000010430813}
   m_LocalPosition: {x: -0.1, y: 0, z: 3.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 498908}
   - {fileID: 444592}
+  - {fileID: 415502}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &495796
@@ -860,8 +891,8 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146112}
   serializedVersion: 2
-  m_Mass: 100
-  m_Drag: 100
+  m_Mass: 10
+  m_Drag: 2
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -885,6 +916,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11401424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2013af3cd2091824187d0ae4c3166842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemsToEquip:
+  - {fileID: 11481900, guid: baf5c58e13123874fb8b8e4cb363f502, type: 2}
+  - {fileID: 11469744, guid: 42b9e2224dadd344cab58fccdca57761, type: 2}
 --- !u!114 &11420206
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -950,6 +995,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   Item: {fileID: 0}
+--- !u!114 &11451198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95d003bea78e3504eb4368c599e3ed63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  equippedItemHolders: []
 --- !u!114 &11478268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -987,6 +1044,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d303ca0122cb674bb1e7ad9cc4e69f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HealthPoints: 25
+  AttackPoints: 0
+  ArmorPoints: 0
+  ShieldPoints: 0
+  IsBlocking: 0
+  attackLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  attackCentre: {fileID: 415502}
 --- !u!114 &11491256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1000,6 +1066,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 4
   Item: {fileID: 0}
+--- !u!114 &11494446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a59fe11bbca8291418cd0aedd490a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &13611582
 CapsuleCollider:
   m_ObjectHideFlags: 1

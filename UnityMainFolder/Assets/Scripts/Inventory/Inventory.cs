@@ -18,7 +18,7 @@ public class Inventory {
         new EquippedItem(ItemType.LeftPauldron, null)
     };
 
-    public event Action OnEquipmentChanged;
+    public event Action OnEquipmentChanged = null;
     public event Action<ItemType, ItemData> OnEquipmentChangedTo;
 
     public const int WEAPON_SLOT_NR = 2;
@@ -94,7 +94,8 @@ public class Inventory {
             if (i.Type == item.Type) {
                 i.Item = item;
                 OnEquipmentChangedTo(item.Type, item);
-                OnEquipmentChanged();
+                if(OnEquipmentChanged != null)
+                    OnEquipmentChanged();
                 return;
             }
         }
@@ -107,7 +108,8 @@ public class Inventory {
             else if (i.Type == type) {
                 i.Item = null;
                 OnEquipmentChangedTo(type, null);
-                OnEquipmentChanged();
+                if (OnEquipmentChanged != null)
+                    OnEquipmentChanged();
                 return;
             }
         }

@@ -24,11 +24,16 @@ public class ItemData {
     public Sprite Sprite { get; private set; }
     public float Points { get; private set; }
 
-    public ItemData(string name, ItemType type, string meshName, Sprite sprite, float points) {
+    public float WeaponLength { get; private set; }
+    public float AttackAngle { get; private set; }
+
+    public ItemData(string name, ItemType type, string meshName, Sprite sprite, float points, float weaponLength, float attackAngle) {
         Name = name;
         Type = type;
         MeshName = meshName;
         Sprite = sprite;
         Points = points;
+        WeaponLength = weaponLength;
+        AttackAngle = attackAngle;
     }
 }

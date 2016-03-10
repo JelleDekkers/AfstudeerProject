@@ -63,7 +63,7 @@ public class PlayerInteractions : MonoBehaviour {
         item.Interact();
         if (item.GetComponent<ItemGameObject>()) {
             ItemGameObject i = item.GetComponent<ItemGameObject>();
-            Player.Instance.Inventory.AddItem(new ItemData(i.Name, i.Type, i.MeshName, i.Sprite, i.Points));
+            Player.Instance.Inventory.AddItem(new ItemData(i.Name, i.Type, i.MeshName, i.Sprite, i.Points, i.WeaponLength, i.AttackAngle));
             Destroy(item.gameObject);
         }
        // nearestItem = null;
@@ -71,7 +71,7 @@ public class PlayerInteractions : MonoBehaviour {
     }
 
     private void OnDrawGizmos() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, interactionMaxRange);
+        //Gizmos.color = Color.red;
+        //Gizmos.DrawWireSphere(transform.position, interactionMaxRange);
     }
 }

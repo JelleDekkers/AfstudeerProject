@@ -42,7 +42,6 @@ GameObject:
   - 4: {fileID: 499634}
   - 114: {fileID: 11481900}
   - 54: {fileID: 5477174}
-  - 136: {fileID: 13669584}
   - 64: {fileID: 6442680}
   m_Layer: 14
   m_Name: Sword_Iron
@@ -164,19 +163,8 @@ MonoBehaviour:
   Type: 6
   Sprite: {fileID: 21300000, guid: 2b970eb869583c6468d94a423c117eab, type: 3}
   Points: 8
---- !u!136 &13669584
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 186566}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.83
-  m_Height: 6.08
-  m_Direction: 0
-  m_Center: {x: -3.41, y: 0, z: 0}
+  WeaponLength: 3.5
+  AttackAngle: 30
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -195,6 +183,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: WeaponLength
+      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

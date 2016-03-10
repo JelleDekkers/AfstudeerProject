@@ -11,6 +11,8 @@ public class ItemGameObject : InteractableObject {
     public ItemType Type;
     public Sprite Sprite;
     public float Points;
+    public float WeaponLength = 1;
+    public float AttackAngle = 30;
 
     public string MeshName {
         get { return name; }
@@ -22,13 +24,6 @@ public class ItemGameObject : InteractableObject {
             MeshName = gameObject.name;
     }
 
-    public void CopySettingsFromItem(ItemData item) {
-        Type = item.Type;
-        MeshName = item.MeshName;
-        Sprite = item.Sprite;
-        Points = item.Points;
-    }
-
     public static void InstantiateFromResourcesFolder(ItemData item) {
         GameObject droppedItem = Instantiate(Resources.Load("Items/" + item.MeshName)) as GameObject;
         Vector3 playerPos = Player.Instance.transform.position;
@@ -37,6 +32,6 @@ public class ItemGameObject : InteractableObject {
                                                      playerPos.z + UnityEngine.Random.Range(-1, 1));
         float rndRot = UnityEngine.Random.Range(0, 360);
         droppedItem.transform.rotation = Quaternion.Euler(rndRot, rndRot, rndRot);
-        droppedItem.GetComponent<ItemGameObject>().CopySettingsFromItem(item);
+        //droppedItem.GetComponent<ItemGameObject>().CopySettingsFromItem(item);
     }
 }

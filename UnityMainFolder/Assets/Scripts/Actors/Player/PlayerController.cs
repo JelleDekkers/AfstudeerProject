@@ -8,58 +8,52 @@ public class PlayerController : HumanoidController {
     private float verticalInput;
     private float horizontalInput;
 
-    [SerializeField] private float rotationSpeed = 8;
+    [SerializeField]
+    private float rotationSpeed = 8;
 
-    private void Start() {
-        InitController();
+    public override void Start() {
+        base.Start();
 
         xRotation = transform.eulerAngles.x;
         yRotation = transform.eulerAngles.y;
     }
 
-    private void Update() {
-        if (PlayerState.State == playerState.InGame) {
+    public override void Update() {
+        base.Update();
+
+        if (PlayerState.State == playerState.InGame && Player.Instance.HealthPoints > 0) {
             // Look rotation:
             transform.rotation = Quaternion.Euler(yRotation, xRotation, 0);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
             xRotation += Input.GetAxis("Mouse X") * rotationSpeed;
             yRotation -= Input.GetAxis("Mouse Y") * rotationSpeed;
 
-            baseLayerState = anim.GetCurrentAnimatorStateInfo(0);
-            rightArmLayerState = anim.GetCurrentAnimatorStateInfo(1);
-
-            if (rightArmLayerState.fullPathHash == UpperBodyLayer_LeftSwingState) {
-
-            }
-
             //if (Player.Inventory.GetWeapon != null) {
             // Attacking:
             if (Input.GetMouseButtonDown(PlayerInput.AttackButton)) {
                 anim.SetBool("Attacking", true);
             }
-            if (rightArmLayerState.fullPathHash == UpperBodyLayer_LeftSwingState) { // if is attacking set to to false to prevent loop
-                anim.SetBool("Attacking", false);
-            }
-            if(Input.GetMouseButtonDown(PlayerInput.BlockButton)) {
+            //Blocking:
+            if (Input.GetMouseButtonDown(PlayerInput.BlockButton)) {
                 anim.SetBool("Blocking", true);
                 Player.Instance.Block();
-            } else if(Input.GetMouseButtonUp(PlayerInput.BlockButton)) {
+            } else if (Input.GetMouseButtonUp(PlayerInput.BlockButton)) {
                 anim.SetBool("Blocking", false);
                 Player.Instance.Unblock();
             }
+
+            //Prevent strange rotations:
+            if (yRotation > 180)
+                yRotation -= 360;
+            if (yRotation < -180)
+                yRotation += 360;
+            yRotation = Mathf.Clamp(yRotation, -60, 60);
+
+            //Moving Forward:
+            verticalInput = Input.GetAxis("Vertical");
+            horizontalInput = Input.GetAxis("Horizontal");
+            anim.SetFloat("MovementZ", verticalInput);
+            anim.SetFloat("MovementX", horizontalInput);
         }
-
-        //Prevent strange rotations:
-        if (yRotation > 180)
-            yRotation -= 360;
-        if (yRotation < -180)
-            yRotation += 360;
-        yRotation = Mathf.Clamp(yRotation, -60, 60);
-
-        //Moving Forward:
-        verticalInput = Input.GetAxis("Vertical");
-        horizontalInput = Input.GetAxis("Horizontal");
-        anim.SetFloat("MovementZ", verticalInput);
-        anim.SetFloat("MovementX", horizontalInput);
     }
 }

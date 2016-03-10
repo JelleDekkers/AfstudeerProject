@@ -1,24 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Actor : MonoBehaviour { //met interfaces IKillable, IDamageable???? 
+public class Actor : MonoBehaviour { 
 
-    public float HealthPoints { get; protected set; }
-    public float AttackPoints { get; protected set; }
-    public float ArmorPoints { get; protected set; }
-    public float ShieldPoints { get; protected set; }
+    public float HealthPoints = 100;// { get; protected set; }
+    public float AttackPoints;// { get; protected set; }
+    public float ArmorPoints;// { get; protected set; }
+    public float ShieldPoints;// { get; protected set; }
 
     public Inventory Inventory;
-    public EquippedItemHolderManager equippedItemManager;
+    public bool IsBlocking;
+
+    private EquippedItemHolderManager equippedItemManager;
+    private Animator anim;
+
+    [SerializeField] private LayerMask attackLayerMask;
+    [SerializeField] private Transform attackCentre;
+    [SerializeField] private LayerMask shieldLayerMask;
 
     private void Awake() {
         Inventory = new Inventory();
         equippedItemManager = GetComponent<EquippedItemHolderManager>();
-        Inventory.OnEquipmentChanged += UpdateStats;
+        anim = GetComponent<Animator>();
+        anim.SetFloat("HealthPoints", HealthPoints);
     }
 
-    private void UpdateStats() {
-        Debug.Log("updateSTats");
+    public virtual void Update() {
+        anim.SetFloat("HealthPoints", HealthPoints);
+    }
+
+    protected void UpdateStats() {
         ArmorPoints = Inventory.GetTotalArmorPoints();
         AttackPoints = Inventory.GetWeaponAttackPoints();
         ShieldPoints = Inventory.GetShieldPoints();
@@ -29,23 +40,39 @@ public class Actor : MonoBehaviour { //met interfaces IKillable, IDamageable????
     }
 
     public virtual void TakeDamage(float amount, Actor sender) {
-        print("Taking damage: " + amount + " from " + sender.name);
+        anim.SetBool("Flinch", true); //Stagger, Flinch
+        //HealthPoints -= amount;
+
+        if(HealthPoints <= 0) 
+            anim.GetComponent<HumanoidController>().SetUpperBodyLayerWeight(0);
     }
 
-    public virtual void BeginAttack() {
-        if (Inventory.GetWeapon == null) {
-            Debug.Log("Trying to attack with no weapon present");
-            return;
+    public virtual void ExecuteAttack() {
+        ItemData weapon = Inventory.GetWeapon;
+        Collider[] actorsInRange = Physics.OverlapSphere(attackCentre.position, weapon.WeaponLength, attackLayerMask);
+        Actor actorHit = null;
+        Vector3 particlePos = Vector3.zero;
+
+        foreach(Collider col in actorsInRange) {
+            Vector3 targetDir = col.transform.position - transform.position;
+            targetDir = targetDir.normalized;
+            float dot = Vector3.Dot(targetDir, transform.forward);
+            float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+            Vector3 fwd = transform.TransformDirection(Vector3.forward);
+
+            if (angle < weapon.AttackAngle) {
+                actorHit = col.GetComponent<Actor>();
+                angle = Vector3.Angle(targetDir, actorHit.transform.position);
+                if (actorHit.IsBlocking && angle < actorHit.Inventory.GetShield.AttackAngle) { 
+                    particlePos = actorHit.equippedItemManager.ShieldHolder.Item.transform.position;
+                    Instantiate(ParticleManager.Instance.Sparks, particlePos, Quaternion.identity);
+                } else {
+                    particlePos = new Vector3(col.transform.position.x, equippedItemManager.WeaponHolder.Item.transform.position.x, col.transform.position.z);
+                    Instantiate(ParticleManager.Instance.Blood, particlePos, Quaternion.identity);
+                    actorHit.TakeDamage(weapon.Points, this);
+                }
+            }
         }
-        GameObject weapon = GetComponent<EquippedItemHolderManager>().WeaponHolder.Item;
-        weapon.GetComponent<Collider>().enabled = true;
-    }
-
-    public virtual void EndAttack() {
-        if (Inventory.GetWeapon == null)
-            return;
-        GameObject weapon = GetComponent<EquippedItemHolderManager>().WeaponHolder.Item;
-        weapon.GetComponent<Collider>().enabled = false;
     }
 
     public void Block() {
@@ -62,8 +89,12 @@ public class Actor : MonoBehaviour { //met interfaces IKillable, IDamageable????
         shield.GetComponent<EquippedShield>().UnBlock();
     }
 
-    public void GetStaggered() {
+    public void Stagger() {
         GameObject weapon = GetComponent<EquippedItemHolderManager>().WeaponHolder.Item;
         weapon.GetComponent<Collider>().enabled = false;
+    }
+
+    public void Flinch() {
+        
     }
 }

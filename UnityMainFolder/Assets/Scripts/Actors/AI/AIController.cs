@@ -3,17 +3,37 @@ using System.Collections;
 
 public class AIController : HumanoidController {
 
-    private void Start() {
-        InitController();
+    private Actor actor;
+
+    public override void Start() {
+        base.Start();
+        actor = GetComponent<Actor>();
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            anim.SetBool("Attacking", true);
-        }
+    public override void Update() {
+        base.Update();
 
-        if (rightArmLayerState.fullPathHash == UpperBodyLayer_LeftSwingState) { 
-            anim.SetBool("Attacking", false); // set to false again to prevent loop.
+        if (actor.HealthPoints <= 0)
+            return;
+
+        TestInput();
+
+        if (anim.GetBool("Blocking") == true) {
+            actor.Block();
+        } else { 
+            actor.Unblock();
+        }
+    }
+
+    private void TestInput() {
+        if (Input.GetKeyDown(KeyCode.C)) {
+            anim.SetBool("Attacking", true);
+        } else if (Input.GetKeyDown(KeyCode.V)) {
+            anim.SetBool("Blocking", true);
+            actor.IsBlocking = true;
+        } else if (Input.GetKeyDown(KeyCode.B)) {
+            anim.SetBool("Blocking", false);
+            actor.IsBlocking = false;
         }
     }
 }

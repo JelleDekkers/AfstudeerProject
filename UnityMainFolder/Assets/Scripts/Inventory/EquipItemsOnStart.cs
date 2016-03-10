@@ -12,7 +12,7 @@ public class EquipItemsOnStart : MonoBehaviour {
         Actor actor = GetComponent<Actor>();
         foreach(ItemGameObject i in itemsToEquip) {
             if (i != null) {
-                ItemData item = new ItemData(i.Name, i.Type, i.MeshName, i.Sprite, i.Points);
+                ItemData item = new ItemData(i.Name, i.Type, i.MeshName, i.Sprite, i.Points, i.WeaponLength, i.AttackAngle);
                 actor.Inventory.EquipItem(item);
             }
         }
