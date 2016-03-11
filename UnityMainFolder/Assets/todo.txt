@@ -1,3 +1,5 @@
-volledig grid in item list,
-scrollbaar list wanneer nodig
+inventory volledig grid in item list,
+inventory scrollbaar list wanneer nodig
 
+wapen loslaten bij dood
+addforce op objecten zoals tafels/vaas

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Trap
+  - Wall
+  - Node
   layers:
   - Default
   - TransparentFX
@@ -23,8 +25,8 @@ TagManager:
   - InteractableObject
   - Projectile
   - Shield
-  - 
-  - 
+  - Node
+  - Wall
   - 
   - 
   - 

@@ -13,6 +13,8 @@ public class Actor : MonoBehaviour {
 
     private EquippedItemHolderManager equippedItemManager;
     private Animator anim;
+    private RagdollController ragdollController;
+    private HumanoidController humanoidController;
 
     [SerializeField] private LayerMask attackLayerMask;
     [SerializeField] private Transform attackCentre;
@@ -22,6 +24,8 @@ public class Actor : MonoBehaviour {
         Inventory = new Inventory();
         equippedItemManager = GetComponent<EquippedItemHolderManager>();
         anim = GetComponent<Animator>();
+        ragdollController = GetComponent<RagdollController>();
+        humanoidController = GetComponent<HumanoidController>();
         anim.SetFloat("HealthPoints", HealthPoints);
     }
 
@@ -42,9 +46,16 @@ public class Actor : MonoBehaviour {
     public virtual void TakeDamage(float amount, Actor sender) {
         anim.SetBool("Flinch", true); //Stagger, Flinch
         //HealthPoints -= amount;
+        //if (HealthPoints <= 0)
+        Die(sender);
+    }
 
-        if(HealthPoints <= 0) 
-            anim.GetComponent<HumanoidController>().SetUpperBodyLayerWeight(0);
+    private void Die(Actor killer) {
+        HealthPoints = 0;
+        humanoidController.SetUpperBodyLayerWeight(0);
+        Vector3 direction = Common.GetDirection(killer.transform.position, transform.position);
+        ragdollController.ActivateRagDoll(direction, 40);
+        equippedItemManager.DropEquippedWeapons();
     }
 
     public virtual void ExecuteAttack() {

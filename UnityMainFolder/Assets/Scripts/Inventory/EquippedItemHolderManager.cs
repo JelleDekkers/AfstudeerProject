@@ -35,4 +35,14 @@ public class EquippedItemHolderManager : MonoBehaviour {
         }
         Debug.LogError("No EquippedItemHolder found with type: " + type + " for item: " + item.Name);
     }
+
+    public void DropEquippedWeapons() {
+        //is nog niet uit inventory verwijderd!!!
+        //TODO: meshcollider erop laten zitten bij het oppakken van item aan/uit zetten bij het droppen.
+        // misschien doen na een korte random timer, voor beter effect.
+        GameObject item = WeaponHolder.Item.gameObject;
+        item.AddComponent<BoxCollider>();
+        item.AddComponent<Rigidbody>();
+        item.transform.parent = null;
+    }
 }
