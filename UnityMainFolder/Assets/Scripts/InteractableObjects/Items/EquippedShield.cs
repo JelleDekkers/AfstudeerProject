@@ -11,7 +11,7 @@ public class EquippedShield : MonoBehaviour {
     }
 
     public void Start() {
-        collider = GetComponent<CapsuleCollider>();
+        collider = GetComponent<Collider>();
         collider.enabled = false;
     }
 

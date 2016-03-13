@@ -36,13 +36,25 @@ public class EquippedItemHolderManager : MonoBehaviour {
         Debug.LogError("No EquippedItemHolder found with type: " + type + " for item: " + item.Name);
     }
 
-    public void DropEquippedWeapons() {
+    public void DropAndApplyForceToEquippedWeapons(Vector3 forceDirection, float forceAmount) {
         //is nog niet uit inventory verwijderd!!!
-        //TODO: meshcollider erop laten zitten bij het oppakken van item aan/uit zetten bij het droppen.
-        // misschien doen na een korte random timer, voor beter effect.
-        GameObject item = WeaponHolder.Item.gameObject;
-        item.AddComponent<BoxCollider>();
-        item.AddComponent<Rigidbody>();
-        item.transform.parent = null;
+        AddRigidbodyAndForceToItem(WeaponHolder.Item.gameObject, forceDirection, forceAmount);
+        AddRigidbodyAndForceToItem(ShieldHolder.Item.gameObject, forceDirection, forceAmount);
+    }
+
+    private void AddRigidbodyAndForceToItem(GameObject item, Vector3 forceDirection, float forceAmount) {
+        float forceMultiplier = 1.5f;
+        float torqueForce = 100;
+        float itemMass = 8;
+        float itemDrag = 2;
+        Vector3 randomTorqueDirection = new Vector3(Random.Range(0.5f, 1), Random.Range(0.5f, 1), Random.Range(0.5f, 1));
+
+        item.layer = 0;
+        item.GetComponent<Collider>().enabled = true;
+        Rigidbody itemRigidbody = item.AddComponent<Rigidbody>();
+        itemRigidbody.mass = itemMass;
+        itemRigidbody.drag = itemDrag;
+        itemRigidbody.AddForce(forceDirection * (forceAmount * forceMultiplier), ForceMode.Impulse);
+        itemRigidbody.AddTorque(randomTorqueDirection * torqueForce, ForceMode.Impulse);
     }
 }

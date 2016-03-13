@@ -12,7 +12,6 @@ GameObject:
   - 23: {fileID: 2349362}
   - 54: {fileID: 5496092}
   - 64: {fileID: 6486666}
-  - 136: {fileID: 13683382}
   - 114: {fileID: 11469744}
   m_Layer: 14
   m_Name: Shield_Iron_01
@@ -29,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 170330}
   m_LocalRotation: {x: 0.058007658, y: -0.998287, z: 0.00064069015, w: 0.007597862}
   m_LocalPosition: {x: -7.872181, y: 2.306322, z: 0.029105663}
-  m_LocalScale: {x: 1.3264285, y: 0.09983038, z: 1.3264307}
+  m_LocalScale: {x: 1.4590714, y: 0.07361277, z: 1.4590738}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -110,19 +109,6 @@ MonoBehaviour:
   Points: 5
   WeaponLength: 1
   AttackAngle: 50
---- !u!136 &13683382
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170330}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  m_Radius: 0.76
-  m_Height: 1.05
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0.0000038146973, z: -0.00000008940695}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

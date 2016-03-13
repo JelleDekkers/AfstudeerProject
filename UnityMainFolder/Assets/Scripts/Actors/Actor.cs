@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class Actor : MonoBehaviour { 
@@ -10,11 +11,14 @@ public class Actor : MonoBehaviour {
 
     public Inventory Inventory;
     public bool IsBlocking;
+    public Action OnDeath;
 
     private EquippedItemHolderManager equippedItemManager;
     private Animator anim;
     private RagdollController ragdollController;
     private HumanoidController humanoidController;
+    private float forceAmount = 40;
+    private int bodyLayer = 19;
 
     [SerializeField] private LayerMask attackLayerMask;
     [SerializeField] private Transform attackCentre;
@@ -39,32 +43,12 @@ public class Actor : MonoBehaviour {
         ShieldPoints = Inventory.GetShieldPoints();
     }
 
-    public virtual void AttackActor(Actor actorToAttack) {
-        actorToAttack.TakeDamage(7f, this);
-    }
-
-    public virtual void TakeDamage(float amount, Actor sender) {
-        anim.SetBool("Flinch", true); //Stagger, Flinch
-        //HealthPoints -= amount;
-        //if (HealthPoints <= 0)
-        Die(sender);
-    }
-
-    private void Die(Actor killer) {
-        HealthPoints = 0;
-        humanoidController.SetUpperBodyLayerWeight(0);
-        Vector3 direction = Common.GetDirection(killer.transform.position, transform.position);
-        ragdollController.ActivateRagDoll(direction, 40);
-        equippedItemManager.DropEquippedWeapons();
-    }
-
     public virtual void ExecuteAttack() {
         ItemData weapon = Inventory.GetWeapon;
-        Collider[] actorsInRange = Physics.OverlapSphere(attackCentre.position, weapon.WeaponLength, attackLayerMask);
-        Actor actorHit = null;
-        Vector3 particlePos = Vector3.zero;
+        Collider[] objectsInRange = Physics.OverlapSphere(attackCentre.position, weapon.WeaponLength, attackLayerMask);
+        GameObject objectHit = null;
 
-        foreach(Collider col in actorsInRange) {
+        foreach (Collider col in objectsInRange) {
             Vector3 targetDir = col.transform.position - transform.position;
             targetDir = targetDir.normalized;
             float dot = Vector3.Dot(targetDir, transform.forward);
@@ -72,18 +56,60 @@ public class Actor : MonoBehaviour {
             Vector3 fwd = transform.TransformDirection(Vector3.forward);
 
             if (angle < weapon.AttackAngle) {
-                actorHit = col.GetComponent<Actor>();
-                angle = Vector3.Angle(targetDir, actorHit.transform.position);
-                if (actorHit.IsBlocking && angle < actorHit.Inventory.GetShield.AttackAngle) { 
-                    particlePos = actorHit.equippedItemManager.ShieldHolder.Item.transform.position;
-                    Instantiate(ParticleManager.Instance.Sparks, particlePos, Quaternion.identity);
+                objectHit = col.gameObject;
+                angle = Vector3.Angle(targetDir, objectHit.transform.position);
+
+                if (objectHit.GetComponent<Actor>()) {
+                    AttackActor(objectHit.GetComponent<Actor>(), angle);
                 } else {
-                    particlePos = new Vector3(col.transform.position.x, equippedItemManager.WeaponHolder.Item.transform.position.x, col.transform.position.z);
-                    Instantiate(ParticleManager.Instance.Blood, particlePos, Quaternion.identity);
-                    actorHit.TakeDamage(weapon.Points, this);
+                    AttackProp(objectHit, fwd, forceAmount);
                 }
             }
         }
+    }
+
+    public virtual void AttackActor(Actor actorToAttack, float angle) {
+        Vector3 particlePos = Vector3.zero;
+        if (actorToAttack.IsBlocking && angle < actorToAttack.Inventory.GetShield.AttackAngle) {
+            particlePos = actorToAttack.equippedItemManager.ShieldHolder.Item.transform.position;
+            Instantiate(ParticleManager.Instance.Sparks, particlePos, Quaternion.identity);
+        } else {
+            particlePos = new Vector3(actorToAttack.transform.position.x, equippedItemManager.WeaponHolder.Item.transform.position.x, actorToAttack.transform.position.z);
+            Instantiate(ParticleManager.Instance.Blood, particlePos, Quaternion.identity);
+            float weaponAttackPoints = Inventory.GetWeapon.Points;
+            actorToAttack.TakeDamage(weaponAttackPoints, this);
+        }
+    }
+
+    public virtual void TakeDamage(float amount, Actor sender) {
+        anim.SetBool("Flinch", true); //Stagger, Flinch
+        HealthPoints -= amount;
+
+        //if (HealthPoints <= 0)
+            Die(sender);
+    }
+
+    private void Die(Actor killer) {
+        HealthPoints = 0;
+        humanoidController.SetUpperBodyLayerWeight(0);
+        Vector3 direction = Common.GetDirection(killer.transform.position, transform.position);
+        Common.SetLayerRecursively(bodyLayer, transform);
+        ragdollController.ActivateRagDoll(direction, forceAmount);
+        equippedItemManager.DropAndApplyForceToEquippedWeapons(direction, forceAmount);
+
+        if (OnDeath != null)
+            OnDeath();
+    }
+
+    private void AttackProp(GameObject objectHit, Vector3 forceDirection, float forceAmount) {
+        if (!objectHit.GetComponent<Rigidbody>())
+            return;
+
+        objectHit.GetComponent<Rigidbody>().AddForce(forceDirection * forceAmount, ForceMode.Impulse);
+
+        if (objectHit.GetComponent<DestructableObject>()) 
+            objectHit.GetComponent<DestructableObject>().Hit(forceDirection, forceAmount);
+        
     }
 
     public void Block() {
@@ -93,19 +119,10 @@ public class Actor : MonoBehaviour {
         shield.GetComponent<EquippedShield>().Block();
     }
 
-    public void Unblock() {
+    public void StopBlocking() {
         if (Inventory.GetShield == null)
             return;
         GameObject shield = GetComponent<EquippedItemHolderManager>().ShieldHolder.Item;
         shield.GetComponent<EquippedShield>().UnBlock();
-    }
-
-    public void Stagger() {
-        GameObject weapon = GetComponent<EquippedItemHolderManager>().WeaponHolder.Item;
-        weapon.GetComponent<Collider>().enabled = false;
-    }
-
-    public void Flinch() {
-        
     }
 }

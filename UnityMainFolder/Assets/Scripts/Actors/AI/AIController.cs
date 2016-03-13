@@ -21,7 +21,7 @@ public class AIController : HumanoidController {
         if (anim.GetBool("Blocking") == true) {
             actor.Block();
         } else { 
-            actor.Unblock();
+            actor.StopBlocking();
         }
     }
 

@@ -10,6 +10,7 @@ public class Player : Actor {
             Instance = this;
 
         Inventory.OnEquipmentChanged += UpdateStats;
+        OnDeath += SlowTimeOnDeath; // + game over screen
     }
 
     public override void Update() {
@@ -18,5 +19,11 @@ public class Player : Actor {
         if(Input.GetKeyDown(KeyCode.Space)) {
             TakeDamage(1, null);
         }
+    }
+
+    private void SlowTimeOnDeath() {
+        float timeScale = 0.5f;
+        float seconds = 1;
+        StartCoroutine(TimeController.SlowTimeForSeconds(timeScale, seconds));
     }
 }

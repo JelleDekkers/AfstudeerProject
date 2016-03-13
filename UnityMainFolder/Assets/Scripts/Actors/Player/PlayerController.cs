@@ -39,7 +39,7 @@ public class PlayerController : HumanoidController {
                 Player.Instance.Block();
             } else if (Input.GetMouseButtonUp(PlayerInput.BlockButton)) {
                 anim.SetBool("Blocking", false);
-                Player.Instance.Unblock();
+                Player.Instance.StopBlocking();
             }
 
             //Prevent strange rotations:
