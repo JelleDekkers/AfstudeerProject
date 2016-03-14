@@ -3,11 +3,15 @@ using System.Collections;
 
 public class AIController : HumanoidController {
 
-    private Actor actor;
+    private NavMeshAgent navAgent;
+    private float targetDistance;
+
+    [SerializeField] private Transform target;
 
     public override void Start() {
         base.Start();
         actor = GetComponent<Actor>();
+        navAgent = GetComponent<NavMeshAgent>();
     }
 
     public override void Update() {
@@ -18,22 +22,42 @@ public class AIController : HumanoidController {
 
         TestInput();
 
-        if (anim.GetBool("Blocking") == true) {
-            actor.Block();
-        } else { 
-            actor.StopBlocking();
+        if (target != null) {
+            navAgent.SetDestination(target.transform.position);
+            targetDistance = navAgent.remainingDistance;
+
+            if (targetDistance >= actor.Inventory.Weapon.WeaponLength) {
+                MoveToTarget();
+            } else {
+                StopMoving();
+                Attack();
+            }
         }
+    }
+
+    private void MoveToTarget() {
+        navAgent.Resume();
+        float modifier = 2f;
+        float z = anim.GetFloat("MovementZ");
+        z = Mathf.MoveTowards(z, 1, modifier * Time.deltaTime);
+        anim.SetFloat("MovementZ", z);
+    }
+
+    private void StopMoving() {
+        float modifier = 2f;
+        navAgent.Stop();
+        float z = anim.GetFloat("MovementZ");
+        z = Mathf.MoveTowards(z, 0, modifier * Time.deltaTime);
+        anim.SetFloat("MovementZ", z);
     }
 
     private void TestInput() {
         if (Input.GetKeyDown(KeyCode.C)) {
-            anim.SetBool("Attacking", true);
+            Attack();
         } else if (Input.GetKeyDown(KeyCode.V)) {
-            anim.SetBool("Blocking", true);
-            actor.IsBlocking = true;
+            Block();
         } else if (Input.GetKeyDown(KeyCode.B)) {
-            anim.SetBool("Blocking", false);
-            actor.IsBlocking = false;
+            StopBlocking();
         }
     }
 }

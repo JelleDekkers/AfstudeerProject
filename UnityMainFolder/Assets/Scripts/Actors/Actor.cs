@@ -44,7 +44,7 @@ public class Actor : MonoBehaviour {
     }
 
     public virtual void ExecuteAttack() {
-        ItemData weapon = Inventory.GetWeapon;
+        ItemData weapon = Inventory.Weapon;
         Collider[] objectsInRange = Physics.OverlapSphere(attackCentre.position, weapon.WeaponLength, attackLayerMask);
         GameObject objectHit = null;
 
@@ -70,13 +70,13 @@ public class Actor : MonoBehaviour {
 
     public virtual void AttackActor(Actor actorToAttack, float angle) {
         Vector3 particlePos = Vector3.zero;
-        if (actorToAttack.IsBlocking && angle < actorToAttack.Inventory.GetShield.AttackAngle) {
+        if (actorToAttack.IsBlocking && angle < actorToAttack.Inventory.Shield.AttackAngle) {
             particlePos = actorToAttack.equippedItemManager.ShieldHolder.Item.transform.position;
             Instantiate(ParticleManager.Instance.Sparks, particlePos, Quaternion.identity);
         } else {
             particlePos = new Vector3(actorToAttack.transform.position.x, equippedItemManager.WeaponHolder.Item.transform.position.x, actorToAttack.transform.position.z);
             Instantiate(ParticleManager.Instance.Blood, particlePos, Quaternion.identity);
-            float weaponAttackPoints = Inventory.GetWeapon.Points;
+            float weaponAttackPoints = Inventory.Weapon.Points;
             actorToAttack.TakeDamage(weaponAttackPoints, this);
         }
     }
@@ -112,17 +112,17 @@ public class Actor : MonoBehaviour {
         
     }
 
-    public void Block() {
-        if (Inventory.GetShield == null)
+    public void EnableShieldCollider() {
+        if (Inventory.Shield == null)
             return;
         GameObject shield = GetComponent<EquippedItemHolderManager>().ShieldHolder.Item;
-        shield.GetComponent<EquippedShield>().Block();
+        shield.GetComponent<Collider>().enabled = true;
     }
 
-    public void StopBlocking() {
-        if (Inventory.GetShield == null)
+    public void DisableShieldCollider() {
+        if (Inventory.Shield == null)
             return;
         GameObject shield = GetComponent<EquippedItemHolderManager>().ShieldHolder.Item;
-        shield.GetComponent<EquippedShield>().UnBlock();
+        shield.GetComponent<Collider>().enabled = false;
     }
 }

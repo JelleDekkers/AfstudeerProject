@@ -31,15 +31,13 @@ public class PlayerController : HumanoidController {
             //if (Player.Inventory.GetWeapon != null) {
             // Attacking:
             if (Input.GetMouseButtonDown(PlayerInput.AttackButton)) {
-                anim.SetBool("Attacking", true);
+                Attack();
             }
             //Blocking:
             if (Input.GetMouseButtonDown(PlayerInput.BlockButton)) {
-                anim.SetBool("Blocking", true);
-                Player.Instance.Block();
+                Block();
             } else if (Input.GetMouseButtonUp(PlayerInput.BlockButton)) {
-                anim.SetBool("Blocking", false);
-                Player.Instance.StopBlocking();
+                StopBlocking();
             }
 
             //Prevent strange rotations:

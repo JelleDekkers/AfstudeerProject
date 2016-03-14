@@ -24,8 +24,8 @@ public class Inventory {
     public const int WEAPON_SLOT_NR = 2;
     public const int SHIELD_SLOT_NR = 3;
 
-    public ItemData GetWeapon { get { return equippedItems[WEAPON_SLOT_NR].Item; } }
-    public ItemData GetShield { get { return equippedItems[SHIELD_SLOT_NR].Item; } }
+    public ItemData Weapon { get { return equippedItems[WEAPON_SLOT_NR].Item; } }
+    public ItemData Shield { get { return equippedItems[SHIELD_SLOT_NR].Item; } }
 
     public Inventory() {
         Items = new List<InventoryItem>();

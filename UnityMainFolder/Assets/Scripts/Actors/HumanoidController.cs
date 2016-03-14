@@ -4,6 +4,7 @@ using System.Collections;
 public class HumanoidController : MonoBehaviour {
 
     protected Animator anim;
+    protected Actor actor;
     protected float animSpeed = 1;
     protected AnimatorStateInfo baseLayerState;
     protected AnimatorStateInfo upperBodyLayerState;
@@ -20,6 +21,7 @@ public class HumanoidController : MonoBehaviour {
 
     public virtual void Start() {
         anim = GetComponent<Animator>();
+        actor = GetComponent<Actor>();
         anim.SetLayerWeight(upperBodyLayerIndex, 1);
     }
 
@@ -44,5 +46,22 @@ public class HumanoidController : MonoBehaviour {
             anim.SetBool("Stagger", false);
         if (upperBodyLayerState.fullPathHash == UpperBodyLayer_flinchState) 
             anim.SetBool("Flinch", false);
+    }
+
+    protected void Attack() {
+        if(upperBodyLayerState.fullPathHash != UpperBodyLayer_LeftSwingState)
+            anim.SetBool("Attacking", true);
+    }
+
+    protected void Block() {
+        anim.SetBool("Blocking", true);
+        actor.EnableShieldCollider();
+        actor.IsBlocking = true;
+    }
+
+    protected void StopBlocking() {
+        anim.SetBool("Blocking", false);
+        actor.DisableShieldCollider();
+        actor.IsBlocking = true;
     }
 }

@@ -34,7 +34,6 @@ public class EquippedItemHolder : MonoBehaviour {
             g.layer = equippedItemLayer;
 
             if (g.GetComponent<ItemGameObject>().Type == ItemType.Shield) {
-                g.AddComponent<EquippedShield>().Init(wielder);
                 g.layer = shieldLayer;
             }
 

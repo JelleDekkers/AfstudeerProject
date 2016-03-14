@@ -15,10 +15,6 @@ public class Player : Actor {
 
     public override void Update() {
         base.Update();
-
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            TakeDamage(1, null);
-        }
     }
 
     private void SlowTimeOnDeath() {
