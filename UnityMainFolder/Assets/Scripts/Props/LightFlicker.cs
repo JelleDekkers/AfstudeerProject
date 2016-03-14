@@ -4,12 +4,12 @@ using System.Collections;
 [RequireComponent(typeof(Light))]
 public class LightFlicker : MonoBehaviour {
 
-    [SerializeField] private float minFlickerIntensity = 0.9f;
+    [SerializeField] private float minFlickerIntensity = 1;
     [SerializeField] private float maxFlickerIntensity = 1.1f;
-    [SerializeField] private float minFlickerRange = 2;
-    [SerializeField] private float maxFlickerRange = 14;
-    [SerializeField] private float minFlickerTime = 0.01f;
-    [SerializeField] private float maxFlickerTime = 0.1f;
+    [SerializeField] private float minFlickerRange = 11;
+    [SerializeField] private float maxFlickerRange = 12;
+    [SerializeField] private float minFlickerTime = 5;
+    [SerializeField] private float maxFlickerTime = 8;
 
     private Light lightSource;
     private float randomizer = 0;
