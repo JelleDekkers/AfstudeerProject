@@ -31,6 +31,7 @@ ModelImporter:
     100046: //RootNode
     100048: Dummy001
     100050: Dummy002
+    100052: Character rig
     400000: Base Human
     400002: Base HumanHead
     400004: Base HumanLCalf
@@ -57,8 +58,11 @@ ModelImporter:
     400046: //RootNode
     400048: Dummy001
     400050: Dummy002
+    400052: Character rig
+    4300000: Character rig
     7400000: Stagger
     9500000: //RootNode
+    13700000: Character rig
   materials:
     importMaterials: 1
     materialName: 0
@@ -70,9 +74,30 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: "\nInbetween bone default rotation found in this file
-      is different from the one found in the source avatar:\n\t'Base HumanSpine1'
-      : rotation error = 0.068220 deg\n"
+    animationImportWarnings: "\nDefault bone length found in this file is different
+      form the one found in the source avatar:\n\t'Base HumanLThigh' : position error
+      = 6534.131348 mm\n\t'Base HumanLCalf' : position error = 11276.500977 mm\n\t'Base
+      HumanLFoot' : position error = 12272.480469 mm\n\t'Base HumanRThigh' : position
+      error = 6534.133301 mm\n\t'Base HumanRCalf' : position error = 11276.497070
+      mm\n\t'Base HumanRFoot' : position error = 12272.473633 mm\n\t'Base HumanSpine1'
+      : position error = 7967.334473 mm\n\t'Base HumanSpine2' : position error = 6777.557617
+      mm\n\t'Base HumanRibcage' : position error = 12186.035156 mm\n\t'Base HumanLCollarbone'
+      : position error = 8350.107422 mm\n\t'Base HumanLUpperarm' : position error
+      = 4871.523926 mm\n\t'Base HumanLForearm' : position error = 10661.194336 mm\n\t'Base
+      HumanLPalm' : position error = 13321.906250 mm\n\t'Base HumanRCollarbone' :
+      position error = 8350.104492 mm\n\t'Base HumanRUpperarm' : position error =
+      4871.523926 mm\n\t'Base HumanRForearm' : position error = 10661.196289 mm\n\t'Base
+      HumanRPalm' : position error = 13321.911133 mm\n\t'Base HumanNeck' : position
+      error = 145.503677 mm\n\t'Base HumanHead' : position error = 7424.513672 mm\n\nInbetween
+      bone default rotation found in this file is different from the one found in
+      the source avatar:\n\t'Base HumanSpine1' : rotation error = 0.068220 deg\n\nClip
+      'Take 001' has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Base
+      HumanRCalf' has translation animation that will be discarded.\n\t'Base HumanRFoot'
+      has translation animation that will be discarded.\n\t'Base HumanSpine1' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'Base
+      HumanSpine2' is inbetween humanoid transforms and has rotation animation that
+      will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
