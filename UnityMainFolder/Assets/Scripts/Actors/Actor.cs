@@ -2,8 +2,20 @@
 using System;
 using System.Collections;
 
-public class Actor : MonoBehaviour { 
+public enum State {
+    ///<summary>Idle, just standing around</summary>
+    Roaming = 0,
+    ///<summary>Alerted to an enemy presence and goes in to attack</summary> 
+    Aggroed = 1,
+    ///<summary>patrolling after being aggroed but having lost its target</summary> 
+    Patrolling = 2,
+    ///<summary>Dead</summary> 
+    Dead = 3
+}
 
+public class Actor : MonoBehaviour {
+
+    public State currentState;// { get; protected set; }
     public float HealthPoints = 100;// { get; protected set; }
     public float AttackPoints;// { get; protected set; }
     public float ArmorPoints;// { get; protected set; }
@@ -21,8 +33,8 @@ public class Actor : MonoBehaviour {
     private int bodyLayer = 19;
 
     [SerializeField] private LayerMask attackLayerMask;
-    [SerializeField] private Transform attackCentre;
     [SerializeField] private LayerMask shieldLayerMask;
+    [SerializeField] protected Transform attackCenter;
 
     private void Awake() {
         Inventory = new Inventory();
@@ -31,10 +43,14 @@ public class Actor : MonoBehaviour {
         ragdollController = GetComponent<RagdollController>();
         humanoidController = GetComponent<HumanoidController>();
         anim.SetFloat("HealthPoints", HealthPoints);
+        currentState = State.Roaming;
     }
 
     public virtual void Update() {
         anim.SetFloat("HealthPoints", HealthPoints);
+
+        if(currentState == State.Dead) 
+            return;
     }
 
     protected void UpdateStats() {
@@ -45,7 +61,7 @@ public class Actor : MonoBehaviour {
 
     public virtual void ExecuteAttack() {
         ItemData weapon = Inventory.Weapon;
-        Collider[] objectsInRange = Physics.OverlapSphere(attackCentre.position, weapon.WeaponLength, attackLayerMask);
+        Collider[] objectsInRange = Physics.OverlapSphere(attackCenter.position, weapon.WeaponLength, attackLayerMask);
         GameObject objectHit = null;
 
         foreach (Collider col in objectsInRange) {
@@ -86,7 +102,7 @@ public class Actor : MonoBehaviour {
         HealthPoints -= amount;
 
         //if (HealthPoints <= 0)
-            Die(sender);
+            //Die(sender);
     }
 
     private void Die(Actor killer) {

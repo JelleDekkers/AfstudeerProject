@@ -14,6 +14,7 @@ public class HumanoidController : MonoBehaviour {
 
     protected int baseLayer_locoState = Animator.StringToHash("Base Layer.Locomotion");
     protected int baseLayer_staggerState = Animator.StringToHash("Base Layer.Stagger"); 
+    protected int baseLayer_lungeState = Animator.StringToHash("Base Layer.Lunge");
     protected int UpperBodyLayer_flinchState = Animator.StringToHash("UpperBodyLayer.Flinch");
     protected int UpperBodyLayer_nothingState = Animator.StringToHash("UpperBodyLayer.Nothing");
     protected int UpperBodyLayer_LeftSwingState = Animator.StringToHash("UpperBodyLayer.Swing Left");
@@ -44,6 +45,8 @@ public class HumanoidController : MonoBehaviour {
             anim.SetBool("Attacking", false);
         if (baseLayerState.fullPathHash == baseLayer_staggerState)
             anim.SetBool("Stagger", false);
+        if (baseLayerState.fullPathHash == baseLayer_lungeState)
+            anim.SetBool("Lunge", false);
         if (upperBodyLayerState.fullPathHash == UpperBodyLayer_flinchState) 
             anim.SetBool("Flinch", false);
     }

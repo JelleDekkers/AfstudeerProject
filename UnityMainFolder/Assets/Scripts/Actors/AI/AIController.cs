@@ -4,14 +4,15 @@ using System.Collections;
 public class AIController : HumanoidController {
 
     private NavMeshAgent navAgent;
-    private float targetDistance;
+    private Vector3 targetPos;
 
-    [SerializeField] private Transform target;
+    public Vector3 StartPos { get; private set; }
 
     public override void Start() {
         base.Start();
         actor = GetComponent<Actor>();
         navAgent = GetComponent<NavMeshAgent>();
+        StartPos = transform.position;
     }
 
     public override void Update() {
@@ -20,32 +21,33 @@ public class AIController : HumanoidController {
         if (actor.HealthPoints <= 0)
             return;
 
-        TestInput();
+        if (actor.currentState != State.Aggroed)
+            navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
+        else
+            navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
 
-        if (target != null) {
-            navAgent.SetDestination(target.transform.position);
-            targetDistance = navAgent.remainingDistance;
-
-            if (targetDistance >= actor.Inventory.Weapon.WeaponLength) {
-                MoveToTarget();
-            } else {
-                StopMoving();
-                Attack();
-            }
-        }
+        //if (Vector3.Distance(transform.position, lastDetectedEnemyPosition) < posOffset) {
+            //stop event?
+        //}
     }
 
-    private void MoveToTarget() {
-        navAgent.Resume();
+    public void MoveToTargetPosition(Vector3 target) {
+        if (targetPos != target) {
+            targetPos = target;
+            navAgent.SetDestination(target);
+            navAgent.Resume();
+        }
+
         float modifier = 2f;
         float z = anim.GetFloat("MovementZ");
         z = Mathf.MoveTowards(z, 1, modifier * Time.deltaTime);
         anim.SetFloat("MovementZ", z);
     }
 
-    private void StopMoving() {
-        float modifier = 2f;
+    public void StopMoving() {
         navAgent.Stop();
+
+        float modifier = 2f;
         float z = anim.GetFloat("MovementZ");
         z = Mathf.MoveTowards(z, 0, modifier * Time.deltaTime);
         anim.SetFloat("MovementZ", z);
@@ -59,5 +61,15 @@ public class AIController : HumanoidController {
         } else if (Input.GetKeyDown(KeyCode.B)) {
             StopBlocking();
         }
+    }
+
+    public Vector3 GetRandomNavPos(Vector3 direction) {
+        NavMeshHit hit;
+        float radius = 10;
+        Quaternion randAng = Quaternion.Euler(0, Random.Range(-45, 45), 0);
+        randAng = transform.rotation * randAng;                                         
+        Vector3 spawnPos = transform.position + randAng * direction * 15;
+        NavMesh.SamplePosition(spawnPos, out hit, radius, 1);
+        return hit.position;
     }
 }

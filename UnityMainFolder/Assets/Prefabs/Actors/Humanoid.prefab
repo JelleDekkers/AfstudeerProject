@@ -1171,10 +1171,16 @@ MonoBehaviour:
   attackLayerMask:
     serializedVersion: 2
     m_Bits: 257
-  attackCentre: {fileID: 470778}
   shieldLayerMask:
     serializedVersion: 2
     m_Bits: 65792
+  attackCenter: {fileID: 470778}
+  viewDistance: 20
+  hearingDistance: 20
+  fovAngle: 90
+  sightLayerMask:
+    serializedVersion: 2
+    m_Bits: 262400
 --- !u!114 &11430156
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1211,7 +1217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a59fe11bbca8291418cd0aedd490a2c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
 --- !u!114 &11449614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1936,7 +1941,7 @@ NavMeshAgent:
   m_Height: 3
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 2
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
