@@ -9,8 +9,10 @@ public enum State {
     Aggroed = 1,
     ///<summary>patrolling after being aggroed but having lost its target</summary> 
     Patrolling = 2,
+    ///<summary>In Combat with an enemy</summary> 
+    InCombat = 3,
     ///<summary>Dead</summary> 
-    Dead = 3
+    Dead = 4
 }
 
 public class Actor : MonoBehaviour {

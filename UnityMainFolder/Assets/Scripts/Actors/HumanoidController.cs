@@ -62,6 +62,12 @@ public class HumanoidController : MonoBehaviour {
         actor.IsBlocking = true;
     }
 
+    protected IEnumerator Block(float time) {
+        Block();
+        yield return new WaitForSeconds(time);
+        StopBlocking();
+    }
+
     protected void StopBlocking() {
         anim.SetBool("Blocking", false);
         actor.DisableShieldCollider();

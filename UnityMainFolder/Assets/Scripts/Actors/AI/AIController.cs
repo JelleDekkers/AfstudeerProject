@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class AIController : HumanoidController {
@@ -7,12 +8,16 @@ public class AIController : HumanoidController {
     private Vector3 targetPos;
 
     public Vector3 StartPos { get; private set; }
+    public Action OnTargetReachedEvent;
+
+    private float stoppingDinstance;
 
     public override void Start() {
         base.Start();
         actor = GetComponent<Actor>();
         navAgent = GetComponent<NavMeshAgent>();
         StartPos = transform.position;
+        stoppingDinstance = 3f;
     }
 
     public override void Update() {
@@ -21,14 +26,14 @@ public class AIController : HumanoidController {
         if (actor.HealthPoints <= 0)
             return;
 
-        if (actor.currentState != State.Aggroed)
+        if (actor.currentState != State.Aggroed || actor.currentState != State.InCombat)
             navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
         else
             navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
 
-        //if (Vector3.Distance(transform.position, lastDetectedEnemyPosition) < posOffset) {
-            //stop event?
-        //}
+        if(navAgent.remainingDistance < stoppingDinstance && OnTargetReachedEvent != null) {
+            OnTargetReachedEvent();
+        }
     }
 
     public void MoveToTargetPosition(Vector3 target) {
@@ -63,10 +68,22 @@ public class AIController : HumanoidController {
         }
     }
 
+    public void AttackWrapper() {
+        Attack();
+    }
+
+    public void BlockWrapper() {
+        Block();
+    }
+
+    public void StopBlockingWrapper() {
+        StopBlocking();
+    }
+
     public Vector3 GetRandomNavPos(Vector3 direction) {
         NavMeshHit hit;
         float radius = 10;
-        Quaternion randAng = Quaternion.Euler(0, Random.Range(-45, 45), 0);
+        Quaternion randAng = Quaternion.Euler(0, UnityEngine.Random.Range(-45, 45), 0);
         randAng = transform.rotation * randAng;                                         
         Vector3 spawnPos = transform.position + randAng * direction * 15;
         NavMesh.SamplePosition(spawnPos, out hit, radius, 1);

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class Humanoid : Actor {
@@ -13,25 +14,22 @@ public class Humanoid : Actor {
     private Actor targetActor;
     private float patrollingToIdleTimerMax = 5;
     private float stateResetTimer = 0;
-
     private Vector3 rndPoint;
+    private float lungeDistance = 3f;
+    private bool combatRoutineStarted;
 
     private void Start() {
         controller = GetComponent<AIController>();
+        lungeDistance += 1;
     }
 
     public override void Update() {
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            rndPoint = controller.GetRandomNavPos(Vector3.forward);
-        }
-
+        Debug.DrawRay(attackCenter.transform.position, transform.TransformDirection(Vector3.forward) * lungeDistance, Color.red);
         base.Update();
         detectedActors = GetDetectedActors();
 
         //TODO: nette class structuur opzetten
-        //stil staan wanneer target behaald
         //eventuele patrol mode implementeren tijdens roam state, zelfde manier als bij patrol state
-        //combat implementeren, slaan en blocken
 
         switch (currentState) {
             case State.Roaming:
@@ -43,23 +41,37 @@ public class Humanoid : Actor {
             case State.Aggroed:
                 Aggroed();
                 break;
+            case State.InCombat:
+                InCombat();
+                break;
         }
     } 
 
     private void Roam() {
-        controller.MoveToTargetPosition(controller.StartPos);
-        
         if (detectedActors.Length > 0) {
             targetActor = detectedActors[0].GetComponent<Actor>();
             currentState = State.Aggroed;
+            return;
         }
+
+        controller.OnTargetReachedEvent = delegate () {
+            controller.StopMoving();
+            return;
+        };
+
+        //controller.MoveToTargetPosition(controller.StartPos);
     }
 
     private void Patrol() {
         controller.MoveToTargetPosition(lastDetectedEnemyPosition);
         //when target reached:
         //lastDetectedEnemyPosition = controller.GetRandomNavPos();
-        
+        controller.OnTargetReachedEvent = delegate () {
+            controller.StopMoving();
+            currentState = State.Roaming;
+            return;
+        };
+
         stateResetTimer -= Time.deltaTime;
 
         if (stateResetTimer <= 0) {
@@ -75,12 +87,57 @@ public class Humanoid : Actor {
             return;
         }
 
-        lastDetectedEnemyPosition = targetActor.transform.position;
-        if (Vector3.Distance(transform.position, lastDetectedEnemyPosition) < 2) {
-            controller.MoveToTargetPosition(targetActor.transform.position);
-        } else {
-            //attack, block 
+        if (Vector3.Distance(transform.position, targetActor.transform.position) <= lungeDistance) {
+            controller.StopMoving();
+            currentState = State.InCombat;
+            return;
         }
+
+        lastDetectedEnemyPosition = targetActor.transform.position;
+        controller.MoveToTargetPosition(lastDetectedEnemyPosition);
+    }
+
+    private void InCombat() {
+        if (detectedActors.Length == 0) {
+            currentState = State.Patrolling;
+            targetActor = null;
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, targetActor.transform.position) < lungeDistance) {
+            transform.LookAt(targetActor.transform);
+            controller.StopMoving();
+            if(!combatRoutineStarted)
+                StartCoroutine(RandomCombat());
+
+        } else {
+            currentState = State.Aggroed;
+        }
+    }
+
+    private IEnumerator RandomCombat() {
+        int rndBehaviour = Random.Range(0, 2);
+        float time = 0;
+
+        combatRoutineStarted = true;
+        switch (rndBehaviour) {
+            case 0:
+                controller.AttackWrapper();
+                yield return new WaitForSeconds(1f);
+                break;
+            case 1:
+                time = Random.Range(0.5f, 4f);
+                controller.BlockWrapper();
+                yield return new WaitForSeconds(1f);
+                controller.StopBlockingWrapper();
+                break;
+            case 2:
+                time = Random.Range(0.3f, 1.5f);
+                yield return new WaitForSeconds(1f);
+                break;
+        }
+
+        combatRoutineStarted = false;
     }
 
     private GameObject[] GetDetectedActors() {
@@ -95,14 +152,19 @@ public class Humanoid : Actor {
                 if (hit.collider.tag == "Wall")
                     continue;
 
-                directionToTarget = directionToTarget.normalized;
-                float dot = Vector3.Dot(directionToTarget, transform.forward);
-                float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+                //directionToTarget = directionToTarget.normalized;
+                //float dot = Vector3.Dot(directionToTarget, transform.forward);
+                //float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
 
-                if (angle < fovAngle / 2) 
+                //if (angle < fovAngle / 2) 
                     actorsInSight.Add(col.gameObject);
             } 
         }
+
         return actorsInSight.ToArray();
+    }
+
+    private void OnGUI() {
+        GUI.Label(new Rect(10, 10, 1000, 20), "State: " + currentState.ToString());
     }
 }
