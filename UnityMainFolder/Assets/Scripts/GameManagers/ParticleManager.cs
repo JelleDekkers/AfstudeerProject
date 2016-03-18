@@ -12,4 +12,8 @@ public class ParticleManager : MonoBehaviour {
         if (Instance == null)
             Instance = this;
     }
+
+    public static void InstantiateParticle(GameObject particle, Vector3 pos) {
+        Instantiate(particle, pos, Quaternion.identity);
+    }
 }

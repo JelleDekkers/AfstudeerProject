@@ -23,20 +23,23 @@ public class Actor : MonoBehaviour {
     public float ArmorPoints;// { get; protected set; }
     public float ShieldPoints;// { get; protected set; }
 
+    public Animator anim;
     public Inventory Inventory;
     public bool IsBlocking;
     public Action OnDeath;
 
     private EquippedItemHolderManager equippedItemManager;
-    private Animator anim;
     private RagdollController ragdollController;
     private HumanoidController humanoidController;
     private float forceAmount = 40;
     private int bodyLayer = 19;
 
-    [SerializeField] private LayerMask attackLayerMask;
-    [SerializeField] private LayerMask shieldLayerMask;
-    [SerializeField] protected Transform attackCenter;
+    [SerializeField]
+    private LayerMask attackLayerMask;
+    [SerializeField]
+    private LayerMask shieldLayerMask;
+    [SerializeField]
+    protected Transform attackCenter;
 
     private void Awake() {
         Inventory = new Inventory();
@@ -51,7 +54,7 @@ public class Actor : MonoBehaviour {
     public virtual void Update() {
         anim.SetFloat("HealthPoints", HealthPoints);
 
-        if(currentState == State.Dead) 
+        if (currentState == State.Dead)
             return;
     }
 
@@ -95,25 +98,26 @@ public class Actor : MonoBehaviour {
             particlePos = new Vector3(actorToAttack.transform.position.x, equippedItemManager.WeaponHolder.Item.transform.position.x, actorToAttack.transform.position.z);
             Instantiate(ParticleManager.Instance.Blood, particlePos, Quaternion.identity);
             float weaponAttackPoints = Inventory.Weapon.Points;
-            actorToAttack.TakeDamage(weaponAttackPoints, this);
+            actorToAttack.TakeDamage(weaponAttackPoints, gameObject);
         }
     }
 
-    public virtual void TakeDamage(float amount, Actor sender) {
+    public void TakeDamage(float amount, GameObject killer) {
         anim.SetBool("Flinch", true); //Stagger, Flinch
         HealthPoints -= amount;
 
-        //if (HealthPoints <= 0)
-            //Die(sender);
+        if (HealthPoints <= 0)
+            Die(killer);
     }
 
-    private void Die(Actor killer) {
+    private void Die(GameObject killer) {
         HealthPoints = 0;
         humanoidController.SetUpperBodyLayerWeight(0);
         Vector3 direction = Common.GetDirection(killer.transform.position, transform.position);
         Common.SetLayerRecursively(bodyLayer, transform);
         ragdollController.ActivateRagDoll(direction, forceAmount);
         equippedItemManager.DropAndApplyForceToEquippedWeapons(direction, forceAmount);
+        currentState = State.Dead;
 
         if (OnDeath != null)
             OnDeath();
@@ -125,9 +129,8 @@ public class Actor : MonoBehaviour {
 
         objectHit.GetComponent<Rigidbody>().AddForce(forceDirection * forceAmount, ForceMode.Impulse);
 
-        if (objectHit.GetComponent<DestructableObject>()) 
+        if (objectHit.GetComponent<DestructableObject>())
             objectHit.GetComponent<DestructableObject>().Hit(forceDirection, forceAmount);
-        
     }
 
     public void EnableShieldCollider() {
@@ -142,5 +145,12 @@ public class Actor : MonoBehaviour {
             return;
         GameObject shield = GetComponent<EquippedItemHolderManager>().ShieldHolder.Item;
         shield.GetComponent<Collider>().enabled = false;
+    }
+
+    private void OnTriggerEnter(Collider col) {
+        if (col.gameObject.tag == "Trap") {
+            ITrap trap = col.GetComponent<ITrap>();
+            trap.OnTriggered(GetComponent<Actor>());
+        }
     }
 }

@@ -1168,6 +1168,7 @@ MonoBehaviour:
   AttackPoints: 0
   ArmorPoints: 0
   ShieldPoints: 0
+  anim: {fileID: 0}
   IsBlocking: 0
   attackLayerMask:
     serializedVersion: 2
@@ -1181,6 +1182,7 @@ MonoBehaviour:
   sightLayerMask:
     serializedVersion: 2
     m_Bits: 262400
+  animSpeed: 0.9
 --- !u!114 &11430156
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1930,7 +1932,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 146422}
   m_Enabled: 1
   m_Radius: 0.6
-  m_Speed: 3.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 360

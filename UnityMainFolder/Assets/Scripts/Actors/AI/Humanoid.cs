@@ -7,13 +7,14 @@ public class Humanoid : Actor {
     [SerializeField] private float viewDistance = 20;
     [SerializeField] private float fovAngle = 110f;
     [SerializeField] private LayerMask sightLayerMask;
+    [SerializeField] private float animSpeed = 0.95f;
 
     private AIController controller;
     private Vector3 lastDetectedEnemyPosition;
     private GameObject[] detectedActors;
     private Actor targetActor;
     private float patrollingToIdleTimerMax = 5;
-    private float stateResetTimer = 0;
+    private bool targetReached;
     private Vector3 rndPoint;
     private float lungeDistance = 3f;
     private bool combatRoutineStarted;
@@ -24,12 +25,20 @@ public class Humanoid : Actor {
     }
 
     public override void Update() {
+        if (currentState == State.Dead)
+            return;
+
         Debug.DrawRay(attackCenter.transform.position, transform.TransformDirection(Vector3.forward) * lungeDistance, Color.red);
         base.Update();
+
+        anim.speed = animSpeed;
         detectedActors = GetDetectedActors();
 
         //TODO: nette class structuur opzetten
+        // betere manier verzinnen voor wanneer moven en stoppen, boolean
         //eventuele patrol mode implementeren tijdens roam state, zelfde manier als bij patrol state
+        // betere combat system, ipv van meerdere keren block achter elkaar
+        // layer class met constants en alle lokale layers weghalen
 
         switch (currentState) {
             case State.Roaming:
@@ -55,29 +64,24 @@ public class Humanoid : Actor {
         }
 
         controller.OnTargetReachedEvent = delegate () {
+            print("target reached while roaming");
             controller.StopMoving();
+            targetReached = true;
             return;
         };
 
-        //controller.MoveToTargetPosition(controller.StartPos);
+        controller.MoveToTargetPosition(controller.StartPos);
     }
 
     private void Patrol() {
         controller.MoveToTargetPosition(lastDetectedEnemyPosition);
-        //when target reached:
+
         //lastDetectedEnemyPosition = controller.GetRandomNavPos();
         controller.OnTargetReachedEvent = delegate () {
             controller.StopMoving();
             currentState = State.Roaming;
             return;
         };
-
-        stateResetTimer -= Time.deltaTime;
-
-        if (stateResetTimer <= 0) {
-            currentState = State.Roaming;
-            stateResetTimer = patrollingToIdleTimerMax;
-        }
     }
 
     private void Aggroed() {
@@ -145,26 +149,39 @@ public class Humanoid : Actor {
         Collider[] nearbyItemColliders = Physics.OverlapSphere(attackCenter.position, viewDistance, sightLayerMask);
         RaycastHit hit;
 
-        foreach (Collider col in nearbyItemColliders) {
-            Vector3 directionToTarget = col.gameObject.transform.position - transform.position;
-            if (Physics.Raycast(attackCenter.transform.position, directionToTarget, out hit, viewDistance, sightLayerMask)) {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        //actorsInSight.Add(player);
+        //return actorsInSight.ToArray();
 
-                if (hit.collider.tag == "Wall")
-                    continue;
-
-                //directionToTarget = directionToTarget.normalized;
-                //float dot = Vector3.Dot(directionToTarget, transform.forward);
-                //float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
-
-                //if (angle < fovAngle / 2) 
-                    actorsInSight.Add(col.gameObject);
-            } 
+        Vector3 directionToTarget = player.transform.position - transform.position;
+        if (Physics.Raycast(attackCenter.transform.position, directionToTarget, out hit, viewDistance, sightLayerMask)) {
+            if (hit.collider.tag != "Wall")
+                actorsInSight.Add(player);
         }
+
+        //foreach (Collider col in nearbyItemColliders) {
+        //    Vector3 directionToTarget = col.gameObject.transform.position - transform.position;
+        //    if (Physics.Raycast(attackCenter.transform.position, directionToTarget, out hit, viewDistance, sightLayerMask)) {
+
+        //        if (hit.collider.tag == "Wall")
+        //            continue;
+
+        //        //directionToTarget = directionToTarget.normalized;
+        //        //float dot = Vector3.Dot(directionToTarget, transform.forward);
+        //        //float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+
+        //        //if (angle < fovAngle / 2) 
+        //            actorsInSight.Add(col.gameObject);
+        //    } 
+        //}
 
         return actorsInSight.ToArray();
     }
 
     private void OnGUI() {
         GUI.Label(new Rect(10, 10, 1000, 20), "State: " + currentState.ToString());
+        GUI.Label(new Rect(10, 20, 1000, 20), "detected length: " + detectedActors.Length);
+        for(int i = 0; i < detectedActors.Length; i++)
+            GUI.Label(new Rect(10, 30 + i * 10, 1000, 20), "target: " + detectedActors[i].name);
     }
 }

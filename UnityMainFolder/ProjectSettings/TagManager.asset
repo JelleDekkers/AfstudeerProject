@@ -7,6 +7,8 @@ TagManager:
   - Trap
   - Wall
   - Node
+  - Prop
+  - Interactable
   layers:
   - Default
   - TransparentFX
@@ -26,9 +28,9 @@ TagManager:
   - Projectile
   - Shield
   - Node
-  - Wall
+  - Building
   - Body
-  - 
+  - InteractableTrigger
   - 
   - 
   - 

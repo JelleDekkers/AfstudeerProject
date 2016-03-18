@@ -18,11 +18,12 @@ public class AIController : HumanoidController {
         navAgent = GetComponent<NavMeshAgent>();
         StartPos = transform.position;
         stoppingDinstance = 3f;
+        actor.OnDeath += StopMoving;
     }
 
     public override void Update() {
         base.Update();
-
+        
         if (actor.HealthPoints <= 0)
             return;
 
@@ -36,13 +37,13 @@ public class AIController : HumanoidController {
         }
     }
 
-    public void MoveToTargetPosition(Vector3 target) {
-        if (targetPos != target) {
-            targetPos = target;
-            navAgent.SetDestination(target);
-            navAgent.Resume();
+    public void MoveToTargetPosition(Vector3 targetPos) {
+        if (this.targetPos != targetPos) {
+            this.targetPos = targetPos;
+            navAgent.SetDestination(targetPos);
         }
 
+        navAgent.Resume();
         float modifier = 2f;
         float z = anim.GetFloat("MovementZ");
         z = Mathf.MoveTowards(z, 1, modifier * Time.deltaTime);
@@ -80,7 +81,7 @@ public class AIController : HumanoidController {
         StopBlocking();
     }
 
-    public Vector3 GetRandomNavPos(Vector3 direction) {
+    public Vector3 GetRandomNavPosInDirection(Vector3 direction) {
         NavMeshHit hit;
         float radius = 10;
         Quaternion randAng = Quaternion.Euler(0, UnityEngine.Random.Range(-45, 45), 0);
@@ -88,5 +89,9 @@ public class AIController : HumanoidController {
         Vector3 spawnPos = transform.position + randAng * direction * 15;
         NavMesh.SamplePosition(spawnPos, out hit, radius, 1);
         return hit.position;
+    }
+
+    private void OnGUI() {
+        GUI.Label(new Rect(10, 50, 1000, 20), "Dist: " + navAgent.remainingDistance);
     }
 }

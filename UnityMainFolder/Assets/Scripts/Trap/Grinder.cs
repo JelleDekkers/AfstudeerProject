@@ -1,22 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class Grinder : Trap {
+public class Grinder : MonoBehaviour, ITrap {
+
+    [SerializeField] private float playerDamage;
+    [SerializeField] private float aIDamage;
 
     [SerializeField] private float rotationSpeed;
     [SerializeField] private Vector3 rotationDirection;
-    [SerializeField] private GameObject spinner;
 
     public bool IsBroken { get; private set; }
 
-    private void Start() {
-        IsBroken = false;
+    private void Update() {
+        if (IsBroken) {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        transform.Rotate(rotationDirection * Time.deltaTime * rotationSpeed);
     }
 
-    private void Update() {
-        if (IsBroken)
-            return;
-
-        spinner.transform.Rotate(rotationDirection * Time.deltaTime * rotationSpeed);
+    public void OnTriggered(Actor actor) {
+        if (actor.GetType() == typeof(Player))
+            actor.TakeDamage(playerDamage, gameObject);
+        else
+            actor.TakeDamage(aIDamage, gameObject);
     }
 }
