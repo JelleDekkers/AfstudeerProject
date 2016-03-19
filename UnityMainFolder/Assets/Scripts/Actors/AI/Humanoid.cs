@@ -38,7 +38,6 @@ public class Humanoid : Actor {
         // betere manier verzinnen voor wanneer moven en stoppen, boolean
         //eventuele patrol mode implementeren tijdens roam state, zelfde manier als bij patrol state
         // betere combat system, ipv van meerdere keren block achter elkaar
-        // layer class met constants en alle lokale layers weghalen
 
         switch (currentState) {
             case State.Roaming:

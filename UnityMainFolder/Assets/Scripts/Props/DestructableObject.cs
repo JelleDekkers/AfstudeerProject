@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class DestructableObject : MonoBehaviour {
+public class DestructableObject : MonoBehaviour, IHittable {
 
     [SerializeField] private float breakingThreshold = 1;
 
@@ -47,7 +47,7 @@ public class DestructableObject : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    public void Hit(Vector3 direction, float force) {
+    public void Hit(Actor actor, Vector3 direction, float force) {
         if (force > breakingThreshold)
             Break(direction, force);
     }

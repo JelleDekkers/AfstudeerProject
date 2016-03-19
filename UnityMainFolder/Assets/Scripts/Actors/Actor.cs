@@ -32,7 +32,6 @@ public class Actor : MonoBehaviour {
     private RagdollController ragdollController;
     private HumanoidController humanoidController;
     private float forceAmount = 40;
-    private int bodyLayer = 19;
 
     [SerializeField]
     private LayerMask attackLayerMask;
@@ -114,7 +113,7 @@ public class Actor : MonoBehaviour {
         HealthPoints = 0;
         humanoidController.SetUpperBodyLayerWeight(0);
         Vector3 direction = Common.GetDirection(killer.transform.position, transform.position);
-        Common.SetLayerRecursively(bodyLayer, transform);
+        Common.SetLayerRecursively(Layers.BODY_LAYER, transform);
         ragdollController.ActivateRagDoll(direction, forceAmount);
         equippedItemManager.DropAndApplyForceToEquippedWeapons(direction, forceAmount);
         currentState = State.Dead;
@@ -129,8 +128,9 @@ public class Actor : MonoBehaviour {
 
         objectHit.GetComponent<Rigidbody>().AddForce(forceDirection * forceAmount, ForceMode.Impulse);
 
-        if (objectHit.GetComponent<DestructableObject>())
-            objectHit.GetComponent<DestructableObject>().Hit(forceDirection, forceAmount);
+        IHittable hittableComponent = (IHittable)objectHit.GetComponent(typeof(IHittable));
+        if (hittableComponent != null)
+           hittableComponent.Hit(this, forceDirection, forceAmount);
     }
 
     public void EnableShieldCollider() {
