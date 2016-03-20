@@ -9,6 +9,7 @@ TagManager:
   - Node
   - Prop
   - Interactable
+  - Floor
   layers:
   - Default
   - TransparentFX
