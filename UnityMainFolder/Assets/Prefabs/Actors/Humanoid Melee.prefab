@@ -315,12 +315,12 @@ GameObject:
   - 114: {fileID: 11492192}
   - 195: {fileID: 19538280}
   m_Layer: 9
-  m_Name: Humanoid
+  m_Name: Humanoid Melee
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &152430
 GameObject:
   m_ObjectHideFlags: 1
@@ -795,7 +795,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146422}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.0000043958426}
-  m_LocalPosition: {x: 0.03, y: 0, z: 2.99}
+  m_LocalPosition: {x: 4.65, y: 0, z: 10.59}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 405212}
@@ -1168,7 +1168,6 @@ MonoBehaviour:
   AttackPoints: 0
   ArmorPoints: 0
   ShieldPoints: 0
-  anim: {fileID: 0}
   IsBlocking: 0
   attackLayerMask:
     serializedVersion: 2
@@ -1766,7 +1765,7 @@ CharacterJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 0, y: 1, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -0.39686537, y: 0.13380541, z: -0.47952193}
+  m_ConnectedAnchor: {x: -0.39686537, y: 0.13380541, z: -0.4795217}
   serializedVersion: 2
   m_SwingAxis: {x: -1, y: 0, z: 0}
   m_TwistLimitSpring:
@@ -1950,7 +1949,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_Name
+      value: Humanoid Melee
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 146422}

@@ -15,7 +15,8 @@ public class Inventory {
         new EquippedItem(ItemType.LeftGreave, null),
         new EquippedItem(ItemType.RightGreave, null),
         new EquippedItem(ItemType.RightPauldron, null),
-        new EquippedItem(ItemType.LeftPauldron, null)
+        new EquippedItem(ItemType.LeftPauldron, null),
+        new EquippedItem(ItemType.Bow, null)
     };
 
     public event Action OnEquipmentChanged = null;

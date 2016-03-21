@@ -23,7 +23,8 @@ public class Actor : MonoBehaviour {
     public float ArmorPoints;// { get; protected set; }
     public float ShieldPoints;// { get; protected set; }
 
-    public Animator anim;
+    public Animator anim { get; private set; }
+
     public Inventory Inventory;
     public bool IsBlocking;
     public Action OnDeath;
@@ -33,12 +34,9 @@ public class Actor : MonoBehaviour {
     private HumanoidController humanoidController;
     private float forceAmount = 40;
 
-    [SerializeField]
-    private LayerMask attackLayerMask;
-    [SerializeField]
-    private LayerMask shieldLayerMask;
-    [SerializeField]
-    protected Transform attackCenter;
+    [SerializeField] private LayerMask attackLayerMask;
+    [SerializeField] private LayerMask shieldLayerMask;
+    [SerializeField] protected Transform attackCenter;
 
     private void Awake() {
         Inventory = new Inventory();
@@ -128,7 +126,8 @@ public class Actor : MonoBehaviour {
 
         objectHit.GetComponent<Rigidbody>().AddForce(forceDirection * forceAmount, ForceMode.Impulse);
 
-        IHittable hittableComponent = (IHittable)objectHit.GetComponent(typeof(IHittable));
+        //IHittable hittableComponent = (IHittable)objectHit.GetComponent(typeof(IHittable));
+        IHittable hittableComponent = objectHit.GetComponent<IHittable>();
         if (hittableComponent != null)
            hittableComponent.Hit(this, forceDirection, forceAmount);
     }
@@ -153,4 +152,22 @@ public class Actor : MonoBehaviour {
             trap.OnTriggered(GetComponent<Actor>());
         }
     }
+
+    //public void SetOnFire() {
+    //    if (fire == null) {
+    //        GameObject f = ParticleManager.InstantiateParticle(ParticleManager.Instance.Fire, attackCenter.position);
+    //        f.transform.SetParent(attackCenter, true);
+    //        f.transform.localEulerAngles = new Vector3(-90, 0, 0);
+    //        fire = f.GetComponent<Fire>();
+    //    } else {
+    //        //extend time
+    //    }
+    //}
+
+    //private void TakeFireDamageOnActor() {
+    //    if (fire == null)
+    //        return;
+
+    //    HealthPoints -= Time.deltaTime * fire.playerDamage / 2;
+    //}
 }

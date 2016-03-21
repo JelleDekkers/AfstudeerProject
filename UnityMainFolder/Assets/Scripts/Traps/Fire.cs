@@ -3,8 +3,13 @@ using System.Collections;
 
 public class Fire : MonoBehaviour, ITrap {
 
-    [SerializeField] private float playerDamage;
-    [SerializeField] private float aiDamage;
+    public float playerDamage { get; private set; }
+    public float aiDamage { get; private set; }
+
+    private void Start() {
+        playerDamage = 10;
+        aiDamage = 10;
+    }
 
     public void OnTriggered(Actor actor) {
         if(actor.GetType() == typeof(Player)) {
@@ -14,9 +19,29 @@ public class Fire : MonoBehaviour, ITrap {
         }
     }
 
-    private void OnTriggerStay(Collider other) {
-        if(other.GetComponent<Actor>()) {
-            OnTriggered(other.GetComponent<Actor>());
+    //private void OnTriggerEnter(Collider col) {
+    //    if (col.GetComponent<Actor>()) {
+    //        col.GetComponent<Actor>().SetOnFire();
+    //    }
+    //}
+
+    private void OnTriggerStay(Collider col) {
+        if(col.GetComponent<Actor>()) {
+            OnTriggered(col.GetComponent<Actor>());
         }
+    }
+
+    public void Extinquish() {
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<ParticleSystem>().enableEmission = false; 
+    }
+
+    public void ExtinquishAfterDelay(float delay) {
+        StartCoroutine(ExtinquishAfterDelayCoroutine(delay));
+    }
+
+    private IEnumerator ExtinquishAfterDelayCoroutine(float seconds) {
+        yield return new WaitForSeconds(seconds);
+        Extinquish();
     }
 }

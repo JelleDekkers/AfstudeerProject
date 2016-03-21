@@ -13,7 +13,8 @@ public enum ItemType {
     RightGreave = 5,
     Weapon = 6,
     Shield = 7,
-    Quest = 8
+    Quest = 8,
+    Bow = 9
 }
 
 [System.Serializable]

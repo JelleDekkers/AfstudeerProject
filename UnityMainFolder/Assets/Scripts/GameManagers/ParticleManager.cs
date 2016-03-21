@@ -7,13 +7,14 @@ public class ParticleManager : MonoBehaviour {
 
     public GameObject Sparks;
     public GameObject Blood;
+    public GameObject Fire;
 
     private void Start() {
         if (Instance == null)
             Instance = this;
     }
 
-    public static void InstantiateParticle(GameObject particle, Vector3 pos) {
-        Instantiate(particle, pos, Quaternion.identity);
+    public static GameObject InstantiateParticle(GameObject particle, Vector3 pos) {
+        return Instantiate(particle, pos, Quaternion.identity) as GameObject;
     }
 }

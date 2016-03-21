@@ -19,20 +19,24 @@ public class Firepit : MonoBehaviour, IHittable {
     }
 
     public IEnumerator DistributeFire(Vector3 colPoint) {
-        int fireAmount = 5;
-        float distance = 1;
-        float rndHorizontalDistance = 2;
+        int fireAmount = 7;
         float delayBetweenfireMin = 0.05f;
         float delayBetweenfireMax = 0.2f;
+        float extinquishDelayMin = 4f;
+        float extinquishDelayMax = 6f;
+        int circleRadius = 2;
 
         fires = new List<GameObject>();
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
+        Vector3 circle = colPoint + fwd;
         for (int i = 0; i < fireAmount; i++) {
             GameObject fire = Instantiate(firePrefab) as GameObject;
             Vector3 firePos = colPoint + fwd * i;
-            //firePos = new Vector3(firePos.x + Random.Range(-2, 2), firePos.y, firePos.z + Random.Range(-2, 2));
+            firePos = circle + Random.insideUnitSphere * circleRadius;
+            firePos.y = colPoint.y;
             fire.transform.position = firePos;
 
+            fire.GetComponent<Fire>().ExtinquishAfterDelay(Random.Range(extinquishDelayMin, extinquishDelayMax));
             fires.Add(fire);
 
             float delay = Random.Range(delayBetweenfireMin, delayBetweenfireMax);

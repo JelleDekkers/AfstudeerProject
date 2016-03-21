@@ -17,7 +17,7 @@ public class FirepitTrigger : MonoBehaviour {
             if (Physics.Raycast(transform.position, Vector3.down, out hit)) {
                 firePit.StartCoroutine(firePit.DistributeFire(hit.point));
             }
-            fireParticle.GetComponent<ParticleSystem>().Stop();
+            fireParticle.GetComponent<Fire>().Extinquish();
         }
     }
 }

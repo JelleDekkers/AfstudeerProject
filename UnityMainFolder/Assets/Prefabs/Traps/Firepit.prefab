@@ -12,6 +12,8 @@ GameObject:
   - 199: {fileID: 19988918}
   - 108: {fileID: 10822782}
   - 114: {fileID: 11473676}
+  - 114: {fileID: 11422424}
+  - 65: {fileID: 6505660}
   m_Layer: 0
   m_Name: Fire Particle
   m_TagString: Untagged
@@ -49,7 +51,7 @@ GameObject:
   - 4: {fileID: 459088}
   - 136: {fileID: 13633434}
   - 114: {fileID: 11435460}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,13 +156,25 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: b5cb56f640ca88c4a9c98f65f71236b3, type: 3}
+--- !u!65 &6505660
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103208}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0.06}
 --- !u!108 &10822782
 Light:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103208}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 6
   m_Type: 2
   m_Color: {r: 0.9558824, g: 0.79945517, b: 0.45685554, a: 1}
@@ -187,6 +201,17 @@ Light:
   m_ShadowRadius: 0
   m_ShadowAngle: 0
   m_AreaSize: {x: 1, y: 1}
+--- !u!114 &11422424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f70f1314ce6554cb7b9dfe5add1995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11435460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -204,7 +229,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103208}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b6694d46413e00840b5c98fba680f217, type: 3}
   m_Name: 
@@ -226,8 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5a52ba1af7b894fa9f4f83e62c4cbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDamage: 0
-  aiDamage: 0
+  firePrefab: {fileID: 116110, guid: 48538d6ac939f6447aa966cbb619f410, type: 2}
 --- !u!136 &13633434
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -289,7 +313,7 @@ ParticleSystem:
   looping: 1
   prewarm: 0
   playOnAwake: 1
-  moveWithTransform: 1
+  moveWithTransform: 0
   scalingMode: 2
   InitialModule:
     serializedVersion: 2
