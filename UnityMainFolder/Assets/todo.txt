@@ -1,3 +1,5 @@
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
 
+andere ren animatie voor vijanden zodat ze langzamer zijn
+vijanden moeten de speler omcirkelen

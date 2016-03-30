@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HumanoidController : MonoBehaviour {
+public class HumanoidAnimatorHandler : MonoBehaviour {
 
     protected Animator anim;
     protected Actor actor;
@@ -20,13 +20,13 @@ public class HumanoidController : MonoBehaviour {
     protected int UpperBodyLayer_LeftSwingState = Animator.StringToHash("UpperBodyLayer.Swing Left");
     protected int UpperBodyLayer_rightSwingState = Animator.StringToHash("UpperBodyLayer.Swing Right");
 
-    public virtual void Start() {
+    protected virtual void Start() {
         anim = GetComponent<Animator>();
         actor = GetComponent<Actor>();
         anim.SetLayerWeight(upperBodyLayerIndex, 1);
     }
 
-    public virtual void Update() {
+    protected virtual void Update() {
         SetLayerStatesToAnimator();
         ResetOneTimeStates();
     }
@@ -49,28 +49,41 @@ public class HumanoidController : MonoBehaviour {
             anim.SetBool("Lunge", false);
         if (upperBodyLayerState.fullPathHash == UpperBodyLayer_flinchState) 
             anim.SetBool("Flinch", false);
+
+        if (anim.GetBool("DrawArrow") == true) {
+            anim.SetBool("DrawArrow", false);
+            anim.SetBool("ShootArrow", false);
+        }
+        
     }
 
-    protected void Attack() {
-        if(upperBodyLayerState.fullPathHash != UpperBodyLayer_LeftSwingState)
+    public void Attack() {
+        //if(upperBodyLayerState.fullPathHash != UpperBodyLayer_LeftSwingState)
             anim.SetBool("Attacking", true);
     }
 
-    protected void Block() {
+    public void LungeAttack() {
+        //if (upperBodyLayerState.fullPathHash != UpperBodyLayer_LeftSwingState)
+            anim.SetBool("Lunge", true);
+    }
+
+    public void DrawArrow() {
+        anim.SetBool("DrawArrow", true);
+    }
+
+    public void FireArrow() {
+        anim.SetBool("ShootArrow", true);
+    }
+
+    public void Block() {
         anim.SetBool("Blocking", true);
         actor.EnableShieldCollider();
         actor.IsBlocking = true;
     }
 
-    protected IEnumerator Block(float time) {
-        Block();
-        yield return new WaitForSeconds(time);
-        StopBlocking();
-    }
-
-    protected void StopBlocking() {
+    public void StopBlocking() {
         anim.SetBool("Blocking", false);
         actor.DisableShieldCollider();
-        actor.IsBlocking = true;
+        actor.IsBlocking = false;
     }
 }

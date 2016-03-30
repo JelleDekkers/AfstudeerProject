@@ -128,7 +128,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.63226384
-        functionName: ExecuteAttack
+        functionName: AttackAnimationEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

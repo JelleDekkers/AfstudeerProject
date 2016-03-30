@@ -12,7 +12,7 @@ GameObject:
   - 199: {fileID: 19998646}
   - 12: {fileID: 1226324}
   - 114: {fileID: 11478984}
-  m_Layer: 0
+  m_Layer: 21
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1586,6 +1586,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: autodestruct
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 21
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

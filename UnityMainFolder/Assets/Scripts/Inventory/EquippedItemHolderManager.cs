@@ -7,10 +7,10 @@ public class EquippedItemHolderManager : MonoBehaviour {
 
     public EquippedItemHolder WeaponHolder { get; private set; }
     public EquippedItemHolder ShieldHolder { get; private set; }
+    public EquippedItemHolder BowHolder { get; private set; }
 
     private void Start() {
         equippedItemHolders = GetComponentsInChildren<EquippedItemHolder>();
-
         GetComponent<Actor>().Inventory.OnEquipmentChangedTo += UpdateEquipment;
 
         foreach(EquippedItemHolder holder in equippedItemHolders) {
@@ -18,6 +18,8 @@ public class EquippedItemHolderManager : MonoBehaviour {
                 WeaponHolder = holder;
             if (holder.Type == ItemType.Shield)
                 ShieldHolder = holder;
+            if (holder.Type == ItemType.Bow)
+                BowHolder = holder;
         }
     }
 
@@ -37,12 +39,17 @@ public class EquippedItemHolderManager : MonoBehaviour {
     }
 
     public void DropAndApplyForceToEquippedWeapons(Vector3 forceDirection, float forceAmount) {
-        //is nog niet uit inventory verwijderd!!!
+        //is nog niet uit inventory verwijderd
         AddRigidbodyAndForceToItem(WeaponHolder.Item.gameObject, forceDirection, forceAmount);
         AddRigidbodyAndForceToItem(ShieldHolder.Item.gameObject, forceDirection, forceAmount);
+        if (BowHolder != null)
+            AddRigidbodyAndForceToItem(BowHolder.Item.gameObject, forceDirection, forceAmount);
     }
 
     private void AddRigidbodyAndForceToItem(GameObject item, Vector3 forceDirection, float forceAmount) {
+        if (item == null)
+            return;
+
         float forceMultiplier = 1.5f;
         float torqueForce = 100;
         float itemMass = 8;

@@ -28,22 +28,24 @@ public class Actor : MonoBehaviour {
     public Inventory Inventory;
     public bool IsBlocking;
     public Action OnDeath;
+    public Action<GameObject> OnDamageTaken;
+    public Action OnStaggered;
 
     private EquippedItemHolderManager equippedItemManager;
     private RagdollController ragdollController;
-    private HumanoidController humanoidController;
+    private HumanoidAnimatorHandler humanoidController;
     private float forceAmount = 40;
 
     [SerializeField] private LayerMask attackLayerMask;
     [SerializeField] private LayerMask shieldLayerMask;
-    [SerializeField] protected Transform attackCenter;
+    [SerializeField] public Transform attackCenter; //protected
 
     private void Awake() {
         Inventory = new Inventory();
         equippedItemManager = GetComponent<EquippedItemHolderManager>();
         anim = GetComponent<Animator>();
         ragdollController = GetComponent<RagdollController>();
-        humanoidController = GetComponent<HumanoidController>();
+        humanoidController = GetComponent<HumanoidAnimatorHandler>();
         anim.SetFloat("HealthPoints", HealthPoints);
         currentState = State.Roaming;
     }
@@ -61,19 +63,20 @@ public class Actor : MonoBehaviour {
         ShieldPoints = Inventory.GetShieldPoints();
     }
 
-    public virtual void ExecuteAttack() {
+    public virtual void AttackAnimationEvent() {
         ItemData weapon = Inventory.Weapon;
         Collider[] objectsInRange = Physics.OverlapSphere(attackCenter.position, weapon.WeaponLength, attackLayerMask);
         GameObject objectHit = null;
 
         foreach (Collider col in objectsInRange) {
+
             Vector3 targetDir = col.transform.position - transform.position;
             targetDir = targetDir.normalized;
             float dot = Vector3.Dot(targetDir, transform.forward);
             float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
             Vector3 fwd = transform.TransformDirection(Vector3.forward);
-
-            if (angle < weapon.AttackAngle) {
+            
+            if (float.IsNaN(angle) ||  angle < weapon.AttackAngle) {
                 objectHit = col.gameObject;
                 angle = Vector3.Angle(targetDir, objectHit.transform.position);
 
@@ -88,23 +91,33 @@ public class Actor : MonoBehaviour {
 
     public virtual void AttackActor(Actor actorToAttack, float angle) {
         Vector3 particlePos = Vector3.zero;
+
+        //print("isblocking: " + actorToAttack.IsBlocking);
+        //print("shield angle: " + actorToAttack.Inventory.Shield.AttackAngle);
+        //print("angle " + angle);
+
         if (actorToAttack.IsBlocking && angle < actorToAttack.Inventory.Shield.AttackAngle) {
             particlePos = actorToAttack.equippedItemManager.ShieldHolder.Item.transform.position;
             Instantiate(ParticleManager.Instance.Sparks, particlePos, Quaternion.identity);
         } else {
-            particlePos = new Vector3(actorToAttack.transform.position.x, equippedItemManager.WeaponHolder.Item.transform.position.x, actorToAttack.transform.position.z);
+            particlePos = new Vector3(actorToAttack.transform.position.x, equippedItemManager.WeaponHolder.Item.transform.position.y, actorToAttack.transform.position.z);
             Instantiate(ParticleManager.Instance.Blood, particlePos, Quaternion.identity);
             float weaponAttackPoints = Inventory.Weapon.Points;
             actorToAttack.TakeDamage(weaponAttackPoints, gameObject);
         }
     }
 
-    public void TakeDamage(float amount, GameObject killer) {
+    public void TakeDamage(float amount, GameObject sender) {
         anim.SetBool("Flinch", true); //Stagger, Flinch
+        if (OnStaggered != null)
+            OnStaggered();
+
         HealthPoints -= amount;
 
         if (HealthPoints <= 0)
-            Die(killer);
+            Die(sender);
+        else if (OnDamageTaken != null)
+            OnDamageTaken(sender);
     }
 
     private void Die(GameObject killer) {
@@ -126,7 +139,6 @@ public class Actor : MonoBehaviour {
 
         objectHit.GetComponent<Rigidbody>().AddForce(forceDirection * forceAmount, ForceMode.Impulse);
 
-        //IHittable hittableComponent = (IHittable)objectHit.GetComponent(typeof(IHittable));
         IHittable hittableComponent = objectHit.GetComponent<IHittable>();
         if (hittableComponent != null)
            hittableComponent.Hit(this, forceDirection, forceAmount);

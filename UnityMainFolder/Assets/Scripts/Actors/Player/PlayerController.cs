@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : HumanoidController {
+public class PlayerController : HumanoidAnimatorHandler {
 
     private float xRotation = 0;
     private float yRotation = 0;
@@ -11,14 +11,13 @@ public class PlayerController : HumanoidController {
     [SerializeField]
     private float rotationSpeed = 8;
 
-    public override void Start() {
+    protected override void Start() {
         base.Start();
-
         xRotation = transform.eulerAngles.x;
         yRotation = transform.eulerAngles.y;
     }
 
-    public override void Update() {
+    protected override void Update() {
         base.Update();
 
         if (PlayerState.State == playerState.InGame && Player.Instance.HealthPoints > 0) {

@@ -26,7 +26,7 @@ namespace AfstudeerProject.Triggers {
                         InteractWrapper();
                     break;
                 case InteractionType.AIOnly:
-                    if (col.GetComponent<AIController>())
+                    if (col.GetComponent<HumanoidNavHandler>())
                         InteractWrapper();
                     break;
                 default:

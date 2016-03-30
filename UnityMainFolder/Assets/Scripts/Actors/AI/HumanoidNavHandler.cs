@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 
-public class AIController : HumanoidController {
+public class HumanoidNavHandler : MonoBehaviour {
 
     private NavMeshAgent navAgent;
     private Vector3 targetPos;
@@ -11,19 +11,19 @@ public class AIController : HumanoidController {
     public Action OnTargetReachedEvent;
 
     private float stoppingDinstance;
+    private Actor actor;
+    private Animator anim;
 
-    public override void Start() {
-        base.Start();
+    private void Start() {
         actor = GetComponent<Actor>();
+        anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         StartPos = transform.position;
         stoppingDinstance = 3f;
         actor.OnDeath += StopMoving;
     }
 
-    public override void Update() {
-        base.Update();
-        
+    private void Update() {
         if (actor.HealthPoints <= 0)
             return;
 
@@ -33,6 +33,7 @@ public class AIController : HumanoidController {
             navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
 
         if(navAgent.remainingDistance < stoppingDinstance && OnTargetReachedEvent != null) {
+            StopMoving();
             OnTargetReachedEvent();
         }
     }
@@ -57,28 +58,6 @@ public class AIController : HumanoidController {
         float z = anim.GetFloat("MovementZ");
         z = Mathf.MoveTowards(z, 0, modifier * Time.deltaTime);
         anim.SetFloat("MovementZ", z);
-    }
-
-    private void TestInput() {
-        if (Input.GetKeyDown(KeyCode.C)) {
-            Attack();
-        } else if (Input.GetKeyDown(KeyCode.V)) {
-            Block();
-        } else if (Input.GetKeyDown(KeyCode.B)) {
-            StopBlocking();
-        }
-    }
-
-    public void AttackWrapper() {
-        Attack();
-    }
-
-    public void BlockWrapper() {
-        Block();
-    }
-
-    public void StopBlockingWrapper() {
-        StopBlocking();
     }
 
     public Vector3 GetRandomNavPosInDirection(Vector3 direction) {
