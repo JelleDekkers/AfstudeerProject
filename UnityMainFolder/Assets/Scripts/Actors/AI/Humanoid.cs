@@ -17,6 +17,7 @@ public class Humanoid : Actor {
     private float patrollingToIdleTimerMax = 5;
     private bool targetReached;
     private Vector3 rndPoint;
+    protected float attackDistance = 1;
 
     protected virtual void Start() {
         navAgent = GetComponent<HumanoidNavHandler>();
@@ -28,7 +29,7 @@ public class Humanoid : Actor {
     public override void Update() {
         base.Update();
         detectedActors = GetDetectedActors();
-        Debug.DrawRay(attackCenter.transform.position, transform.TransformDirection(Vector3.forward) * viewDistance, Color.red);
+        Debug.DrawRay(attackCenter.transform.position, transform.TransformDirection(Vector3.forward) * attackDistance, Color.red);
     }
 
     protected virtual GameObject[] GetDetectedActors() {
@@ -77,6 +78,24 @@ public class Humanoid : Actor {
         };
     }
 
+    protected virtual void Aggroed() {
+        if (detectedActors.Length == 0) {
+            currentState = State.Patrolling;
+            targetActor = null;
+            return;
+        }
+
+        if (Vector3.Distance(transform.position, targetActor.transform.position) <= attackDistance) {
+            navAgent.StopMoving();
+            currentState = State.InCombat;
+            return;
+        }
+
+        lastDetectedEnemyPosition = targetActor.transform.position;
+        navAgent.MoveToTargetPosition(lastDetectedEnemyPosition);
+    }
+
+
     private void OnDamageTakenFunction(GameObject cause) {
         if (cause == null)
             return;
@@ -87,9 +106,5 @@ public class Humanoid : Actor {
             else
                 currentState = State.Patrolling;
         } 
-    }
-
-    private void OnGUI() {
-        GUI.Label(new Rect(10, 10, 1000, 20), "State: " + currentState.ToString());
     }
 }

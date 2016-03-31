@@ -19,7 +19,7 @@ public class HumanoidNavHandler : MonoBehaviour {
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         StartPos = transform.position;
-        stoppingDinstance = 3f;
+        stoppingDinstance = 1f;
         actor.OnDeath += StopMoving;
     }
 
@@ -68,9 +68,5 @@ public class HumanoidNavHandler : MonoBehaviour {
         Vector3 spawnPos = transform.position + randAng * direction * 15;
         NavMesh.SamplePosition(spawnPos, out hit, radius, 1);
         return hit.position;
-    }
-
-    private void OnGUI() {
-        GUI.Label(new Rect(10, 50, 1000, 20), "Dist: " + navAgent.remainingDistance);
     }
 }

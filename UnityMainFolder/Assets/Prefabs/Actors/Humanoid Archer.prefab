@@ -1873,7 +1873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   HealthPoints: 15
-  AttackPoints: 0
+  AttackPoints: 10
   ArmorPoints: 0
   ShieldPoints: 0
   IsBlocking: 0
@@ -1892,8 +1892,8 @@ MonoBehaviour:
   animSpeed: 1
   arrowPrefab: {fileID: 11436588, guid: ffab065086f3b20478b3663f97468eff, type: 2}
   arrowStartPos: {fileID: 460474}
-  shootDistance: {fileID: 0}
-  safeDistance: {fileID: 0}
+  shootDistance: 12
+  safeDistance: 6
 --- !u!114 &11478306
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -75,6 +75,10 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
         anim.SetBool("ShootArrow", true);
     }
 
+    public void StopFiringArrow() {
+        anim.SetBool("ShootArrow", false);
+    }
+
     public void Block() {
         anim.SetBool("Blocking", true);
         actor.EnableShieldCollider();

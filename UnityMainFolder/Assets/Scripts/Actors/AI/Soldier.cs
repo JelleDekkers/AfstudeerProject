@@ -7,13 +7,16 @@ public class Soldier : Humanoid {
     private bool combatRoutineStarted;
     private int prevAction = 0;
 
+    protected override void Start() {
+        base.Start();
+        attackDistance = lungeDistance;
+    }
+
     public override void Update() {
         base.Update();
 
         if (currentState == State.Dead)
             return;
-
-        //Debug.DrawRay(attackCenter.transform.position, transform.TransformDirection(Vector3.forward) * lungeDistance, Color.red);
 
         // betere manier verzinnen voor wanneer moven en stoppen, boolean
         //doorzoeken naar lastdetected position en verder?
@@ -46,9 +49,9 @@ public class Soldier : Humanoid {
             else
                 rndBehaviour++;
         }
-        print(rndBehaviour);
         prevAction = rndBehaviour;
         combatRoutineStarted = true;
+
         switch (rndBehaviour) {
             case 0:
                 animHandler.Attack();
@@ -57,11 +60,13 @@ public class Soldier : Humanoid {
             case 1:
                 time = Random.Range(1f, 2f);
                 animHandler.Block();
+                transform.LookAtWithoutYAxis(targetActor.transform);
                 yield return new WaitForSeconds(time);
                 animHandler.StopBlocking();
                 break;
             case 2:
                 time = Random.Range(0.5f, 1.5f);
+                transform.LookAtWithoutYAxis(targetActor.transform);
                 yield return new WaitForSeconds(time);
                 break;
             case 3:
@@ -73,23 +78,6 @@ public class Soldier : Humanoid {
         combatRoutineStarted = false;
     }
 
-    public void Aggroed() {
-        if (detectedActors.Length == 0) {
-            currentState = State.Patrolling;
-            targetActor = null;
-            return;
-        }
-
-        if (Vector3.Distance(transform.position, targetActor.transform.position) <= lungeDistance) {
-            navAgent.StopMoving();
-            currentState = State.InCombat;
-            return;
-        }
-
-        lastDetectedEnemyPosition = targetActor.transform.position;
-        navAgent.MoveToTargetPosition(lastDetectedEnemyPosition);
-    }
-
     public void InCombat() {
         if (detectedActors.Length == 0) {
             currentState = State.Patrolling;
@@ -98,7 +86,6 @@ public class Soldier : Humanoid {
         }
 
         if (Vector3.Distance(transform.position, targetActor.transform.position) < lungeDistance) {
-            transform.LookAt(targetActor.transform);
             navAgent.StopMoving();
             if (!combatRoutineStarted)
                 StartCoroutine(RandomCombat());

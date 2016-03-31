@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-[RequireComponent(typeof(Collider))]
 public class Arrow : MonoBehaviour {
 
     [SerializeField] private float speed = 20;
     [SerializeField] private float playerDamage = 10;
     [SerializeField] private float aiDamage = 10;
+    [SerializeField] private LayerMask limbLayerMask;
 
     private bool move;
     private GameObject shooter;
@@ -14,7 +13,9 @@ public class Arrow : MonoBehaviour {
     private float destroyTime = 20f;
     private Rigidbody rBody;
     
-    public void Init(Transform shooter) {
+    public void Init(Transform shooter, float damage) {
+        playerDamage = damage;
+        aiDamage = damage;
         this.shooter = shooter.gameObject;
         transform.parent = shooter;
         rBody = GetComponent<Rigidbody>();
@@ -51,10 +52,12 @@ public class Arrow : MonoBehaviour {
                 actor.TakeDamage(playerDamage, shooter);
             else
                 actor.TakeDamage(aiDamage, shooter);
+            //TODO: check for limb and parent arrow to it
         }
 
         move = false;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         transform.parent = col.gameObject.transform;
+        Destroy(GetComponent<Collider>());
     }
 }
