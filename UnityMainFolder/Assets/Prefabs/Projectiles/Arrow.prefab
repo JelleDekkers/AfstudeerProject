@@ -106,6 +106,9 @@ MonoBehaviour:
   speed: 25
   playerDamage: 10
   aiDamage: 10
+  limbLayerMask:
+    serializedVersion: 2
+    m_Bits: 768
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -120,6 +123,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Layer
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: limbLayerMask.m_Bits
+      value: 768
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

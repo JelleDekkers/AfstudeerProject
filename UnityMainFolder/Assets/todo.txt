@@ -1,7 +1,7 @@
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
 
-angle fixen bij attack
+right attack implementeren na left attack
 andere ren animatie voor vijanden zodat ze langzamer zijn
 enemy lunge animatie fixen
 player jump

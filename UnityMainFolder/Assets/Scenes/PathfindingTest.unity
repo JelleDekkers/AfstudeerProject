@@ -1564,7 +1564,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 146422, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11480588, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
+      propertyPath: AttackPoints
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}

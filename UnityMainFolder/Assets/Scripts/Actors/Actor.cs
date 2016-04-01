@@ -69,16 +69,16 @@ public class Actor : MonoBehaviour {
         GameObject objectHit = null;
 
         foreach (Collider col in objectsInRange) {
-
             Vector3 targetDir = col.transform.position - transform.position;
             targetDir = targetDir.normalized;
             float dot = Vector3.Dot(targetDir, transform.forward);
             float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
             Vector3 fwd = transform.TransformDirection(Vector3.forward);
-            
+
             if (float.IsNaN(angle) ||  angle < weapon.AttackAngle) {
                 objectHit = col.gameObject;
-                angle = Vector3.Angle(targetDir, objectHit.transform.position);
+
+                angle = Mathf.Abs(Mathf.Abs(Mathf.DeltaAngle(transform.localEulerAngles.y, objectHit.transform.localEulerAngles.y)) - 180);
 
                 if (objectHit.GetComponent<Actor>()) {
                     AttackActor(objectHit.GetComponent<Actor>(), angle);
@@ -91,10 +91,6 @@ public class Actor : MonoBehaviour {
 
     public virtual void AttackActor(Actor actorToAttack, float angle) {
         Vector3 particlePos = Vector3.zero;
-
-        //print("isblocking: " + actorToAttack.IsBlocking);
-        //print("shield angle: " + actorToAttack.Inventory.Shield.AttackAngle);
-        //print("angle " + angle);
 
         if (actorToAttack.IsBlocking && angle < actorToAttack.Inventory.Shield.AttackAngle) {
             particlePos = actorToAttack.equippedItemManager.ShieldHolder.Item.transform.position;
@@ -112,7 +108,17 @@ public class Actor : MonoBehaviour {
         if (OnStaggered != null)
             OnStaggered();
 
-        HealthPoints -= amount;
+        RaycastHit hit;
+        if (IsBlocking) {
+            if (Physics.Raycast(attackCenter.position, (sender.transform.position - attackCenter.position), out hit, 10)) {
+                if (hit.transform == sender) {
+                    print("sender found" + sender);
+                }
+            }
+        }
+
+
+        //HealthPoints -= amount;
 
         if (HealthPoints <= 0)
             Die(sender);
