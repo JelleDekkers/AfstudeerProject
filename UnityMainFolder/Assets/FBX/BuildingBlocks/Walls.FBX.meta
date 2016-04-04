@@ -107,6 +107,16 @@ ModelImporter:
     4300034: Floor1
     4300036: Floor2
     4300038: Blackground
+    6400000: Arch1
+    6400002: Arch2
+    6400004: Arch3
+    6400006: Blackground
+    6400008: Bricks1
+    6400010: Bricks2
+    6400012: Floor1
+    6400014: Floor2
+    6400016: Pllar1
+    6400018: Trims
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -134,7 +144,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 0.1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
