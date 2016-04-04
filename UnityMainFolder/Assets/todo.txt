@@ -1,8 +1,8 @@
+inventory volledig grid in item list,
+inventory scrollbaar list wanneer scherm vol is
+
+right attack implementeren na left attack
 andere ren animatie voor vijanden zodat ze langzamer zijn
 enemy lunge animatie fixen
 player jump
 vijanden moeten de speler omcirkelen
-
-inventory volledig grid in item list,
-inventory scrollbaar list wanneer scherm vol is
-player position resolutie dependent maken in inventory screen

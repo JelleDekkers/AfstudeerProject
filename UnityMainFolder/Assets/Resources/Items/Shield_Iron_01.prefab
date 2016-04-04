@@ -108,7 +108,7 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 1ad08b02f8bcf2c4c9610fcf6b063aa6, type: 3}
   Points: 5
   WeaponLength: 1
-  AttackAngle: 30
+  AttackAngle: 50
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -127,10 +127,6 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: AttackAngle
-      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
