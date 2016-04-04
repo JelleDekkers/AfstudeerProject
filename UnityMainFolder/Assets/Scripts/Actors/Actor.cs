@@ -117,8 +117,7 @@ public class Actor : MonoBehaviour {
             }
         }
 
-
-        //HealthPoints -= amount;
+        HealthPoints -= amount;
 
         if (HealthPoints <= 0)
             Die(sender);

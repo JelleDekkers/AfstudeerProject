@@ -1,64 +1,59 @@
 fileFormatVersion: 2
-guid: 60807e90a4624ad49a80c7adc963d18b
-timeCreated: 1455526557
+guid: 60a514e97cf99db4095d4ac92c59d527
+timeCreated: 1459528594
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Base HumanHead
-    100002: Base HumanLCalf
-    100004: Base HumanLCollarbone
-    100006: Base HumanLFoot
-    100008: Base HumanLForearm
-    100010: Base HumanLPalm
-    100012: Base HumanLThigh
-    100014: Base HumanLUpperarm
-    100016: Base HumanNeck
-    100018: Base HumanPelvis
-    100020: Base HumanRCalf
-    100022: Base HumanRCollarbone
-    100024: Base HumanRFoot
-    100026: Base HumanRForearm
-    100028: Base HumanRibcage
-    100030: Base HumanRPalm
-    100032: Base HumanRThigh
-    100034: Base HumanRUpperarm
-    100036: Base HumanSpine1
-    100038: Base HumanSpine2
-    100040: //RootNode
-    100042: Base Human
-    100044: Base HumanLPlatform
-    100046: Base HumanRPlatform
-    100048: Dummy001
-    100050: Dummy002
-    400000: Base HumanHead
-    400002: Base HumanLCalf
-    400004: Base HumanLCollarbone
-    400006: Base HumanLFoot
-    400008: Base HumanLForearm
-    400010: Base HumanLPalm
-    400012: Base HumanLThigh
-    400014: Base HumanLUpperarm
-    400016: Base HumanNeck
-    400018: Base HumanPelvis
-    400020: Base HumanRCalf
-    400022: Base HumanRCollarbone
-    400024: Base HumanRFoot
-    400026: Base HumanRForearm
-    400028: Base HumanRibcage
-    400030: Base HumanRPalm
-    400032: Base HumanRThigh
-    400034: Base HumanRUpperarm
-    400036: Base HumanSpine1
-    400038: Base HumanSpine2
-    400040: //RootNode
-    400042: Base Human
-    400044: Base HumanLPlatform
-    400046: Base HumanRPlatform
-    400048: Dummy001
-    400050: Dummy002
-    7400000: Attack Swing Left
-    7400002: Attack Swing Right
+    100000: Base Human
+    100002: Base HumanHead
+    100004: Base HumanLCalf
+    100006: Base HumanLCollarbone
+    100008: Base HumanLFoot
+    100010: Base HumanLForearm
+    100012: Base HumanLPalm
+    100014: Base HumanLPlatform
+    100016: Base HumanLThigh
+    100018: Base HumanLUpperarm
+    100020: Base HumanNeck
+    100022: Base HumanPelvis
+    100024: Base HumanRCalf
+    100026: Base HumanRCollarbone
+    100028: Base HumanRFoot
+    100030: Base HumanRForearm
+    100032: Base HumanRibcage
+    100034: Base HumanRPalm
+    100036: Base HumanRPlatform
+    100038: Base HumanRThigh
+    100040: Base HumanRUpperarm
+    100042: Base HumanSpine1
+    100044: Base HumanSpine2
+    100046: //RootNode
+    400000: Base Human
+    400002: Base HumanHead
+    400004: Base HumanLCalf
+    400006: Base HumanLCollarbone
+    400008: Base HumanLFoot
+    400010: Base HumanLForearm
+    400012: Base HumanLPalm
+    400014: Base HumanLPlatform
+    400016: Base HumanLThigh
+    400018: Base HumanLUpperarm
+    400020: Base HumanNeck
+    400022: Base HumanPelvis
+    400024: Base HumanRCalf
+    400026: Base HumanRCollarbone
+    400028: Base HumanRFoot
+    400030: Base HumanRForearm
+    400032: Base HumanRibcage
+    400034: Base HumanRPalm
+    400036: Base HumanRPlatform
+    400038: Base HumanRThigh
+    400040: Base HumanRUpperarm
+    400042: Base HumanSpine1
+    400044: Base HumanSpine2
+    400046: //RootNode
+    7400000: AttackSwingRight
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -71,29 +66,9 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: "\nDefault bone length found in this file is different
-      form the one found in the source avatar:\n\t'Base HumanLThigh' : position error
-      = 6534.131348 mm\n\t'Base HumanLCalf' : position error = 11276.495117 mm\n\t'Base
-      HumanLFoot' : position error = 12272.473633 mm\n\t'Base HumanRThigh' : position
-      error = 6534.133301 mm\n\t'Base HumanRCalf' : position error = 11276.493164
-      mm\n\t'Base HumanRFoot' : position error = 12272.472656 mm\n\t'Base HumanSpine1'
-      : position error = 7967.334473 mm\n\t'Base HumanSpine2' : position error = 6777.557617
-      mm\n\t'Base HumanRibcage' : position error = 12186.030273 mm\n\t'Base HumanLCollarbone'
-      : position error = 8350.100586 mm\n\t'Base HumanLUpperarm' : position error
-      = 4871.521484 mm\n\t'Base HumanLForearm' : position error = 10661.194336 mm\n\t'Base
-      HumanLPalm' : position error = 13321.909180 mm\n\t'Base HumanRCollarbone' :
-      position error = 8350.099609 mm\n\t'Base HumanRUpperarm' : position error =
-      4871.521973 mm\n\t'Base HumanRForearm' : position error = 10661.196289 mm\n\t'Base
-      HumanRPalm' : position error = 13321.909180 mm\n\t'Base HumanNeck' : position
-      error = 145.503983 mm\n\t'Base HumanHead' : position error = 7424.513672 mm\n\nClip
-      'Take 001' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'Base
-      HumanSpine1' is inbetween humanoid transforms and has rotation animation that
-      will be discarded.\n\t'Base HumanSpine2' is inbetween humanoid transforms and
-      has rotation animation that will be discarded.\n\t'Base HumanLCollarbone' is
-      inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Base
-      HumanRCollarbone' is inbetween humanoid transforms and has rotation animation
-      that will be discarded.\n"
+    animationImportWarnings: "\nInbetween bone default rotation found in this file
+      is different from the one found in the source avatar:\n\t'Base HumanSpine1'
+      : rotation error = 0.052470 deg\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -104,10 +79,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Attack Swing Left
+      name: AttackSwingRight
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 15
+      lastFrame: 32
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -127,94 +102,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.63226384
-        functionName: AttackAnimationEvent
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Base HumanPelvis
-        weight: 1
-      - path: Base HumanPelvis/Base HumanLThigh
-        weight: 1
-      - path: Base HumanPelvis/Base HumanLThigh/Base HumanLCalf
-        weight: 1
-      - path: Base HumanPelvis/Base HumanLThigh/Base HumanLCalf/Base HumanLFoot
-        weight: 1
-      - path: Base HumanPelvis/Base HumanRThigh
-        weight: 1
-      - path: Base HumanPelvis/Base HumanRThigh/Base HumanRCalf
-        weight: 1
-      - path: Base HumanPelvis/Base HumanRThigh/Base HumanRCalf/Base HumanRFoot
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
-          HumanLCollarbone
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
-          HumanLCollarbone/Base HumanLUpperarm
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
-          HumanLCollarbone/Base HumanLUpperarm/Base HumanLForearm
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
-          HumanLCollarbone/Base HumanLUpperarm/Base HumanLForearm/Base HumanLPalm
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
-          HumanNeck
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
-          HumanNeck/Base HumanHead
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
-          HumanRCollarbone
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
-          HumanRCollarbone/Base HumanRUpperarm
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
-          HumanRCollarbone/Base HumanRUpperarm/Base HumanRForearm
-        weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
-          HumanRCollarbone/Base HumanRUpperarm/Base HumanRForearm/Base HumanRPalm
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Attack Swing Right
-      takeName: Take 001
-      firstFrame: 40
-      lastFrame: 44
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: 0
+      - time: 0.4540956
         functionName: AttackAnimationEvent
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -261,9 +149,6 @@ ModelImporter:
           HumanLCollarbone/Base HumanLUpperarm/Base HumanLForearm/Base HumanLPalm
         weight: 1
       - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
-          HumanLCollarbone/Base HumanLUpperarm/Base HumanLForearm/Base HumanLPalm/Dummy002
-        weight: 0
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
           HumanNeck
         weight: 1
       - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
@@ -281,9 +166,6 @@ ModelImporter:
       - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
           HumanRCollarbone/Base HumanRUpperarm/Base HumanRForearm/Base HumanRPalm
         weight: 1
-      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
-          HumanRCollarbone/Base HumanRUpperarm/Base HumanRForearm/Base HumanRPalm/Dummy001
-        weight: 0
       - path: Base HumanRPlatform
         weight: 0
       maskType: 0
@@ -295,11 +177,11 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 0
+    importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 0
+    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8
