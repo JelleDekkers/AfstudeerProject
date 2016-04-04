@@ -3,6 +3,12 @@ using System.Collections;
 
 public class HumanoidAnimatorHandler : MonoBehaviour {
 
+    private enum Direction {
+        left,
+        right,
+        None
+    }
+
     protected Animator anim;
     protected Actor actor;
     protected float animSpeed = 1;
@@ -20,6 +26,10 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
     protected int UpperBodyLayer_LeftSwingState = Animator.StringToHash("UpperBodyLayer.Swing Left");
     protected int UpperBodyLayer_rightSwingState = Animator.StringToHash("UpperBodyLayer.Swing Right");
 
+    private bool attackAgain;
+    private Direction currentAttackDirection;
+    private Direction nextAttackDirection;
+
     protected virtual void Start() {
         anim = GetComponent<Animator>();
         actor = GetComponent<Actor>();
@@ -29,6 +39,7 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
     protected virtual void Update() {
         SetLayerStatesToAnimator();
         ResetOneTimeStates();
+        HandleAttackLinks();
     }
 
     public void SetUpperBodyLayerWeight(int weight) {
@@ -41,8 +52,8 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
     }
 
     private void ResetOneTimeStates() {
-        if (upperBodyLayerState.fullPathHash == UpperBodyLayer_LeftSwingState)
-            anim.SetBool("Attacking", false);
+        //if (upperBodyLayerState.fullPathHash == UpperBodyLayer_LeftSwingState)
+        //     anim.SetBool("Attacking", false);
         if (baseLayerState.fullPathHash == baseLayer_staggerState)
             anim.SetBool("Stagger", false);
         if (baseLayerState.fullPathHash == baseLayer_lungeState)
@@ -54,12 +65,33 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
             anim.SetBool("DrawArrow", false);
             anim.SetBool("ShootArrow", false);
         }
-        
+    }
+
+    private void HandleAttackLinks() {
+        if (upperBodyLayerState.fullPathHash == UpperBodyLayer_LeftSwingState)
+            currentAttackDirection = Direction.left;
+        else if (upperBodyLayerState.fullPathHash == UpperBodyLayer_rightSwingState)
+            currentAttackDirection = Direction.right;
+        else
+            currentAttackDirection = Direction.None;
+
+        if (upperBodyLayerState.fullPathHash == UpperBodyLayer_LeftSwingState && nextAttackDirection == Direction.left)
+            nextAttackDirection = Direction.None;
+        else if (upperBodyLayerState.fullPathHash == UpperBodyLayer_rightSwingState && nextAttackDirection == Direction.right)
+            nextAttackDirection = Direction.None;
+        else if (nextAttackDirection == Direction.None)
+            anim.SetBool("Attacking", false);
     }
 
     public void Attack() {
-        //if(upperBodyLayerState.fullPathHash != UpperBodyLayer_LeftSwingState)
-            anim.SetBool("Attacking", true);
+        anim.SetBool("Attacking", true);
+
+        if (upperBodyLayerState.fullPathHash == UpperBodyLayer_LeftSwingState && currentAttackDirection == Direction.left)
+            nextAttackDirection = Direction.right;
+        else if (upperBodyLayerState.fullPathHash == UpperBodyLayer_rightSwingState && currentAttackDirection == Direction.right)
+            nextAttackDirection = Direction.left;
+        else
+            nextAttackDirection = Direction.None;
     }
 
     public void LungeAttack() {

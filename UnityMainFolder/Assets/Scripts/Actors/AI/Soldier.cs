@@ -18,11 +18,6 @@ public class Soldier : Humanoid {
         if (currentState == State.Dead)
             return;
 
-        // betere manier verzinnen voor wanneer moven en stoppen, boolean
-        //doorzoeken naar lastdetected position en verder?
-        //eventuele patrol mode implementeren tijdens roam state, zelfde manier als bij patrol state
-        animHandler.Block();
-        return;
         switch (currentState) {
             case State.Roaming:
                 Roam();
