@@ -1,3 +1,9 @@
+fade in bij start scherm
+game over scherm met fade out met restart optie
+health potions oppakken
+health potions laten zien onder healthbar
+health potions kunnen gebruiken
+
 andere ren animatie voor vijanden zodat ze langzamer zijn
 enemy lunge animatie fixen
 player jump

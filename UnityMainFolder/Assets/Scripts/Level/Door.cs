@@ -27,15 +27,27 @@ public class Door : MonoBehaviour {
 
     private IEnumerator Open(Vector3 direction) {
         float elapsed = 0f;
+        Vector3 leftDoorDirection = Vector3.forward;
+        Vector3 rightDoorDirection = -Vector3.forward;
+
+        if (direction.x < 0 && Mathf.Abs(direction.x) > Mathf.Abs(direction.z)) {
+            leftDoorDirection = Vector3.forward;
+            rightDoorDirection = -Vector3.forward;
+        } else if (direction.x > 0 && Mathf.Abs(direction.x) > Mathf.Abs(direction.z)) {
+            leftDoorDirection = -Vector3.forward;
+            rightDoorDirection = Vector3.forward;
+        } else if (direction.z < 0 && Mathf.Abs(direction.z) > Mathf.Abs(direction.x)) {
+            leftDoorDirection = Vector3.forward;
+            rightDoorDirection = -Vector3.forward;
+        } else if (direction.z > 0 && Mathf.Abs(direction.z) > Mathf.Abs(direction.x)) {
+            leftDoorDirection = -Vector3.forward;
+            rightDoorDirection = Vector3.forward;
+        }
+
         while (elapsed < duration) {
             elapsed += Time.deltaTime;
-            if (direction.x < 0) {
-                leftDoor.transform.Rotate(Vector3.forward, speed * Time.deltaTime);
-                rightDoor.transform.Rotate(-Vector3.forward, speed * Time.deltaTime);
-            } else {
-                leftDoor.transform.Rotate(-Vector3.forward, speed * Time.deltaTime);
-                rightDoor.transform.Rotate(Vector3.forward, speed * Time.deltaTime);
-            }
+            leftDoor.transform.Rotate(leftDoorDirection, speed * Time.deltaTime);
+            rightDoor.transform.Rotate(rightDoorDirection, speed * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
         yield return null;
