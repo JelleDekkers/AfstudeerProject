@@ -3,8 +3,9 @@ using System.Collections;
 
 public class CameraManager : MonoBehaviour {
 
-    private Camera mainCam;
     [SerializeField] private Camera inventoryCam;
+
+    private Camera mainCam;
 
     void Start() {
         mainCam = Camera.main;

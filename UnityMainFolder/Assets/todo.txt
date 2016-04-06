@@ -1,13 +1,10 @@
-fade in bij start scherm
-game over scherm met fade out met restart optie
-health potions oppakken
 health potions laten zien onder healthbar
 health potions kunnen gebruiken
 
-andere ren animatie voor vijanden zodat ze langzamer zijn
-enemy lunge animatie fixen
 player jump
+enemy lunge animatie fixen
 vijanden moeten de speler omcirkelen
+andere ren animatie voor vijanden zodat ze langzamer zijn??
 
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is

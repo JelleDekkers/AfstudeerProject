@@ -14,7 +14,8 @@ public enum ItemType {
     Weapon = 6,
     Shield = 7,
     Quest = 8,
-    Bow = 9
+    Bow = 9,
+    Potion = 10
 }
 
 [System.Serializable]

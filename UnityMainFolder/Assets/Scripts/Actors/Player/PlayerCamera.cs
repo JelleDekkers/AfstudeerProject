@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerCamera : MonoBehaviour {
 
     [SerializeField] private Transform target;
- 
+
     public float distance = 10.0f;
     public float height = 5.0f;
     public float heightDamping = 2.0f;

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -6,10 +7,14 @@ public class ScreenManager : MonoBehaviour {
 
     [SerializeField] private GameObject inventoryScreen;
     [SerializeField] private GameObject gameUI;
+    [SerializeField] private bool fadeInOnStart;
 
+    public static bool GameOverFadeComplete;
 
     private void Start() {
         //Cursor.visible = false;
+        if(fadeInOnStart)
+            Fade.Instance.FadeIn();
     }
 
     private void Update() {
@@ -19,6 +24,11 @@ public class ScreenManager : MonoBehaviour {
                 OpenInventory();
             else if(PlayerState.State == playerState.InInventory)
                 CloseInventory();
+        }
+
+        if(GameOverFadeComplete && Player.Instance.currentState == State.Dead) {
+            if (Input.anyKey) 
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

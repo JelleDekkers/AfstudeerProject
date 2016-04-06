@@ -27,7 +27,7 @@ public class PlayerInteractions : MonoBehaviour {
                 nearestItem = GetNearestItem();
                 OnNearbyItemSelectable(nearestItem);
             }
-            if (Input.GetKeyDown(KeyCode.E)) {
+            if (Input.GetKeyDown(PlayerInput.InteractButton)) {
                 Interact(nearestItem);
                 nearestItem = GetNearestItem();
                 OnNoNearbyItemSelectable();
@@ -61,17 +61,21 @@ public class PlayerInteractions : MonoBehaviour {
 
     private void Interact(InteractableObject item) {
         item.Interact();
+        //pickup:
         if (item.GetComponent<ItemGameObject>()) {
             ItemGameObject i = item.GetComponent<ItemGameObject>();
-            Player.Instance.Inventory.AddItem(new ItemData(i.Name, i.Type, i.MeshName, i.Sprite, i.Points, i.WeaponLength, i.AttackAngle));
+            if (i.Type == ItemType.Potion)
+                Player.Instance.Potions++;
+            else
+                Player.Instance.Inventory.AddItem(new ItemData(i.Name, i.Type, i.MeshName, i.Sprite, i.Points, i.WeaponLength, i.AttackAngle));
             Destroy(item.gameObject);
         }
        // nearestItem = null;
        // nearestItem = GetNearestItem();
     }
 
-    private void OnDrawGizmos() {
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(transform.position, interactionMaxRange);
-    }
+    //private void OnDrawGizmos() {
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, interactionMaxRange);
+    //}
 }
