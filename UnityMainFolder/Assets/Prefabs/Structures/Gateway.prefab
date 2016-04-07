@@ -61,7 +61,7 @@ GameObject:
   - 114: {fileID: 11434560}
   - 65: {fileID: 6552168}
   m_Layer: 0
-  m_Name: GateWay
+  m_Name: Gateway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
