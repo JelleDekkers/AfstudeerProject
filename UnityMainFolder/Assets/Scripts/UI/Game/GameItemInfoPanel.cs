@@ -14,7 +14,6 @@ public class GameItemInfoPanel : MonoBehaviour {
         if (item == null)
             return;
 
-        // if item:
         if (item.GetComponent<ItemGameObject>()) {
             itemNameTxt.text = item.Name;
             itemImg.sprite = item.GetComponent<ItemGameObject>().Sprite;

@@ -27,6 +27,8 @@ public class IconManager : MonoBehaviour {
             return ShieldIcon;
         else if (item.Type == ItemType.Weapon)
             return WeaponIcon;
+        else if (item.Type == ItemType.Potion)
+            return HealthIcon;
 
         Debug.Log("No corresponding item type found, returning armor icon.");
         return ArmorIcon;
@@ -39,6 +41,8 @@ public class IconManager : MonoBehaviour {
             return ShieldIcon;
         else if (item.Type == ItemType.Weapon)
             return WeaponIcon;
+        else if (item.Type == ItemType.Potion)
+            return HealthIcon;
 
         Debug.Log("No corresponding item type found, returning armor icon.");
         return ArmorIcon;

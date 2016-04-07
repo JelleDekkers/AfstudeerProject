@@ -5,21 +5,24 @@ public class Player : Actor {
 
     public static Player Instance;
 
+    public uint Potions;
+
     private void Start() {
         if (Instance == null)
             Instance = this;
 
         Inventory.OnEquipmentChanged += UpdateStats;
-        OnDeath += SlowTimeOnDeath; // + game over screen
+        OnDeath += GameOver;
     }
 
     public override void Update() {
         base.Update();
     }
 
-    private void SlowTimeOnDeath() {
+    private void GameOver() {
         float timeScale = 0.5f;
         float seconds = 1;
         StartCoroutine(TimeController.SlowTimeForSeconds(timeScale, seconds));
+        Fade.Instance.FadeOut(true);
     }
 }

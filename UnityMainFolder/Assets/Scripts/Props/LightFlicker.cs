@@ -30,5 +30,4 @@ public class LightFlicker : MonoBehaviour {
             timer = Random.Range(minFlickerTime, maxFlickerTime);
         }
     }
-
 }
