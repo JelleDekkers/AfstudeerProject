@@ -1,8 +1,7 @@
-deur rotation fixen
-
 player jump
 enemy lunge animatie fixen
 vijanden moeten de speler omcirkelen
+
 andere ren animatie voor vijanden zodat ze langzamer zijn??
 
 map vollegdig groot, niet gelijk volledig zichtbaar

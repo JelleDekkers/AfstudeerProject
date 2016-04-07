@@ -16,6 +16,7 @@ public class Door : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider col) {
+        print(Vector3.Angle(transform.position, col.transform.position));
         if (!isOpen) {
             if (col.GetComponent<Actor>()) {
                 Vector3 dir = (transform.position - col.transform.position).normalized;
@@ -23,6 +24,26 @@ public class Door : MonoBehaviour {
                 isOpen = true;
             }
         }
+    }
+
+    public void OpenDoor(Vector3 direction) {
+        if (isOpen)
+            return;
+
+        StartCoroutine(Open2(direction));
+        isOpen = true;
+    }
+
+    private IEnumerator Open2(Vector3 direction) {
+        float elapsed = 0f;
+
+        while (elapsed < duration) {
+            elapsed += Time.deltaTime;
+            leftDoor.transform.Rotate(-direction, speed * Time.deltaTime);
+            rightDoor.transform.Rotate(direction, speed * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+        yield return null;
     }
 
     private IEnumerator Open(Vector3 direction) {
