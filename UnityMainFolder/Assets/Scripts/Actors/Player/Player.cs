@@ -5,8 +5,6 @@ public class Player : Actor {
 
     public static Player Instance;
 
-    public uint Potions;
-
     private void Start() {
         if (Instance == null)
             Instance = this;
@@ -17,6 +15,9 @@ public class Player : Actor {
 
     public override void Update() {
         base.Update();
+
+        if (CurrentHealthPoints < MaxHealthPoints && Input.GetKey(PlayerInput.UsePotionButton))
+            UseHealthPotion();
     }
 
     private void GameOver() {

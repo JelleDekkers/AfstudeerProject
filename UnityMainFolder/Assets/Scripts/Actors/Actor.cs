@@ -18,7 +18,8 @@ public enum State {
 public class Actor : MonoBehaviour {
 
     public State currentState;// { get; protected set; }
-    public float HealthPoints = 100;// { get; protected set; }
+    public float CurrentHealthPoints; // { get; private set; }
+    public float MaxHealthPoints = 100;// { get; protected set; }
     public float AttackPoints;// { get; protected set; }
     public float ArmorPoints;// { get; protected set; }
     public float ShieldPoints;// { get; protected set; }
@@ -30,15 +31,19 @@ public class Actor : MonoBehaviour {
     public Action OnDeath;
     public Action<GameObject> OnDamageTaken;
     public Action OnStaggered;
+    public uint Potions;
 
     private EquippedItemHolderManager equippedItemManager;
     private RagdollController ragdollController;
     private HumanoidAnimatorHandler humanoidController;
     private float forceAmount = 40;
+    private float regenTarget;
+    private bool isRegenerating;
 
     [SerializeField] private LayerMask attackLayerMask;
     [SerializeField] private LayerMask shieldLayerMask;
     [SerializeField] public Transform attackCenter; //protected
+    [SerializeField] public float regenSpeed = 1;
 
     private void Awake() {
         Inventory = new Inventory();
@@ -46,15 +51,18 @@ public class Actor : MonoBehaviour {
         anim = GetComponent<Animator>();
         ragdollController = GetComponent<RagdollController>();
         humanoidController = GetComponent<HumanoidAnimatorHandler>();
-        anim.SetFloat("HealthPoints", HealthPoints);
+        anim.SetFloat("HealthPoints", CurrentHealthPoints);
         currentState = State.Roaming;
+        CurrentHealthPoints = MaxHealthPoints;
     }
 
     public virtual void Update() {
-        anim.SetFloat("HealthPoints", HealthPoints);
+        anim.SetFloat("HealthPoints", CurrentHealthPoints);
 
         if (currentState == State.Dead)
             return;
+
+        
     }
 
     protected void UpdateStats() {
@@ -108,25 +116,18 @@ public class Actor : MonoBehaviour {
         if (OnStaggered != null)
             OnStaggered();
 
-        RaycastHit hit;
-        if (IsBlocking) {
-            if (Physics.Raycast(attackCenter.position, (sender.transform.position - attackCenter.position), out hit, 10)) {
-                if (hit.transform == sender) {
-                    print("sender found" + sender);
-                }
-            }
-        }
+        CurrentHealthPoints -= amount;
+        if (isRegenerating)
+            regenTarget -= amount;
 
-        HealthPoints -= amount;
-
-        if (HealthPoints <= 0)
+        if (CurrentHealthPoints <= 0)
             Die(sender);
         else if (OnDamageTaken != null)
             OnDamageTaken(sender);
     }
 
     private void Die(GameObject killer) {
-        HealthPoints = 0;
+        CurrentHealthPoints = 0;
         humanoidController.SetUpperBodyLayerWeight(0);
         Vector3 direction = Common.GetDirection(killer.transform.position, transform.position);
         Common.SetLayerRecursively(Layers.BODY_LAYER, transform);
@@ -168,6 +169,33 @@ public class Actor : MonoBehaviour {
             ITrap trap = col.GetComponent<ITrap>();
             trap.OnTriggered(GetComponent<Actor>());
         }
+    }
+
+    protected void UseHealthPotion() {
+        int healthPotionStrength = 40;
+
+        if (Potions <= 0)
+            return;
+
+        Potions--;
+
+        if (CurrentHealthPoints + healthPotionStrength < MaxHealthPoints)
+            regenTarget = CurrentHealthPoints + healthPotionStrength;
+        else
+            regenTarget = MaxHealthPoints;
+
+        if (isRegenerating == false)
+            StartCoroutine(RegainHealth());
+    }
+
+    private IEnumerator RegainHealth() {
+        isRegenerating = true;
+        while (CurrentHealthPoints < regenTarget) {
+            CurrentHealthPoints += Time.deltaTime * regenSpeed;
+            yield return new WaitForEndOfFrame();
+        }
+        CurrentHealthPoints = regenTarget;
+        isRegenerating = false;
     }
 
     //public void SetOnFire() {
