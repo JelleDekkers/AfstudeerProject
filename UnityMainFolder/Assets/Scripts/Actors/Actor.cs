@@ -39,6 +39,7 @@ public class Actor : MonoBehaviour {
     private float forceAmount = 40;
     private float regenTarget;
     private bool isRegenerating;
+    private bool isGrounded;
 
     [SerializeField] private LayerMask attackLayerMask;
     [SerializeField] private LayerMask shieldLayerMask;
@@ -61,8 +62,6 @@ public class Actor : MonoBehaviour {
 
         if (currentState == State.Dead)
             return;
-
-        
     }
 
     protected void UpdateStats() {

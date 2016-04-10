@@ -41,8 +41,9 @@ public class Humanoid : Actor {
 
         Vector3 directionToTarget = player.transform.position - transform.position;
         if (Physics.Raycast(attackCenter.transform.position, directionToTarget, out hit, viewDistance, sightLayerMask)) {
-            if (hit.collider.tag != "Wall")
+            if (hit.collider.tag != "Wall") {
                 actorsInSight.Add(player);
+            }
         }
 
         return actorsInSight.ToArray();
@@ -50,7 +51,9 @@ public class Humanoid : Actor {
 
     protected virtual void Roam() {
         if (detectedActors.Length > 0) {
+            print("detected actors length: " + detectedActors.Length);
             targetActor = detectedActors[0].GetComponent<Actor>();
+            print("targetActor: " + targetActor);
             currentState = State.Aggroed;
             return;
         }
@@ -62,7 +65,8 @@ public class Humanoid : Actor {
             return;
         };
 
-        navAgent.MoveToTargetPosition(navAgent.StartPos);
+        if(targetReached == false)
+            navAgent.MoveToTargetPosition(navAgent.StartPos);
     }
 
     protected virtual void Patrol() {
@@ -78,6 +82,8 @@ public class Humanoid : Actor {
     }
 
     protected virtual void Aggroed() {
+        //if targetactor == null, patroll
+
         if (detectedActors.Length == 0) {
             currentState = State.Patrolling;
             targetActor = null;

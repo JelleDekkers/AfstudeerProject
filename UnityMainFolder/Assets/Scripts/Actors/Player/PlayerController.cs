@@ -7,14 +7,22 @@ public class PlayerController : HumanoidAnimatorHandler {
     private float yRotation = 0;
     private float verticalInput;
     private float horizontalInput;
+    private Rigidbody rBody;
+    private bool isGrounded = true;
+    private bool isJumping;
+    private RaycastHit hit;
+    private float groundCheckRayLength = 0.4f;
 
-    [SerializeField]
-    private float rotationSpeed = 8;
+    [SerializeField] private float inAirMovementSpeed = 5;
+    [SerializeField] private float rotationSpeed = 8;
+    [SerializeField] private float jumpForce = 500;
+    [SerializeField] private LayerMask groundCheckLayerMask;
 
     protected override void Start() {
         base.Start();
         xRotation = transform.eulerAngles.x;
         yRotation = transform.eulerAngles.y;
+        rBody = GetComponent<Rigidbody>();
     }
 
     protected override void Update() {
@@ -32,14 +40,28 @@ public class PlayerController : HumanoidAnimatorHandler {
             if (Input.GetMouseButtonDown(PlayerInput.AttackButton)) {
                 Attack();
             }
-            //Blocking:
+
+            // Block:
             if (Input.GetMouseButtonDown(PlayerInput.BlockButton)) {
                 Block();
             } else if (Input.GetMouseButtonUp(PlayerInput.BlockButton)) {
                 StopBlocking();
             }
 
-            //Prevent strange rotations:
+            // Jump:
+            if(Input.GetKeyDown(PlayerInput.JumpButton)) {
+                Jump();
+            }
+
+            // Check if grounded:
+            GroundCheck();
+
+            // While jumping:
+            if(isJumping) {
+                InAirControl();
+            }
+
+            // Prevent strange rotations:
             if (yRotation > 180)
                 yRotation -= 360;
             if (yRotation < -180)
@@ -52,5 +74,41 @@ public class PlayerController : HumanoidAnimatorHandler {
             anim.SetFloat("MovementZ", verticalInput);
             anim.SetFloat("MovementX", horizontalInput);
         }
+    }
+
+    private void Jump() {
+        if (isGrounded) {
+            anim.SetTrigger("Jump");
+            isJumping = true;
+            rBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            rBody.constraints = RigidbodyConstraints.None;
+            //rBody.AddForce(transform.TransformDirection(Vector3.forward) * jumpForce, ForceMode.Impulse);
+        }
+    }
+
+    private void InAirControl() {
+        float h = inAirMovementSpeed * Input.GetAxis("Horizontal");
+        float v = inAirMovementSpeed * Input.GetAxis("Vertical");
+        Vector3 pos = new Vector3(h, 0, v);
+        rBody.AddRelativeForce(pos * inAirMovementSpeed, ForceMode.Force);
+        //transform.Translate(v, h, 0);
+    }
+
+    private void GroundCheck() {
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckRayLength, groundCheckLayerMask)) {
+            if (isJumping == false) {
+                isGrounded = true;
+                rBody.constraints = RigidbodyConstraints.FreezePositionY;
+            }
+        } else {
+            isGrounded = false;
+            rBody.constraints = RigidbodyConstraints.None;
+        }
+
+        if (baseLayerState.fullPathHash == baseLayer_inAirState)
+            isJumping = false;
+
+        anim.SetBool("Grounded", isGrounded);
+
     }
 }
