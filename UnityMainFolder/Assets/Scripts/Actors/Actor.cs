@@ -36,7 +36,7 @@ public class Actor : MonoBehaviour {
     private EquippedItemHolderManager equippedItemManager;
     private RagdollController ragdollController;
     private HumanoidAnimatorHandler humanoidController;
-    private float forceAmount = 40;
+    private float strikeForceAmount = 20;
     private float regenTarget;
     private bool isRegenerating;
     private bool isGrounded;
@@ -90,7 +90,7 @@ public class Actor : MonoBehaviour {
                 if (objectHit.GetComponent<Actor>()) {
                     AttackActor(objectHit.GetComponent<Actor>(), angle);
                 } else {
-                    AttackProp(objectHit, fwd, forceAmount);
+                    AttackProp(objectHit, fwd, strikeForceAmount);
                 }
             }
         }
@@ -130,8 +130,8 @@ public class Actor : MonoBehaviour {
         humanoidController.SetUpperBodyLayerWeight(0);
         Vector3 direction = Common.GetDirection(killer.transform.position, transform.position);
         Common.SetLayerRecursively(Layers.BODY_LAYER, transform);
-        ragdollController.ActivateRagDoll(direction, forceAmount);
-        equippedItemManager.DropAndApplyForceToEquippedWeapons(direction, forceAmount);
+        ragdollController.ActivateRagDoll(direction, strikeForceAmount);
+        equippedItemManager.DropAndApplyForceToEquippedWeapons(direction, strikeForceAmount);
         currentState = State.Dead;
 
         if (OnDeath != null)

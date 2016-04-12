@@ -13,6 +13,8 @@ public class PlayerController : HumanoidAnimatorHandler {
     private RaycastHit hit;
     private float groundCheckRayLength = 0.4f;
 
+    public bool enableJumping = true;
+
     [SerializeField] private float inAirMovementSpeed = 5;
     [SerializeField] private float rotationSpeed = 8;
     [SerializeField] private float jumpForce = 500;
@@ -27,6 +29,10 @@ public class PlayerController : HumanoidAnimatorHandler {
 
     protected override void Update() {
         base.Update();
+
+        if(Input.GetKey(KeyCode.L)) {
+            anim.SetBool("Lunge", true);
+        }
 
         if (PlayerState.State == playerState.InGame && Player.Instance.CurrentHealthPoints > 0) {
             // Look rotation:
@@ -95,6 +101,11 @@ public class PlayerController : HumanoidAnimatorHandler {
     }
 
     private void GroundCheck() {
+        if (!enableJumping) {
+            isGrounded = true;
+            return;
+        }
+
         if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckRayLength, groundCheckLayerMask)) {
             if (isJumping == false) {
                 isGrounded = true;

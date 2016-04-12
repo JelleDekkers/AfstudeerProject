@@ -8,6 +8,7 @@ public class ScreenManager : MonoBehaviour {
     [SerializeField] private GameObject inventoryScreen;
     [SerializeField] private GameObject gameUI;
     [SerializeField] private bool fadeInOnStart;
+    [SerializeField] private bool hideCursor;
 
     public static bool GameOverFadeComplete;
 
@@ -15,6 +16,8 @@ public class ScreenManager : MonoBehaviour {
         //Cursor.visible = false;
         if(fadeInOnStart)
             Fade.Instance.FadeIn();
+        if (hideCursor)
+            Cursor.visible = false;
     }
 
     private void Update() {

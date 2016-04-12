@@ -28,7 +28,7 @@ TagManager:
   - InteractableObject
   - Projectile
   - Shield
-  - 
+  - IgnoreActors
   - Building
   - Body
   - InteractableTrigger

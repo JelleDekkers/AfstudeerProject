@@ -1,12 +1,14 @@
 player jump (de y constraint gaat niet goed)
 camera bij jump checken
-enemy ai detection bug fixen
+enemy ai detection bug fixen/inclusief wanneer direct in zicht
 enemy lunge animatie fixen, root motion
+enemy jump implementeren
 vijanden moeten de speler omcirkelen/flanken
 grinder kapot na damage amount
 outline shaders voor interactable objects
 dynamic camera die voor muren uitkijkt
 
+iets verzinnen voor keys, game object gaat niet werken met oppakken naar item data
 
 map die zichtbaar word naarmate je verder komt
 compas/map in hoek
