@@ -964,6 +964,10 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 13624838, guid: 22e78b8cb1ab3e347849e92439badc77, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22e78b8cb1ab3e347849e92439badc77, type: 2}
   m_IsPrefabParent: 0
@@ -1473,6 +1477,14 @@ Prefab:
     - target: {fileID: 146422, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
       propertyPath: m_Name
       value: Humanoid Soldier
+      objectReference: {fileID: 0}
+    - target: {fileID: 5459464, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
+      propertyPath: m_Drag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5459464, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
+      propertyPath: m_AngularDrag
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
@@ -2147,6 +2159,14 @@ Prefab:
     - target: {fileID: 462134, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469658, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}
+      propertyPath: m_Drag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5469658, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}
+      propertyPath: m_AngularDrag
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}

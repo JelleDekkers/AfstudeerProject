@@ -13,7 +13,7 @@ public enum ItemType {
     RightGreave = 5,
     Weapon = 6,
     Shield = 7,
-    Quest = 8,
+    Key = 8,
     Bow = 9,
     Potion = 10
 }

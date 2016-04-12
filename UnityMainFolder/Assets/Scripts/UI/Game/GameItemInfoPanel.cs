@@ -22,7 +22,9 @@ public class GameItemInfoPanel : MonoBehaviour {
             if (item.GetComponent<ItemGameObject>())
                 itemTypeImg.sprite = IconManager.GetItemTypeIcon(item.GetComponent<ItemGameObject>());
         } else if(item.GetComponent<Lever>()){
-            itemNameTxt.text = "Use " + item.Name.ToString();
+            itemNameTxt.text = "Use " + item.Name;
+        } else if(item.GetComponent<Chest>()) {
+            itemNameTxt.text = "Open " + item.Name;
         }
 
         itemPointsTxt.enabled = item.GetComponent<ItemGameObject>();

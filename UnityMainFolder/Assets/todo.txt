@@ -1,12 +1,18 @@
-player jump
-enemy lunge animatie fixen
-vijanden moeten de speler omcirkelen
+player jump (de y constraint gaat niet goed)
+camera bij jump checken
+enemy ai detection bug fixen
+enemy lunge animatie fixen, root motion
+vijanden moeten de speler omcirkelen/flanken
+grinder kapot na damage amount
+outline shaders voor interactable objects
+dynamic camera die voor muren uitkijkt
 
-andere ren animatie voor vijanden zodat ze langzamer zijn??
 
-map vollegdig groot, niet gelijk volledig zichtbaar
-compas in hoek
+map die zichtbaar word naarmate je verder komt
+compas/map in hoek
 
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
 player position resolutie dependent maken in inventory screen
+
+god ray op belangrijke objecten zoals sleutels?
