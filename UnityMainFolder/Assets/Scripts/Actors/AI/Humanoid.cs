@@ -48,7 +48,6 @@ public class Humanoid : Actor {
         return actorsInSight.ToArray();
     }
 
-
     protected virtual void Roam() {
         if (detectedActors.Length > 0) {
             targetActor = detectedActors[0].GetComponent<Actor>();

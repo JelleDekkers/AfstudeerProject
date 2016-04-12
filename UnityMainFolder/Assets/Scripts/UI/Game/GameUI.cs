@@ -6,15 +6,17 @@ public class GameUI : MonoBehaviour {
 
     [SerializeField] private GameItemInfoPanel infoPanel;
     [SerializeField] private Slider healthbarSlider;
+    [SerializeField] private Text potionCount;
 
     private void Start() {
         PlayerInteractions.OnNearbyItemSelectable += ShowInfoPanel;
         PlayerInteractions.OnNoNearbyItemSelectable += HideInfoPanel;
-        healthbarSlider.maxValue = Player.Instance.HealthPoints;
+        healthbarSlider.maxValue = Player.Instance.CurrentHealthPoints;
     }
 
     private void Update() {
-        healthbarSlider.value = Player.Instance.HealthPoints;
+        healthbarSlider.value = Player.Instance.CurrentHealthPoints;
+        potionCount.text = Player.Instance.Potions.ToString();
     }
 
     private void ShowInfoPanel(InteractableObject item) {

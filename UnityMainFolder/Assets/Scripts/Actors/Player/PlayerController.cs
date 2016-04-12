@@ -20,7 +20,7 @@ public class PlayerController : HumanoidAnimatorHandler {
     protected override void Update() {
         base.Update();
 
-        if (PlayerState.State == playerState.InGame && Player.Instance.HealthPoints > 0) {
+        if (PlayerState.State == playerState.InGame && Player.Instance.CurrentHealthPoints > 0) {
             // Look rotation:
             transform.rotation = Quaternion.Euler(yRotation, xRotation, 0);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);

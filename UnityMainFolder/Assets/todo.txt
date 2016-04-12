@@ -1,10 +1,11 @@
-health potions laten zien onder healthbar
-health potions kunnen gebruiken
-
 player jump
 enemy lunge animatie fixen
 vijanden moeten de speler omcirkelen
+
 andere ren animatie voor vijanden zodat ze langzamer zijn??
+
+map vollegdig groot, niet gelijk volledig zichtbaar
+compas in hoek
 
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is

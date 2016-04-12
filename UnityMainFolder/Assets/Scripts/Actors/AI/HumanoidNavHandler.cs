@@ -24,7 +24,7 @@ public class HumanoidNavHandler : MonoBehaviour {
     }
 
     private void Update() {
-        if (actor.HealthPoints <= 0)
+        if (actor.CurrentHealthPoints <= 0)
             return;
 
         if (actor.currentState != State.Aggroed || actor.currentState != State.InCombat)
@@ -47,7 +47,10 @@ public class HumanoidNavHandler : MonoBehaviour {
         navAgent.Resume();
         float modifier = 2f;
         float z = anim.GetFloat("MovementZ");
-        z = Mathf.MoveTowards(z, 1, modifier * Time.deltaTime);
+        if (GetComponent<Soldier>())
+            z = Mathf.MoveTowards(z, 1, modifier * Time.deltaTime);
+        else
+            z = 1;
         anim.SetFloat("MovementZ", z);
     }
 

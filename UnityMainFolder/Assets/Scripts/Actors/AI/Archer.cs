@@ -67,7 +67,6 @@ public class Archer : Humanoid {
         if (distanceToPlayer > (safeDistance + attackDistance) / 2) {
             isRetreating = false;
             retreatPosSet = false;
-            print("distance reahced");
             return;
         } 
 
