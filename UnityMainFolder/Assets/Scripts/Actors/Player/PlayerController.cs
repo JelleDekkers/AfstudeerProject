@@ -55,7 +55,7 @@ public class PlayerController : HumanoidAnimatorHandler {
             }
 
             // Jump:
-            if(Input.GetKeyDown(PlayerInput.JumpButton)) {
+            if(Input.GetKeyDown(PlayerInput.JumpButton) && enableJumping) {
                 Jump();
             }
 
@@ -101,25 +101,24 @@ public class PlayerController : HumanoidAnimatorHandler {
     }
 
     private void GroundCheck() {
-        if (!enableJumping) {
-            isGrounded = true;
-            return;
-        }
-
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckRayLength, groundCheckLayerMask)) {
-            if (isJumping == false) {
-                isGrounded = true;
-                rBody.constraints = RigidbodyConstraints.FreezePositionY;
+        if (enableJumping) {
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckRayLength, groundCheckLayerMask)) {
+                if (isJumping == false) {
+                    isGrounded = true;
+                    rBody.constraints = RigidbodyConstraints.FreezePositionY;
+                }
+            } else {
+                isGrounded = false;
+                rBody.constraints = RigidbodyConstraints.None;
             }
+
+            if (baseLayerState.fullPathHash == baseLayer_inAirState)
+                isJumping = false;
+
+            anim.SetBool("Grounded", isGrounded);
         } else {
-            isGrounded = false;
-            rBody.constraints = RigidbodyConstraints.None;
+            isGrounded = true;
+            anim.SetBool("Grounded", isGrounded);
         }
-
-        if (baseLayerState.fullPathHash == baseLayer_inAirState)
-            isJumping = false;
-
-        anim.SetBool("Grounded", isGrounded);
-
     }
 }

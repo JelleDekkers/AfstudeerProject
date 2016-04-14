@@ -29,7 +29,7 @@ public class ScreenManager : MonoBehaviour {
                 CloseInventory();
         }
 
-        if(GameOverFadeComplete && Player.Instance.currentState == State.Dead) {
+        if(GameOverFadeComplete && Player.Instance.CurrentState == State.Dead) {
             if (Input.anyKey) 
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

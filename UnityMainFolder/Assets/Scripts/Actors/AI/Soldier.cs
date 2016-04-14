@@ -3,39 +3,23 @@ using System.Collections;
 
 public class Soldier : Humanoid {
 
-    private float lungeDistance = 3f;
     private bool combatRoutineStarted;
     private int prevAction = 0;
 
     protected override void Start() {
         base.Start();
-        attackDistance = lungeDistance;
+        attackDistance = Inventory.Weapon.WeaponLength;
     }
 
-    public override void Update() {
-        base.Update();
-
-        if (currentState == State.Dead)
-            return;
-
-        switch (currentState) {
-            case State.Roaming:
-                Roam();
-                break;
-            case State.Patrolling:
-                Patrol();
-                break;
-            case State.Aggroed:
-                Aggroed();
-                break;
-            case State.InCombat:
-                InCombat();
-                break;
-        }
+    protected override void InCombat() {
+        base.InCombat();
+        if (!combatRoutineStarted)
+            StartCoroutine(RandomCombat());
+        transform.SlowLookat(target.transform, rotationSpeed);
     }
 
     private IEnumerator RandomCombat() {
-        int combatActions = 4;
+        int combatActions = 3; //with lunge = 4
         int rndBehaviour = Random.Range(0, combatActions);
         float time = 0;
 
@@ -50,45 +34,33 @@ public class Soldier : Humanoid {
 
         switch (rndBehaviour) {
             case 0:
+                time = 1f;
                 animHandler.Attack();
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(time);
                 break;
             case 1:
                 time = Random.Range(1f, 2f);
                 animHandler.Block();
-                transform.LookAtWithoutYAxis(targetActor.transform);
+                //transform.LookAtWithoutYAxis(target.transform);
+                //var targetRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+                //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 yield return new WaitForSeconds(time);
                 animHandler.StopBlocking();
                 break;
             case 2:
                 time = Random.Range(0.5f, 1.5f);
-                transform.LookAtWithoutYAxis(targetActor.transform);
+                //transform.LookAtWithoutYAxis(target.transform);
+                //targetRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+                //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 yield return new WaitForSeconds(time);
                 break;
             case 3:
+                time = 2f;
                 animHandler.LungeAttack();
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(time);
                 break;
         }
 
         combatRoutineStarted = false;
     }
-
-    public void InCombat() {
-        if (detectedActors.Length == 0) {
-            currentState = State.Patrolling;
-            targetActor = null;
-            return;
-        }
-
-        if (Vector3.Distance(transform.position, targetActor.transform.position) < lungeDistance) {
-            navAgent.StopMoving();
-            if (!combatRoutineStarted)
-                StartCoroutine(RandomCombat());
-
-        } else {
-            currentState = State.Aggroed;
-        }
-    }
-
 }

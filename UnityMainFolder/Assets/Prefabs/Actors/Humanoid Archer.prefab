@@ -78,6 +78,7 @@ GameObject:
   - 95: {fileID: 9517640}
   - 54: {fileID: 5469658}
   - 136: {fileID: 13670718}
+  - 135: {fileID: 13552154}
   - 114: {fileID: 11455556}
   - 114: {fileID: 11414582}
   - 114: {fileID: 11484474}
@@ -1871,7 +1872,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7310decd059b5c240a4cc4bba46c71e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
   CurrentHealthPoints: 0
   MaxHealthPoints: 20
   AttackPoints: 10
@@ -1879,6 +1879,7 @@ MonoBehaviour:
   ShieldPoints: 0
   IsBlocking: 0
   Potions: 0
+  currentState: 0
   attackLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -1887,15 +1888,15 @@ MonoBehaviour:
     m_Bits: 1024
   attackCenter: {fileID: 494224}
   regenSpeed: 1
-  viewDistance: 20
-  fovAngle: 110
+  viewDistance: 15
+  fovAngle: 90
+  attackDistance: 11
   sightLayerMask:
     serializedVersion: 2
     m_Bits: 4352
-  animSpeed: 1
+  rotationSpeed: 3
   arrowPrefab: {fileID: 11436588, guid: ffab065086f3b20478b3663f97468eff, type: 2}
   arrowStartPos: {fileID: 460474}
-  shootDistance: 12
   safeDistance: 6
 --- !u!114 &11478306
 MonoBehaviour:
@@ -1960,6 +1961,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 7
   Item: {fileID: 0}
+--- !u!135 &13552154
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107852}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &13579226
 SphereCollider:
   m_ObjectHideFlags: 1

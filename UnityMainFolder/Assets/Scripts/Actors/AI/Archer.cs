@@ -5,7 +5,6 @@ public class Archer : Humanoid {
 
     [SerializeField] private Arrow arrowPrefab;
     [SerializeField] private Transform arrowStartPos;
-    [SerializeField] private float shootDistance = 11;
     [SerializeField] private float safeDistance = 8;
 
     private Arrow arrowDrawn;
@@ -18,13 +17,15 @@ public class Archer : Humanoid {
     protected override void Start() {
         base.Start();
         OnStaggered += InterruptDrawnArrow;
-        attackDistance = shootDistance;
     }
 
     public override void Update() {
         base.Update();
-
         Debug.DrawRay(attackCenter.transform.position, transform.TransformDirection(Vector3.forward) * safeDistance, Color.blue);
+    }
+
+    protected override void InCombat() {
+        //base.InCombat();
 
         if (arrowDrawn != null) {
             waitTimer -= Time.deltaTime;
@@ -32,30 +33,13 @@ public class Archer : Humanoid {
                 animHandler.FireArrow();
         }
 
-        switch (currentState) {
-            case State.Roaming:
-                Roam();
-                break;
-            case State.Patrolling:
-                Patrol();
-                break;
-            case State.Aggroed:
-                Aggroed();
-                break;
-            case State.InCombat:
-                InCombat();
-                break;
-        }
-    }
-
-    private void InCombat() {
-        float distanceToPlayer = Vector3.Distance(transform.position, targetActor.transform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, target.transform.position);
         if (distanceToPlayer < safeDistance)
             isRetreating = true;
 
         if (isRetreating == false) {
             DrawArrow();
-            transform.LookAtWithoutYAxis(targetActor.transform);
+            transform.LookAtWithoutYAxis(target.transform);
         } else {
             InterruptDrawnArrow();
             RetreatToSafeDistance();
@@ -63,7 +47,7 @@ public class Archer : Humanoid {
     }
 
     private void RetreatToSafeDistance() {
-        float distanceToPlayer = Vector3.Distance(transform.position, targetActor.transform.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, target.transform.position);
         if (distanceToPlayer > (safeDistance + attackDistance) / 2) {
             isRetreating = false;
             retreatPosSet = false;

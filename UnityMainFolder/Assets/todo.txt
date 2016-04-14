@@ -1,7 +1,8 @@
 player jump (de y constraint gaat niet goed)
 camera bij jump checken
-enemy ai detection bug fixen/inclusief wanneer direct in zicht
+enemy ai detection bug fixen
 enemy lunge animatie fixen, root motion
+dingen kunnen lezen via interactie
 enemy jump implementeren
 vijanden moeten de speler omcirkelen/flanken
 grinder kapot na damage amount
@@ -13,8 +14,9 @@ iets verzinnen voor keys, game object gaat niet werken met oppakken naar item da
 map die zichtbaar word naarmate je verder komt
 compas/map in hoek
 
+bommen gooien?
+bommen blast radius die items wegblazen?
+
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
 player position resolutie dependent maken in inventory screen
-
-god ray op belangrijke objecten zoals sleutels?
