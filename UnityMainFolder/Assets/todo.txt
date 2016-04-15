@@ -1,15 +1,19 @@
-player jump (de y constraint gaat niet goed)
-camera bij jump checken
-enemy ai detection bug fixen
-enemy lunge animatie fixen, root motion
-dingen kunnen lezen via interactie
-enemy jump implementeren
-vijanden moeten de speler omcirkelen/flanken
-grinder kapot na damage amount
-outline shaders voor interactable objects
-dynamic camera die voor muren uitkijkt
+geluiden: slaan, hit, death, vase break, door open, door blocked
 
 iets verzinnen voor keys, game object gaat niet werken met oppakken naar item data
+
+vijanden moeten kiten niet alleen stil staan
+vijanden moeten de speler omcirkelen/flanken
+enemy jump implementeren
+
+ff kijken naar de firepit trap (valt te langzaam)
+fire effect (continu damage) voor een bepaalde tijd
+grinder kapot na damage amount
+
+outline shaders voor interactable objects
+betere Ineractable interface? ipv inherit en interface?
+
+dynamic camera die voor muren uitkijkt
 
 map die zichtbaar word naarmate je verder komt
 compas/map in hoek
@@ -20,3 +24,14 @@ bommen blast radius die items wegblazen?
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
 player position resolutie dependent maken in inventory screen
+
+animatie arm swing verminderen
+animatie minder gay
+
+skeleton enemy?
+blood splatter bij hits op de grond?
+bot scherven voor skelet bij hit
+skeleton uit elkaar vallen bij death
+
+walk sounds?
+inventory equip sounds

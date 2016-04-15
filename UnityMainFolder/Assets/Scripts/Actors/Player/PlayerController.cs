@@ -30,16 +30,12 @@ public class PlayerController : HumanoidAnimatorHandler {
     protected override void Update() {
         base.Update();
 
-        if(Input.GetKey(KeyCode.L)) {
-            anim.SetBool("Lunge", true);
-        }
-
         if (PlayerState.State == playerState.InGame && Player.Instance.CurrentHealthPoints > 0) {
             // Look rotation:
             transform.rotation = Quaternion.Euler(yRotation, xRotation, 0);
             transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
-            xRotation += Input.GetAxis("Mouse X") * rotationSpeed;
-            yRotation -= Input.GetAxis("Mouse Y") * rotationSpeed;
+            xRotation += Input.GetAxis("Mouse X") * Time.deltaTime * rotationSpeed;
+            yRotation -= Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed;
 
             //if (Player.Inventory.GetWeapon != null) {
             // Attacking:
@@ -87,7 +83,7 @@ public class PlayerController : HumanoidAnimatorHandler {
             anim.SetTrigger("Jump");
             isJumping = true;
             rBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            rBody.constraints = RigidbodyConstraints.None;
+            rBody.constraints = RigidbodyConstraints.FreezeRotation;
             //rBody.AddForce(transform.TransformDirection(Vector3.forward) * jumpForce, ForceMode.Impulse);
         }
     }
@@ -105,11 +101,11 @@ public class PlayerController : HumanoidAnimatorHandler {
             if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckRayLength, groundCheckLayerMask)) {
                 if (isJumping == false) {
                     isGrounded = true;
-                    rBody.constraints = RigidbodyConstraints.FreezePositionY;
+                    rBody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
                 }
             } else {
                 isGrounded = false;
-                rBody.constraints = RigidbodyConstraints.None;
+                rBody.constraints = RigidbodyConstraints.FreezeRotation;
             }
 
             if (baseLayerState.fullPathHash == baseLayer_inAirState)

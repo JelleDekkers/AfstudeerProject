@@ -8,15 +8,11 @@ public class PlayerInteractions : MonoBehaviour {
     private float interactionMaxRange = 4;
     public InteractableObject nearestItem = null; // private
     public Collider[] nearbyItemColliders;
-    private LayerMask layerMask;
+
+    [SerializeField] private LayerMask layerMask;
 
     public static event Action<InteractableObject> OnNearbyItemSelectable;
     public static event Action OnNoNearbyItemSelectable;
-
-    private void Start() {
-        // Sets layerMask to InteractableObject layer (14):
-        layerMask = 1 << 14;
-    }
 
     private void Update() {
         //TODO: block rays against foundation layer

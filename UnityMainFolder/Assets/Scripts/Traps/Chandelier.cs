@@ -19,9 +19,9 @@ public class Chandelier : MonoBehaviour, ITrap {
 
     public void OnTriggered(Actor actor) {
         if (actor.GetType() == typeof(Player))
-            actor.TakeDamage(playerDamage, gameObject);
+            actor.TakeDamage(gameObject, playerDamage);
         else
-            actor.TakeDamage(aIDamage, gameObject);
+            actor.TakeDamage(gameObject, aIDamage);
     }
 
     private void Update() {

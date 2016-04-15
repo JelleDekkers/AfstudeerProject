@@ -60,7 +60,26 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nDefault bone length found in this file is different
+      form the one found in the source avatar:\n\t'Base HumanLThigh' : position error
+      = 6534.130371 mm\n\t'Base HumanLCalf' : position error = 11276.493164 mm\n\t'Base
+      HumanLFoot' : position error = 12272.474609 mm\n\t'Base HumanRThigh' : position
+      error = 6534.129395 mm\n\t'Base HumanRCalf' : position error = 11276.497070
+      mm\n\t'Base HumanRFoot' : position error = 12272.476563 mm\n\t'Base HumanSpine1'
+      : position error = 7967.334473 mm\n\t'Base HumanSpine2' : position error = 6777.562500
+      mm\n\t'Base HumanRibcage' : position error = 12186.030273 mm\n\t'Base HumanLCollarbone'
+      : position error = 8350.097656 mm\n\t'Base HumanLUpperarm' : position error
+      = 4871.522461 mm\n\t'Base HumanLForearm' : position error = 10661.194336 mm\n\t'Base
+      HumanLPalm' : position error = 13321.916016 mm\n\t'Base HumanRCollarbone' :
+      position error = 8350.096680 mm\n\t'Base HumanRUpperarm' : position error =
+      4871.522461 mm\n\t'Base HumanRForearm' : position error = 10661.194336 mm\n\t'Base
+      HumanRPalm' : position error = 13321.911133 mm\n\t'Base HumanNeck' : position
+      error = 145.503677 mm\n\t'Base HumanHead' : position error = 7424.509277 mm\n\nClip
+      'Take 001' has import animation warnings that might lower retargeting quality:\nNote:
+      Activate translation DOF on avatar to improve retargeting quality.\n\t'Base
+      HumanSpine1' is inbetween humanoid transforms and has rotation animation that
+      will be discarded.\n\t'Base HumanSpine2' is inbetween humanoid transforms and
+      has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -77,7 +96,7 @@ ModelImporter:
       lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: -0.17
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0

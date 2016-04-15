@@ -49,9 +49,9 @@ public class Arrow : MonoBehaviour {
         if(col.gameObject.GetComponent<Actor>()) {
             Actor actor = col.gameObject.GetComponent<Actor>();
             if (actor.GetType() == typeof(Player))
-                actor.TakeDamage(playerDamage, shooter);
+                actor.TakeDamage(shooter, playerDamage);
             else
-                actor.TakeDamage(aiDamage, shooter);
+                actor.TakeDamage(shooter, aiDamage);
             //TODO: check for limb and parent arrow to it
         }
 

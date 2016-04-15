@@ -13,9 +13,9 @@ public class Fire : MonoBehaviour, ITrap {
 
     public void OnTriggered(Actor actor) {
         if(actor.GetType() == typeof(Player)) {
-            actor.TakeDamage(playerDamage * Time.deltaTime, gameObject);
+            actor.TakeDamage(gameObject, playerDamage * Time.deltaTime);
         } else {
-            actor.TakeDamage(aiDamage * Time.deltaTime, gameObject);
+            actor.TakeDamage(gameObject, aiDamage * Time.deltaTime);
         }
     }
 

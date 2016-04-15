@@ -20,6 +20,25 @@ public class Player : Actor {
             UseHealthPotion();
     }
 
+    public override void TakeDamage(GameObject sender, float amount) {
+        base.TakeDamage(sender, amount);
+        print("taking damage");
+        if (!sender.GetComponent<Fire>())
+            PlayerCamera.Instance.Shake(0.2f, 3, 3);
+        else if (PlayerCamera.Instance.isShaking == false)
+            PlayerCamera.Instance.Shake(0.2f, 3, 3);
+    }
+
+    public override void Block(GameObject killer, float attackPoints) {
+        base.Block(killer, attackPoints);
+        PlayerCamera.Instance.Shake(0.2f, 3, 4);
+    }
+
+    protected override void AttackProp(GameObject objectHit, Vector3 forceDirection, float forceAmount) {
+        base.AttackProp(objectHit, forceDirection, forceAmount);
+        PlayerCamera.Instance.Shake(0.2f, 2, 4);
+    }
+
     private void GameOver() {
         float timeScale = 0.5f;
         float seconds = 1;

@@ -40,18 +40,16 @@ public class Soldier : Humanoid {
                 break;
             case 1:
                 time = Random.Range(1f, 2f);
-                animHandler.Block();
-                //transform.LookAtWithoutYAxis(target.transform);
-                //var targetRotation = Quaternion.LookRotation(target.transform.position - transform.position);
-                //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-                yield return new WaitForSeconds(time);
-                animHandler.StopBlocking();
+                if (Inventory.Shield != null) {
+                    animHandler.Block();
+                    yield return new WaitForSeconds(time);
+                    animHandler.StopBlocking();
+                } else {
+                    yield return new WaitForSeconds(time / 2);
+                }
                 break;
             case 2:
                 time = Random.Range(0.5f, 1.5f);
-                //transform.LookAtWithoutYAxis(target.transform);
-                //targetRotation = Quaternion.LookRotation(target.transform.position - transform.position);
-                //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 yield return new WaitForSeconds(time);
                 break;
             case 3:

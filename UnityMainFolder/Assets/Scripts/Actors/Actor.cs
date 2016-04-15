@@ -114,18 +114,23 @@ public class Actor : MonoBehaviour {
 
     public virtual void AttackActor(Actor actorToAttack, float angle) {
         Vector3 particlePos = Vector3.zero;
+        float weaponAttackPoints = Inventory.Weapon.Points;
         if (actorToAttack.IsBlocking && angle < actorToAttack.Inventory.Shield.AttackAngle) {
             particlePos = actorToAttack.equippedItemManager.ShieldHolder.Item.transform.position;
             Instantiate(ParticleManager.Instance.Sparks, particlePos, Quaternion.identity);
+            actorToAttack.Block(gameObject, weaponAttackPoints);
+            if (GetComponent<Player>())
+                PlayerCamera.Instance.Shake(0.2f, 3, 4);
         } else {
             particlePos = new Vector3(actorToAttack.transform.position.x, equippedItemManager.WeaponHolder.Item.transform.position.y, actorToAttack.transform.position.z);
             Instantiate(ParticleManager.Instance.Blood, particlePos, Quaternion.identity);
-            float weaponAttackPoints = Inventory.Weapon.Points;
-            actorToAttack.TakeDamage(weaponAttackPoints, gameObject);
+            actorToAttack.TakeDamage(gameObject, weaponAttackPoints);
+            if(GetComponent<Player>())
+                PlayerCamera.Instance.Shake(0.2f, 3, 5);
         }
     }
 
-    public void TakeDamage(float amount, GameObject sender) {
+    public virtual void TakeDamage(GameObject sender, float amount) {
         anim.SetBool("Flinch", true); //Stagger, Flinch
         if (OnStaggered != null)
             OnStaggered();
@@ -138,6 +143,9 @@ public class Actor : MonoBehaviour {
             Die(sender);
         else if (OnDamageTaken != null)
             OnDamageTaken(sender);
+    }
+
+    public virtual void Block(GameObject killer, float attackPoints) {
     }
 
     private void Die(GameObject killer) {
@@ -153,7 +161,7 @@ public class Actor : MonoBehaviour {
             OnDeath();
     }
 
-    private void AttackProp(GameObject objectHit, Vector3 forceDirection, float forceAmount) {
+    protected virtual void AttackProp(GameObject objectHit, Vector3 forceDirection, float forceAmount) {
         if (!objectHit.GetComponent<Rigidbody>())
             return;
 

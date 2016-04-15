@@ -40,6 +40,7 @@ public class ScreenManager : MonoBehaviour {
         PlayerState.SetState(playerState.InInventory);
         inventoryScreen.SetActive(true);
         gameUI.SetActive(false);
+        Player.Instance.OnDamageTaken += CloseInventory;
     }
 
     private void CloseInventory() {
@@ -47,5 +48,10 @@ public class ScreenManager : MonoBehaviour {
         PlayerState.SetState(playerState.InGame);
         inventoryScreen.SetActive(false);
         gameUI.SetActive(true);
+    }
+
+    private void CloseInventory(GameObject damage) {
+        CloseInventory();
+        Player.Instance.OnDamageTaken -= CloseInventory;
     }
 }

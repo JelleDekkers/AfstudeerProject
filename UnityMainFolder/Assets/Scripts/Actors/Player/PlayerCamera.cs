@@ -15,6 +15,21 @@ public class PlayerCamera : MonoBehaviour {
     private float currentRotationAngle;
     private float currentHeight;
 
+    private float shakeStrength = 4f;
+    private float shakeTimeMultiplier = 1f;
+    private float shakeTime;
+    private float shakeMinifier = 1;
+    public bool isShaking;
+
+    public static PlayerCamera Instance;
+
+    private void Start() {
+        if (Instance == null)
+            Instance = this;
+
+        wantedHeight = target.position.y + height;
+    }
+
     void LateUpdate() {
         if (!target) {
             Debug.LogWarning("No target set for PlayerCamera!");
@@ -23,7 +38,7 @@ public class PlayerCamera : MonoBehaviour {
 
         // Calculate the current rotation angles
         wantedRotationAngle = target.eulerAngles.y;
-        wantedHeight = target.position.y + height;
+        
         currentRotationAngle = transform.eulerAngles.y;
         currentHeight = transform.position.y;
 
@@ -46,9 +61,47 @@ public class PlayerCamera : MonoBehaviour {
 
         // Always look at the target
         transform.LookAt(target);
+
+        if (isShaking) {
+            shakeTime -= Time.deltaTime;
+            transform.position = new Vector3(transform.position.x + (SmoothRandom.GetVector3Ridged(shakeStrength, shakeTimeMultiplier).x / shakeMinifier),
+                                            transform.position.y,
+                                            transform.position.z + (SmoothRandom.GetVector3Ridged(shakeStrength, shakeTimeMultiplier).z / shakeMinifier));
+            if(shakeTime < 0) {
+                isShaking = false;
+                shakeTime = 0;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.P)) {
+            Shake(0.2f, 5, 3);
+        }
+        
     }
 
-	
+    public void Shake(float time, float strength, float posMinifier) {
+        isShaking = true;
+        shakeStrength = strength;
+        shakeTime += time;
+        if (posMinifier != 0)
+            shakeMinifier = posMinifier;
+        else
+            shakeMinifier = 1;
+    }
+
+    private IEnumerator ShakeCoRoutine(float strength) {
+        isShaking = true;
+        while (shakeTime > 0) {
+            transform.position = new Vector3(transform.position.x + (SmoothRandom.GetVector3Ridged(shakeStrength, shakeTimeMultiplier).x / 2),
+                                       transform.position.y,
+                                       transform.position.z + (SmoothRandom.GetVector3Ridged(shakeStrength, shakeTimeMultiplier).z / 2));
+            print("shaking");
+            yield return new WaitForEndOfFrame();
+        }
+        isShaking = false;
+        shakeTime = 0;
+    }
+
     /*
     // For looking at something, maybe at character when in inventory?
     void FixedUpdate ()

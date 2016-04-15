@@ -26,8 +26,7 @@ public class Humanoid : Actor {
         OnDamageTaken += OnDamageTakenFunction;
         hearCollider = GetComponent<SphereCollider>();
         hearCollider.radius = viewDistance;
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
+        target = Player.Instance;
         onStateChange = delegate () {
             targetPosReached = false;
             return;
@@ -135,9 +134,10 @@ public class Humanoid : Actor {
         if (cause == null)
             return;
         print("damage taken");
-        if (CurrentState == State.Idle || CurrentState == State.Patrolling) {
-            if (cause.GetComponent<Player>() != null)
-                lastEnemySighting = cause.transform.position;
+
+        if (cause.GetComponent<Player>() != null) {
+            lastEnemySighting = cause.transform.position;
+            CurrentState = State.Aggroed;
         } 
     }
 }
