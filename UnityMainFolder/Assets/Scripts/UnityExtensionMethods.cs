@@ -18,4 +18,19 @@ public static class UnityExtensionMethods {
         var targetRotation = Quaternion.LookRotation(target - t.position);
         t.rotation = Quaternion.Slerp(t.rotation, targetRotation, rotateSpeed * Time.deltaTime);
     }
+
+    public static void PlayOneShotNormalPitch(this AudioSource source, AudioClip clip) {
+        source.pitch = 1;
+        source.PlayOneShot(clip);
+    }
+
+    public static void PlayOneShotWithRandomPitch(this AudioSource source, AudioClip clip, float minPitch, float maxPitch) {
+        source.pitch = Random.Range(minPitch, maxPitch);
+        source.PlayOneShot(clip);
+    }
+
+    public static void PlayOneShotWithRandomPitch(this AudioSource source, AudioClip clip, float deviation) {
+        source.pitch = Random.Range(1 - deviation, 1 + deviation);
+        source.PlayOneShot(clip);
+    }
 }

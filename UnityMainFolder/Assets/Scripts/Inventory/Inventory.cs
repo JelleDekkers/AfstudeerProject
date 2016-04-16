@@ -129,4 +129,12 @@ public class Inventory {
             return false;
         return true;
     }
+
+    public bool Contains(ItemData item) {
+        foreach(InventoryItem i in Items) {
+            if (CompareItems(i.Item, item) == true)
+                return true;
+        }
+        return false;
+    }
 }

@@ -6,13 +6,18 @@ using System.Collections.Generic;
 public class PlayerInteractions : MonoBehaviour {
 
     private float interactionMaxRange = 4;
-    public InteractableObject nearestItem = null; // private
-    public Collider[] nearbyItemColliders;
+    private InteractableObject nearestItem = null;
+    private Collider[] nearbyItemColliders;
+    private AudioSource audioSource;
 
     [SerializeField] private LayerMask layerMask;
 
     public static event Action<InteractableObject> OnNearbyItemSelectable;
     public static event Action OnNoNearbyItemSelectable;
+
+    private void Start() {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Update() {
         //TODO: block rays against foundation layer
@@ -58,16 +63,22 @@ public class PlayerInteractions : MonoBehaviour {
     private void Interact(InteractableObject item) {
         item.Interact();
         //pickup:
-        if (item.GetComponent<ItemGameObject>()) {
-            ItemGameObject i = item.GetComponent<ItemGameObject>();
-            if (i.Type == ItemType.Potion)
-                Player.Instance.Potions++;
-            else
-                Player.Instance.Inventory.AddItem(new ItemData(i.Name, i.Type, i.MeshName, i.Sprite, i.Points, i.WeaponLength, i.AttackAngle));
-            Destroy(item.gameObject);
-        }
+        if (item.GetComponent<ItemGameObject>()) 
+            PickUpItem(item.GetComponent<ItemGameObject>());
+        
        // nearestItem = null;
        // nearestItem = GetNearestItem();
+    }
+
+    private void PickUpItem(ItemGameObject item) {
+        audioSource.PlayOneShotWithRandomPitch(AudioManager.Instance.PickUpObjectClip, 0.2f);
+
+        ItemGameObject i = item.GetComponent<ItemGameObject>();
+        if (i.Type == ItemType.Potion)
+            Player.Instance.Potions++;
+        else
+            Player.Instance.Inventory.AddItem(new ItemData(i.Name, i.Type, i.MeshName, i.Sprite, i.Points, i.WeaponLength, i.AttackAngle));
+        Destroy(item.gameObject);
     }
 
     //private void OnDrawGizmos() {

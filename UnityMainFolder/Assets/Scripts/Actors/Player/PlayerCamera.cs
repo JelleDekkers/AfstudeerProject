@@ -71,12 +71,7 @@ public class PlayerCamera : MonoBehaviour {
                 isShaking = false;
                 shakeTime = 0;
             }
-        }
-
-        if(Input.GetKeyDown(KeyCode.P)) {
-            Shake(0.2f, 5, 3);
-        }
-        
+        }        
     }
 
     public void Shake(float time, float strength, float posMinifier) {

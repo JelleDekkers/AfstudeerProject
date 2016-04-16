@@ -32,10 +32,12 @@ public class PlayerController : HumanoidAnimatorHandler {
 
         if (PlayerState.State == playerState.InGame && Player.Instance.CurrentHealthPoints > 0) {
             // Look rotation:
-            transform.rotation = Quaternion.Euler(yRotation, xRotation, 0);
-            transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
-            xRotation += Input.GetAxis("Mouse X") * Time.deltaTime * rotationSpeed;
-            yRotation -= Input.GetAxis("Mouse Y") * Time.deltaTime * rotationSpeed;
+            if (Time.timeScale > 0) {
+                transform.rotation = Quaternion.Euler(yRotation, xRotation, 0);
+                transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, transform.eulerAngles.z);
+                xRotation += Input.GetAxis("Mouse X") * rotationSpeed;
+                yRotation -= Input.GetAxis("Mouse Y") * rotationSpeed;
+            }
 
             //if (Player.Inventory.GetWeapon != null) {
             // Attacking:

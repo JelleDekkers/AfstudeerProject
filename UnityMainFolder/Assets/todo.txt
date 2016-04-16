@@ -1,19 +1,18 @@
-geluiden: slaan, hit, death, vase break, door open, door blocked
-
-iets verzinnen voor keys, game object gaat niet werken met oppakken naar item data
+dynamic camera die voor muren uitkijkt
 
 vijanden moeten kiten niet alleen stil staan
 vijanden moeten de speler omcirkelen/flanken
 enemy jump implementeren
+
+geluiden: slaan, death, vase break, deur unlock
+geluiden voor dynamisch harder en zachte impact
 
 ff kijken naar de firepit trap (valt te langzaam)
 fire effect (continu damage) voor een bepaalde tijd
 grinder kapot na damage amount
 
 outline shaders voor interactable objects
-betere Ineractable interface? ipv inherit en interface?
-
-dynamic camera die voor muren uitkijkt
+betere Ineractable interface? ipv inherit en interface?, itemInfoPanel weg?
 
 map die zichtbaar word naarmate je verder komt
 compas/map in hoek
@@ -21,6 +20,7 @@ compas/map in hoek
 bommen gooien?
 bommen blast radius die items wegblazen?
 
+inventory filter werkend maken
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
 player position resolutie dependent maken in inventory screen

@@ -51,6 +51,7 @@ public class Actor : MonoBehaviour {
     private float regenTarget;
     private bool isRegenerating;
     private bool isGrounded;
+    private AudioSource audioSource;
 
     protected Action onStateChange;
 
@@ -68,6 +69,7 @@ public class Actor : MonoBehaviour {
         anim.SetFloat("HealthPoints", CurrentHealthPoints);
         CurrentState = State.Idle;
         CurrentHealthPoints = MaxHealthPoints;
+        audioSource = GetComponent<AudioSource>();
     }
 
     public virtual void Update() {
@@ -78,6 +80,10 @@ public class Actor : MonoBehaviour {
 
         if (CurrentHealthPoints <= 0)
             CurrentState = State.Dead;
+
+        if(Input.GetKeyDown(KeyCode.L)) {
+            audioSource.PlayOneShotWithRandomPitch(AudioManager.Instance.HitActorClip, 0.2f);
+        }
     }
 
     protected void UpdateStats() {
@@ -127,11 +133,15 @@ public class Actor : MonoBehaviour {
             actorToAttack.TakeDamage(gameObject, weaponAttackPoints);
             if(GetComponent<Player>())
                 PlayerCamera.Instance.Shake(0.2f, 3, 5);
+            audioSource.PlayOneShot(AudioManager.Instance.HitActorClip);
+            audioSource.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
         }
     }
 
     public virtual void TakeDamage(GameObject sender, float amount) {
-        anim.SetBool("Flinch", true); //Stagger, Flinch
+        if(!IsBlocking)
+            anim.SetBool("Flinch", true); //Stagger, Flinch
+
         if (OnStaggered != null)
             OnStaggered();
 

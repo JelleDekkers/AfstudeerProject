@@ -23,7 +23,7 @@ public class Player : Actor {
     public override void TakeDamage(GameObject sender, float amount) {
         base.TakeDamage(sender, amount);
         print("taking damage");
-        if (!sender.GetComponent<Fire>())
+        if (sender != null && sender.GetComponent<Fire>() != null)
             PlayerCamera.Instance.Shake(0.2f, 3, 3);
         else if (PlayerCamera.Instance.isShaking == false)
             PlayerCamera.Instance.Shake(0.2f, 3, 3);

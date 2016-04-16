@@ -2114,7 +2114,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 462134, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 107852, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}
       propertyPath: m_IsActive
@@ -3371,15 +3371,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 484808, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 146422, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
       propertyPath: m_Name
       value: Humanoid Soldier
       objectReference: {fileID: 0}
-    - target: {fileID: 146422, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 8298892, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e8831600ff5447347a525bce0cbd5c6e, type: 3}
+    - target: {fileID: 8298892, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298892, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
+      propertyPath: m_Volume
+      value: 0.484
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298892, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
+      propertyPath: Priority
+      value: 99
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
@@ -3846,7 +3858,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 484808, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 146422, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
       propertyPath: m_Name
@@ -3976,11 +3988,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 462134, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 107852, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262196, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e8831600ff5447347a525bce0cbd5c6e, type: 3}
+    - target: {fileID: 8262196, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262196, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}
+      propertyPath: m_Volume
+      value: 0.484
+      objectReference: {fileID: 0}
+    - target: {fileID: 8262196, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}
+      propertyPath: Priority
+      value: 99
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 74380738b77afb64d867e5c07b528a0f, type: 2}
