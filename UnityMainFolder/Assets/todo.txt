@@ -1,37 +1,32 @@
+compass
+volledige map
+map fog of war
+
 dynamic camera die voor muren uitkijkt
 
 vijanden moeten kiten niet alleen stil staan
 vijanden moeten de speler omcirkelen/flanken
 enemy jump implementeren
 
-geluiden: slaan, death, vase break, deur unlock
-geluiden voor dynamisch harder en zachte impact
-
 ff kijken naar de firepit trap (valt te langzaam)
 fire effect (continu damage) voor een bepaalde tijd
 grinder kapot na damage amount
 
+geluiden: slaan, death, vase break, deur unlock
+geluiden voor dynamisch harder en zachte impact
+
+animatie arm swing verminderen
+animatie minder gay
+
 outline shaders voor interactable objects
 betere Ineractable interface? ipv inherit en interface?, itemInfoPanel weg?
-
-map die zichtbaar word naarmate je verder komt
-compas/map in hoek
-
-bommen gooien?
-bommen blast radius die items wegblazen?
 
 inventory filter werkend maken
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
 player position resolutie dependent maken in inventory screen
 
-animatie arm swing verminderen
-animatie minder gay
-
 skeleton enemy?
 blood splatter bij hits op de grond?
 bot scherven voor skelet bij hit
 skeleton uit elkaar vallen bij death
-
-walk sounds?
-inventory equip sounds
