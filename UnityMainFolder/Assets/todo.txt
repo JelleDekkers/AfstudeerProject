@@ -1,12 +1,13 @@
-compass
-volledige map
-map fog of war
+volledige map, minimap uit wanneer volledige map aan, legende, kleuren icons voor deuren, pauzeren game
+map fog of war, shader?
 
 dynamic camera die voor muren uitkijkt
 
 vijanden moeten kiten niet alleen stil staan
 vijanden moeten de speler omcirkelen/flanken
 enemy jump implementeren
+
+misschien kijken naar character controller ipv root motion???? vooral voor player jump
 
 ff kijken naar de firepit trap (valt te langzaam)
 fire effect (continu damage) voor een bepaalde tijd
@@ -15,8 +16,8 @@ grinder kapot na damage amount
 geluiden: slaan, death, vase break, deur unlock
 geluiden voor dynamisch harder en zachte impact
 
-animatie arm swing verminderen
-animatie minder gay
+loop animatie arm swing verminderen
+loop animatie benen en heup minder gay
 
 outline shaders voor interactable objects
 betere Ineractable interface? ipv inherit en interface?, itemInfoPanel weg?
@@ -26,7 +27,4 @@ inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
 player position resolutie dependent maken in inventory screen
 
-skeleton enemy?
-blood splatter bij hits op de grond?
-bot scherven voor skelet bij hit
-skeleton uit elkaar vallen bij death
+blood splatter op de grond bij hits
