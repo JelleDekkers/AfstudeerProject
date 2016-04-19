@@ -5041,6 +5041,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 459734}
+  wallAvoidanceLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
   distance: 5
   height: 9
   heightDamping: 2
@@ -6609,7 +6612,7 @@ CapsuleCollider:
   m_Radius: 0.38
   m_Height: 3.2
   m_Direction: 1
-  m_Center: {x: -0.05, y: 1.43, z: 0}
+  m_Center: {x: -0.05, y: 1.57, z: 0}
 --- !u!136 &13651386
 CapsuleCollider:
   m_ObjectHideFlags: 1

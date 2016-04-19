@@ -103,10 +103,9 @@ public class Actor : MonoBehaviour {
             float dot = Vector3.Dot(targetDir, transform.forward);
             float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
             Vector3 fwd = transform.TransformDirection(Vector3.forward);
-
+            
             if (float.IsNaN(angle) ||  angle < weapon.AttackAngle) {
                 objectHit = col.gameObject;
-
                 angle = Mathf.Abs(Mathf.Abs(Mathf.DeltaAngle(transform.localEulerAngles.y, objectHit.transform.localEulerAngles.y)) - 180);
 
                 if (objectHit.GetComponent<Actor>()) {
@@ -172,14 +171,13 @@ public class Actor : MonoBehaviour {
     }
 
     protected virtual void AttackProp(GameObject objectHit, Vector3 forceDirection, float forceAmount) {
-        if (!objectHit.GetComponent<Rigidbody>())
-            return;
-
-        objectHit.GetComponent<Rigidbody>().AddForce(forceDirection * forceAmount, ForceMode.Impulse);
-
         IHittable hittableComponent = objectHit.GetComponent<IHittable>();
         if (hittableComponent != null)
-           hittableComponent.Hit(this, forceDirection, forceAmount);
+            hittableComponent.Hit(this, forceDirection, forceAmount);
+
+        if (objectHit.GetComponent<Rigidbody>()) {
+            objectHit.GetComponent<Rigidbody>().AddForce(forceDirection * forceAmount, ForceMode.Impulse);
+        }
     }
 
     public void EnableShieldCollider() {

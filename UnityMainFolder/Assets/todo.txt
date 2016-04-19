@@ -1,7 +1,12 @@
+betere positie camera achter player
+dynamic camera die voor muren uitkijkt
+y-axis misschien gebruiken om de camera te bewegen??? (test.js)
+
+loop animatie arm swing verminderen
+loop animatie benen en heup minder gay
+
 volledige map, minimap uit wanneer volledige map aan, legende, kleuren icons voor deuren, pauzeren game
 map fog of war, shader?
-
-dynamic camera die voor muren uitkijkt
 
 vijanden moeten kiten niet alleen stil staan
 vijanden moeten de speler omcirkelen/flanken
@@ -16,9 +21,6 @@ grinder kapot na damage amount
 geluiden: slaan, death, vase break, deur unlock
 geluiden voor dynamisch harder en zachte impact
 
-loop animatie arm swing verminderen
-loop animatie benen en heup minder gay
-
 outline shaders voor interactable objects
 betere Ineractable interface? ipv inherit en interface?, itemInfoPanel weg?
 
@@ -28,3 +30,9 @@ inventory scrollbaar list wanneer scherm vol is
 player position resolutie dependent maken in inventory screen
 
 blood splatter op de grond bij hits
+
+zand particle bij ground shake
+
+skelet - botten vliegen weg death
+statue knight - brokkelt af bij death
+troll - loop het hele level langzaam achter je aan?
