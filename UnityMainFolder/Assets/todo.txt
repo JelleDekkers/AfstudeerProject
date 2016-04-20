@@ -1,7 +1,3 @@
-betere positie camera achter player
-dynamic camera die voor muren uitkijkt
-y-axis misschien gebruiken om de camera te bewegen??? (test.js)
-
 loop animatie arm swing verminderen
 loop animatie benen en heup minder gay
 
@@ -13,6 +9,7 @@ vijanden moeten de speler omcirkelen/flanken
 enemy jump implementeren
 
 misschien kijken naar character controller ipv root motion???? vooral voor player jump
+ragdoll -> normaal voor knockdowns
 
 ff kijken naar de firepit trap (valt te langzaam)
 fire effect (continu damage) voor een bepaalde tijd
@@ -33,6 +30,13 @@ blood splatter op de grond bij hits
 
 zand particle bij ground shake
 
+//- enemies -//
 skelet - botten vliegen weg death
 statue knight - brokkelt af bij death
 troll - loop het hele level langzaam achter je aan?
+troll - kan pilaren vernietigen?
+boss fight - met ground shake attacks?
+
+//- level -//
+rond zwaaiende bijlen die je moet ontwijken
+vuurballen die worden afgeschoten en je moet ontwijken
