@@ -1,6 +1,3 @@
-loop animatie arm swing verminderen
-loop animatie benen en heup minder gay
-
 volledige map, minimap uit wanneer volledige map aan, legende, kleuren icons voor deuren, pauzeren game
 map fog of war, shader?
 
@@ -15,16 +12,16 @@ ff kijken naar de firepit trap (valt te langzaam)
 fire effect (continu damage) voor een bepaalde tijd
 grinder kapot na damage amount
 
+inventory filter werkend maken
+inventory volledig grid in item list,
+inventory scrollbaar list wanneer scherm vol is
+player position resolutie dependent maken in inventory screen
+
 geluiden: slaan, death, vase break, deur unlock
 geluiden voor dynamisch harder en zachte impact
 
 outline shaders voor interactable objects
 betere Ineractable interface? ipv inherit en interface?, itemInfoPanel weg?
-
-inventory filter werkend maken
-inventory volledig grid in item list,
-inventory scrollbaar list wanneer scherm vol is
-player position resolutie dependent maken in inventory screen
 
 blood splatter op de grond bij hits
 
