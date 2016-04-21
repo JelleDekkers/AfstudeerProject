@@ -8,15 +8,23 @@ ModelImporter:
     100000: DoorLeftLow001
     100002: DoorRightLow001
     100004: //RootNode
+    100006: GatewayLow
     400000: DoorLeftLow001
     400002: DoorRightLow001
     400004: //RootNode
+    400006: GatewayLow
     2300000: DoorLeftLow001
     2300002: DoorRightLow001
+    2300004: GatewayLow
     3300000: DoorLeftLow001
     3300002: DoorRightLow001
+    3300004: GatewayLow
     4300000: DoorLeftLow001
     4300002: DoorRightLow001
+    4300004: GatewayLow
+    6400000: DoorLeftLow001
+    6400002: DoorRightLow001
+    6400004: GatewayLow
     7400000: Take 001
     9500000: //RootNode
   materials:
@@ -43,9 +51,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0

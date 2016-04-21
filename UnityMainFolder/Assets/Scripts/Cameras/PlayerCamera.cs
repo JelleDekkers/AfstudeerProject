@@ -33,9 +33,14 @@ public class PlayerCamera : MonoBehaviour {
         wantedHeight = transform.position.y;
         wantedDistance = distance;
 
+        StartCoroutine(Wait(1));        
+    }
+
+    private IEnumerator Wait(float seconds) {
+        yield return new WaitForEndOfFrame();
         cameraRayCheck = new GameObject().transform;
-        cameraRayCheck.parent = target.transform;
         cameraRayCheck.position = transform.position;
+        cameraRayCheck.parent = Player.Instance.transform;
         cameraRayCheck.name = "Main Camera RayCast";
     }
 
@@ -44,8 +49,6 @@ public class PlayerCamera : MonoBehaviour {
             Debug.LogWarning("No target set for PlayerCamera!");
             return;
         }
-
-        Debug.DrawRay(cameraRayCheck.transform.position, target.transform.position - cameraRayCheck.transform.position, Color.red);
 
         // Calculate the current rotation angles
         wantedRotationAngle = target.eulerAngles.y;
@@ -70,8 +73,8 @@ public class PlayerCamera : MonoBehaviour {
         // Set the height of the camera
         transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
 
-        if (Physics.Raycast(cameraRayCheck.position, Player.Instance.transform.position - cameraRayCheck.position, out hit, 100000, wallAvoidanceLayerMask)) {
-            distance = Mathf.Lerp(distance, minPeekDistance, Time.deltaTime * peekSpeed * 2);            
+        if (cameraRayCheck != null && Physics.Raycast(cameraRayCheck.position, Player.Instance.transform.position - cameraRayCheck.position, out hit, 100000, wallAvoidanceLayerMask)) {
+            distance = Mathf.Lerp(distance, minPeekDistance, Time.deltaTime * peekSpeed * 2);    
         } else {
             distance = Mathf.Lerp(distance, wantedDistance, Time.deltaTime * peekSpeed);
         }
@@ -91,7 +94,7 @@ public class PlayerCamera : MonoBehaviour {
                 isShaking = false;
                 shakeTime = 0;
             }
-        }        
+        }
     }
 
     public void Shake(float time, float strength, float posMinifier) {

@@ -356,6 +356,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6433366, guid: 37d5530485aa58148ab9c8b7a8db4c2e, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37d5530485aa58148ab9c8b7a8db4c2e, type: 2}
   m_IsPrefabParent: 0
@@ -543,6 +547,10 @@ Prefab:
     - target: {fileID: 14439966, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
       propertyPath: m_ConnectedAnchor.z
       value: -0.0000003799796
+      objectReference: {fileID: 0}
+    - target: {fileID: 146422, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1ccc47f31fd45db41b0835d202dd57c3, type: 2}
@@ -793,6 +801,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1148199520}
   m_RootOrder: 0
+--- !u!1 &867449241 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 156730, guid: 37d5530485aa58148ab9c8b7a8db4c2e, type: 2}
+  m_PrefabInternal: {fileID: 396024662}
+--- !u!136 &867449242
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 867449241}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.16
+  m_Height: 1.43
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 1.08}
+--- !u!65 &867449243
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 867449241}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.72}
+  m_Center: {x: -0.17657948, y: -0.16762722, z: 0.36}
+--- !u!135 &867449244
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 867449241}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.62
+  m_Center: {x: -0.17657948, y: -0.16762722, z: 0.63}
 --- !u!1 &895134269
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,11 +958,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22431714, guid: 22e78b8cb1ab3e347849e92439badc77, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22431714, guid: 22e78b8cb1ab3e347849e92439badc77, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 446932, guid: 22e78b8cb1ab3e347849e92439badc77, type: 2}
       propertyPath: m_LocalPosition.x

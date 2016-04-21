@@ -133,7 +133,8 @@ public class Humanoid : Actor {
     private void OnDamageTakenFunction(GameObject cause) {
         if (cause == null)
             return;
-        print("damage taken");
+
+        print("damage taken by: " + cause.name);
 
         if (cause.GetComponent<Player>() != null) {
             lastEnemySighting = cause.transform.position;

@@ -9,6 +9,7 @@ public class Grinder : MonoBehaviour, ITrap {
 
     [SerializeField] private float rotationSpeed;
     [SerializeField] private Vector3 rotationDirection;
+    [SerializeField] private float damageThreshold;
 
     public bool IsBroken { get; private set; }
 

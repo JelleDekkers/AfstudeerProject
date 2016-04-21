@@ -1,3 +1,9 @@
+camera peek fixen bij back wall face staat verkeerdom?
+destructable objects fixen zodat ze niet allemaal kapot gaan
+
+grinder kapot na damage amount
+fire effect (continu damage) voor een bepaalde tijd
+
 volledige map, minimap uit wanneer volledige map aan, legende, kleuren icons voor deuren, pauzeren game
 map fog of war, shader?
 
@@ -8,17 +14,10 @@ enemy jump implementeren
 misschien kijken naar character controller ipv root motion???? vooral voor player jump
 ragdoll -> normaal voor knockdowns
 
-ff kijken naar de firepit trap (valt te langzaam)
-fire effect (continu damage) voor een bepaalde tijd
-grinder kapot na damage amount
-
+inventory screen revamp, niet realtime doen
 inventory filter werkend maken
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
-player position resolutie dependent maken in inventory screen
-
-geluiden: slaan, death, vase break, deur unlock
-geluiden voor dynamisch harder en zachte impact
 
 outline shaders voor interactable objects
 betere Ineractable interface? ipv inherit en interface?, itemInfoPanel weg?
@@ -27,6 +26,14 @@ blood splatter op de grond bij hits
 
 zand particle bij ground shake
 
+//- sounds -//
+geluiden: slaan, death, vase break, deur unlock
+geluiden voor dynamisch harder en zachte impact
+
+//- traps -//
+rond zwaaiende bijlen die je moet ontwijken
+vuurballen die worden afgeschoten en je moet ontwijken
+
 //- enemies -//
 skelet - botten vliegen weg death
 statue knight - brokkelt af bij death
@@ -34,6 +41,8 @@ troll - loop het hele level langzaam achter je aan?
 troll - kan pilaren vernietigen?
 boss fight - met ground shake attacks?
 
-//- level -//
-rond zwaaiende bijlen die je moet ontwijken
-vuurballen die worden afgeschoten en je moet ontwijken
+//- XP/Levels -//
+enemies droppen sigils/runes
+deze kunnen in een speciale kamer aan het einde van elk  level worden ingeleverd voor iets (scrolls/sigils?)
+Deze runes geven de speler een bonus/perk zoals sneller rennen, meer damage, meer resistance?
+Armor/Weapon pieces hebben sigil spot en kunnen er niet uit gehaald worden.

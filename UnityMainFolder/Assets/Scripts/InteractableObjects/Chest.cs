@@ -11,7 +11,7 @@ public class Chest : InteractableObject {
         if (itemParent.childCount == 0)
             return;
 
-        itemInChest = transform.FindChild("ItemInChestParent").GetChild(0).GetComponent<ItemGameObject>();
+        itemInChest = itemParent.GetChild(0).GetComponent<ItemGameObject>();
         itemInChest.gameObject.SetActive(false);
         itemInChest.transform.position = transform.position;
         Destroy(itemInChest.GetComponent<Rigidbody>());

@@ -31,9 +31,11 @@ GameObject:
   - 4: {fileID: 491852}
   - 33: {fileID: 3324956}
   - 23: {fileID: 2317200}
-  - 64: {fileID: 6433366}
   - 54: {fileID: 5464846}
   - 114: {fileID: 11474780}
+  - 136: {fileID: 13649620}
+  - 65: {fileID: 6541478}
+  - 135: {fileID: 13552828}
   m_Layer: 10
   m_Name: Firepit
   m_TagString: Untagged
@@ -52,11 +54,11 @@ GameObject:
   - 136: {fileID: 13633434}
   - 114: {fileID: 11435460}
   m_Layer: 0
-  m_Name: Trigger
+  m_Name: Floor Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &459088
 Transform:
@@ -89,8 +91,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 156730}
   m_LocalRotation: {x: -0.70710677, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.14, y: -0, z: 1.34}
-  m_LocalScale: {x: 0.32044768, y: 0.3204478, z: 1.1800617}
+  m_LocalPosition: {x: 68.62, y: 0.004157512, z: 10.73}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1.5}
   m_Children:
   - {fileID: 489226}
   - {fileID: 459088}
@@ -144,18 +146,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &6433366
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156730}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 1
-  m_Mesh: {fileID: 4300000, guid: b5cb56f640ca88c4a9c98f65f71236b3, type: 3}
 --- !u!65 &6505660
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -168,13 +158,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0.06}
+--- !u!65 &6541478
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156730}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.72}
+  m_Center: {x: -0.17657948, y: -0.16762722, z: 0.36}
 --- !u!108 &10822782
 Light:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 103208}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 6
   m_Type: 2
   m_Color: {r: 0.9558824, g: 0.79945517, b: 0.45685554, a: 1}
@@ -252,6 +254,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePrefab: {fileID: 116110, guid: 48538d6ac939f6447aa966cbb619f410, type: 2}
+--- !u!135 &13552828
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156730}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.62
+  m_Center: {x: -0.17657948, y: -0.16762722, z: 0.63}
 --- !u!136 &13633434
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -265,6 +279,19 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &13649620
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 156730}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.16
+  m_Height: 1.43
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 1.08}
 --- !u!198 &19849334
 ParticleSystem:
   m_ObjectHideFlags: 1

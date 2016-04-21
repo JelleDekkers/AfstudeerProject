@@ -14,19 +14,21 @@ public class Door : MonoBehaviour {
     private ItemData keyData;
 
     private void Start() {
-        leftDoor = transform.FindChild("LeftHinge").gameObject;
-        rightDoor = transform.FindChild("RightHinge").gameObject;
+        leftDoor = transform.FindChild("DoorLeft").gameObject;
+        rightDoor = transform.FindChild("DoorRight").gameObject;
         speed = Random.Range(speed - 20, speed + 20);
         duration = Random.Range(duration - 0.1f, duration + 0.1f);
         audioSource = GetComponent<AudioSource>();
-        keyData = new ItemData(key.Name, key.Type, key.MeshName, key.Sprite, key.Points, key.WeaponLength, key.AttackAngle);
+
+        if(key != null)
+            keyData = new ItemData(key.Name, key.Type, key.MeshName, key.Sprite, key.Points, key.WeaponLength, key.AttackAngle);
     }
 
     public void DoorTriggered(Actor actor, Vector3 direction) {
         if (isOpen)
             return;
 
-       if(isLocked && actor.Inventory.Contains(keyData)) {
+       if(isLocked && key != null && actor.Inventory.Contains(keyData)) {
             isLocked = false;
             // play sound
         }

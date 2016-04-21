@@ -13,6 +13,9 @@ namespace AfstudeerProject.Triggers {
         public override void ActivateEvent() {
             Vector3 targetPos = gameObject.transform.position + direction;
             StartCoroutine(MoveFromTo(gameObject.transform, gameObject.transform.position, targetPos, speed));
+
+            if (gameObject.layer == Layers.FOUNDATION_LAYER)
+                gameObject.layer = 0;
         }
 
         IEnumerator MoveFromTo(Transform objectToMove, Vector3 a, Vector3 b, float speed) {
