@@ -29,13 +29,13 @@ TagManager:
   - Projectile
   - Shield
   - IgnoreActors
-  - Building
+  - Floor
   - Body
   - InteractableTrigger
   - Particle
   - Door
-  - 
-  - 
+  - InteractableProp
+  - MiniMapIcons
   - 
   - 
   - 

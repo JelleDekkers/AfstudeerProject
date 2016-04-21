@@ -92,7 +92,7 @@ ModelImporter:
       lastFrame: 5
       wrapMode: 0
       orientationOffsetY: 0
-      level: 0
+      level: -0.17
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
@@ -112,6 +112,10 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
+      - path: Base Human
+        weight: 0
+      - path: Base HumanLPlatform
+        weight: 0
       - path: Base HumanPelvis
         weight: 1
       - path: Base HumanPelvis/Base HumanLThigh
@@ -145,6 +149,9 @@ ModelImporter:
           HumanLCollarbone/Base HumanLUpperarm/Base HumanLForearm/Base HumanLPalm
         weight: 1
       - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
+          HumanLCollarbone/Base HumanLUpperarm/Base HumanLForearm/Base HumanLPalm/Dummy002
+        weight: 0
+      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
           HumanNeck
         weight: 1
       - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
@@ -162,6 +169,11 @@ ModelImporter:
       - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
           HumanRCollarbone/Base HumanRUpperarm/Base HumanRForearm/Base HumanRPalm
         weight: 1
+      - path: Base HumanPelvis/Base HumanSpine1/Base HumanSpine2/Base HumanRibcage/Base
+          HumanRCollarbone/Base HumanRUpperarm/Base HumanRForearm/Base HumanRPalm/Dummy001
+        weight: 0
+      - path: Base HumanRPlatform
+        weight: 0
       maskType: 0
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0

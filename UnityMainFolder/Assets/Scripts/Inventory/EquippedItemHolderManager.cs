@@ -40,16 +40,17 @@ public class EquippedItemHolderManager : MonoBehaviour {
 
     public void DropAndApplyForceToEquippedWeapons(Vector3 forceDirection, float forceAmount) {
         //is nog niet uit inventory verwijderd
-        AddRigidbodyAndForceToItem(WeaponHolder.Item.gameObject, forceDirection, forceAmount);
-        AddRigidbodyAndForceToItem(ShieldHolder.Item.gameObject, forceDirection, forceAmount);
-        if (BowHolder != null)
+        if(WeaponHolder != null && WeaponHolder.Item != null)
+            AddRigidbodyAndForceToItem(WeaponHolder.Item.gameObject, forceDirection, forceAmount);
+        if(ShieldHolder != null && ShieldHolder.Item != null)
+            AddRigidbodyAndForceToItem(ShieldHolder.Item.gameObject, forceDirection, forceAmount);
+        if (BowHolder != null && BowHolder.Item != null)
             AddRigidbodyAndForceToItem(BowHolder.Item.gameObject, forceDirection, forceAmount);
     }
 
     private void AddRigidbodyAndForceToItem(GameObject item, Vector3 forceDirection, float forceAmount) {
         if (item == null)
             return;
-
         float forceMultiplier = 1.5f;
         float torqueForce = 100;
         float itemMass = 8;
@@ -58,7 +59,9 @@ public class EquippedItemHolderManager : MonoBehaviour {
 
         item.layer = 0;
         item.GetComponent<Collider>().enabled = true;
-        Rigidbody itemRigidbody = item.AddComponent<Rigidbody>();
+        Rigidbody itemRigidbody = item.GetComponent<Rigidbody>();
+        if (itemRigidbody == null)
+            itemRigidbody = item.AddComponent<Rigidbody>();
         itemRigidbody.mass = itemMass;
         itemRigidbody.drag = itemDrag;
         itemRigidbody.AddForce(forceDirection * (forceAmount * forceMultiplier), ForceMode.Impulse);

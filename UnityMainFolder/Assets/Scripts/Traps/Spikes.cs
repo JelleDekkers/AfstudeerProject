@@ -52,9 +52,9 @@ public class Spikes : MonoBehaviour, ITrap {
         }
 
         if (actor.GetType() == typeof(Player))
-            actor.TakeDamage(playerDamage, gameObject);
+            actor.TakeDamage(gameObject, playerDamage);
         else
-            actor.TakeDamage(aiDamage, gameObject);
+            actor.TakeDamage(gameObject, aiDamage);
 
         spikesTimer = spikesTimerMax;
         ParticleManager.InstantiateParticle(ParticleManager.Instance.Blood, actor.transform.position);

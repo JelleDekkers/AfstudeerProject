@@ -27,7 +27,7 @@ public class HumanoidNavHandler : MonoBehaviour {
         if (actor.CurrentHealthPoints <= 0)
             return;
 
-        if (actor.currentState != State.Aggroed || actor.currentState != State.InCombat)
+        if (actor.CurrentState != State.Aggroed || actor.CurrentState != State.InCombat)
             navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
         else
             navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;

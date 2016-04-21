@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Linq;
 
 public enum State {
     ///<summary>Idle, just standing around</summary>
-    Roaming = 0,
+    Idle = 0,
     ///<summary>Alerted to an enemy presence and goes in to attack</summary> 
     Aggroed = 1,
     ///<summary>patrolling after being aggroed but having lost its target</summary> 
@@ -17,7 +18,16 @@ public enum State {
 
 public class Actor : MonoBehaviour {
 
-    public State currentState;// { get; protected set; }
+    public State CurrentState {
+        get { return currentState; }
+        protected set {
+            if (currentState != value) {
+                currentState = value;
+                if (onStateChange != null)
+                    onStateChange();
+            }
+        }
+    }
     public float CurrentHealthPoints; // { get; private set; }
     public float MaxHealthPoints = 100;// { get; protected set; }
     public float AttackPoints;// { get; protected set; }
@@ -33,6 +43,7 @@ public class Actor : MonoBehaviour {
     public Action OnStaggered;
     public uint Potions;
 
+    [SerializeField] private State currentState = State.Idle;
     private EquippedItemHolderManager equippedItemManager;
     private RagdollController ragdollController;
     private HumanoidAnimatorHandler humanoidController;
@@ -40,6 +51,9 @@ public class Actor : MonoBehaviour {
     private float regenTarget;
     private bool isRegenerating;
     private bool isGrounded;
+    private AudioSource audioSource;
+
+    protected Action onStateChange;
 
     [SerializeField] private LayerMask attackLayerMask;
     [SerializeField] private LayerMask shieldLayerMask;
@@ -53,15 +67,23 @@ public class Actor : MonoBehaviour {
         ragdollController = GetComponent<RagdollController>();
         humanoidController = GetComponent<HumanoidAnimatorHandler>();
         anim.SetFloat("HealthPoints", CurrentHealthPoints);
-        currentState = State.Roaming;
+        CurrentState = State.Idle;
         CurrentHealthPoints = MaxHealthPoints;
+        audioSource = GetComponent<AudioSource>();
     }
 
     public virtual void Update() {
         anim.SetFloat("HealthPoints", CurrentHealthPoints);
 
-        if (currentState == State.Dead)
+        if (CurrentState == State.Dead)
             return;
+
+        if (CurrentHealthPoints <= 0)
+            CurrentState = State.Dead;
+
+        if(Input.GetKeyDown(KeyCode.L)) {
+            audioSource.PlayOneShotWithRandomPitch(AudioManager.Instance.HitActorClip, 0.2f);
+        }
     }
 
     protected void UpdateStats() {
@@ -72,7 +94,7 @@ public class Actor : MonoBehaviour {
 
     public virtual void AttackAnimationEvent() {
         ItemData weapon = Inventory.Weapon;
-        Collider[] objectsInRange = Physics.OverlapSphere(attackCenter.position, weapon.WeaponLength, attackLayerMask);
+        Collider[] objectsInRange = Physics.OverlapSphere(attackCenter.position, weapon.WeaponLength, attackLayerMask).Where(c => !c.isTrigger).ToArray();
         GameObject objectHit = null;
 
         foreach (Collider col in objectsInRange) {
@@ -81,10 +103,9 @@ public class Actor : MonoBehaviour {
             float dot = Vector3.Dot(targetDir, transform.forward);
             float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
             Vector3 fwd = transform.TransformDirection(Vector3.forward);
-
+            
             if (float.IsNaN(angle) ||  angle < weapon.AttackAngle) {
                 objectHit = col.gameObject;
-
                 angle = Mathf.Abs(Mathf.Abs(Mathf.DeltaAngle(transform.localEulerAngles.y, objectHit.transform.localEulerAngles.y)) - 180);
 
                 if (objectHit.GetComponent<Actor>()) {
@@ -98,20 +119,28 @@ public class Actor : MonoBehaviour {
 
     public virtual void AttackActor(Actor actorToAttack, float angle) {
         Vector3 particlePos = Vector3.zero;
-
+        float weaponAttackPoints = Inventory.Weapon.Points;
         if (actorToAttack.IsBlocking && angle < actorToAttack.Inventory.Shield.AttackAngle) {
             particlePos = actorToAttack.equippedItemManager.ShieldHolder.Item.transform.position;
             Instantiate(ParticleManager.Instance.Sparks, particlePos, Quaternion.identity);
+            actorToAttack.Block(gameObject, weaponAttackPoints);
+            if (GetComponent<Player>())
+                PlayerCamera.Instance.Shake(0.2f, 3, 4);
         } else {
             particlePos = new Vector3(actorToAttack.transform.position.x, equippedItemManager.WeaponHolder.Item.transform.position.y, actorToAttack.transform.position.z);
             Instantiate(ParticleManager.Instance.Blood, particlePos, Quaternion.identity);
-            float weaponAttackPoints = Inventory.Weapon.Points;
-            actorToAttack.TakeDamage(weaponAttackPoints, gameObject);
+            actorToAttack.TakeDamage(gameObject, weaponAttackPoints);
+            if(GetComponent<Player>())
+                PlayerCamera.Instance.Shake(0.2f, 3, 5);
+            audioSource.PlayOneShot(AudioManager.Instance.HitActorClip);
+            audioSource.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
         }
     }
 
-    public void TakeDamage(float amount, GameObject sender) {
-        anim.SetBool("Flinch", true); //Stagger, Flinch
+    public virtual void TakeDamage(GameObject sender, float amount) {
+        if(!IsBlocking)
+            anim.SetBool("Flinch", true); //Stagger, Flinch
+
         if (OnStaggered != null)
             OnStaggered();
 
@@ -125,6 +154,9 @@ public class Actor : MonoBehaviour {
             OnDamageTaken(sender);
     }
 
+    public virtual void Block(GameObject killer, float attackPoints) {
+    }
+
     private void Die(GameObject killer) {
         CurrentHealthPoints = 0;
         humanoidController.SetUpperBodyLayerWeight(0);
@@ -132,21 +164,20 @@ public class Actor : MonoBehaviour {
         Common.SetLayerRecursively(Layers.BODY_LAYER, transform);
         ragdollController.ActivateRagDoll(direction, strikeForceAmount);
         equippedItemManager.DropAndApplyForceToEquippedWeapons(direction, strikeForceAmount);
-        currentState = State.Dead;
+        CurrentState = State.Dead;
 
         if (OnDeath != null)
             OnDeath();
     }
 
-    private void AttackProp(GameObject objectHit, Vector3 forceDirection, float forceAmount) {
-        if (!objectHit.GetComponent<Rigidbody>())
-            return;
-
-        objectHit.GetComponent<Rigidbody>().AddForce(forceDirection * forceAmount, ForceMode.Impulse);
-
+    protected virtual void AttackProp(GameObject objectHit, Vector3 forceDirection, float forceAmount) {
         IHittable hittableComponent = objectHit.GetComponent<IHittable>();
         if (hittableComponent != null)
-           hittableComponent.Hit(this, forceDirection, forceAmount);
+            hittableComponent.Hit(this, forceDirection, forceAmount);
+
+        if (objectHit.GetComponent<Rigidbody>()) {
+            objectHit.GetComponent<Rigidbody>().AddForce(forceDirection * forceAmount, ForceMode.Impulse);
+        }
     }
 
     public void EnableShieldCollider() {

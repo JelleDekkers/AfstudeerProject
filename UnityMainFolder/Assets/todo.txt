@@ -1,20 +1,39 @@
-player jump (de y constraint gaat niet goed)
-camera bij jump checken
-enemy ai detection bug fixen/inclusief wanneer direct in zicht
-enemy lunge animatie fixen, root motion
-enemy jump implementeren
+volledige map, minimap uit wanneer volledige map aan, legende, kleuren icons voor deuren, pauzeren game
+map fog of war, shader?
+
+vijanden moeten kiten niet alleen stil staan
 vijanden moeten de speler omcirkelen/flanken
+enemy jump implementeren
+
+misschien kijken naar character controller ipv root motion???? vooral voor player jump
+ragdoll -> normaal voor knockdowns
+
+ff kijken naar de firepit trap (valt te langzaam)
+fire effect (continu damage) voor een bepaalde tijd
 grinder kapot na damage amount
-outline shaders voor interactable objects
-dynamic camera die voor muren uitkijkt
 
-iets verzinnen voor keys, game object gaat niet werken met oppakken naar item data
-
-map die zichtbaar word naarmate je verder komt
-compas/map in hoek
-
+inventory filter werkend maken
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
 player position resolutie dependent maken in inventory screen
 
-god ray op belangrijke objecten zoals sleutels?
+geluiden: slaan, death, vase break, deur unlock
+geluiden voor dynamisch harder en zachte impact
+
+outline shaders voor interactable objects
+betere Ineractable interface? ipv inherit en interface?, itemInfoPanel weg?
+
+blood splatter op de grond bij hits
+
+zand particle bij ground shake
+
+//- enemies -//
+skelet - botten vliegen weg death
+statue knight - brokkelt af bij death
+troll - loop het hele level langzaam achter je aan?
+troll - kan pilaren vernietigen?
+boss fight - met ground shake attacks?
+
+//- level -//
+rond zwaaiende bijlen die je moet ontwijken
+vuurballen die worden afgeschoten en je moet ontwijken

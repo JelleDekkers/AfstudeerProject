@@ -6,110 +6,138 @@ public class Humanoid : Actor {
 
     [SerializeField] private float viewDistance = 20;
     [SerializeField] private float fovAngle = 110f;
+    [SerializeField] protected float attackDistance = 1;
     [SerializeField] private LayerMask sightLayerMask;
-    [SerializeField] private float animSpeed = 0.95f;
+    [SerializeField] protected float rotationSpeed = 3;
 
     protected HumanoidNavHandler navAgent;
     protected HumanoidAnimatorHandler animHandler;
-    protected Vector3 lastDetectedEnemyPosition;
-    protected GameObject[] detectedActors;
-    protected Actor targetActor;
-    private float patrollingToIdleTimerMax = 5;
-    private bool targetReached;
-    private Vector3 rndPoint;
-    protected float attackDistance = 1;
+    protected Vector3 lastEnemySighting;
+    protected Actor target;
+
+    private List<GameObject> actorsInSight = new List<GameObject>();
+    private SphereCollider hearCollider;
+    private bool playerInSight;
+    private bool targetPosReached;
 
     protected virtual void Start() {
         navAgent = GetComponent<HumanoidNavHandler>();
         animHandler = GetComponent<HumanoidAnimatorHandler>();
-        anim.speed = animSpeed;
         OnDamageTaken += OnDamageTakenFunction;
+        hearCollider = GetComponent<SphereCollider>();
+        hearCollider.radius = viewDistance;
+        target = Player.Instance;
+        onStateChange = delegate () {
+            targetPosReached = false;
+            return;
+        };
     }
 
     public override void Update() {
+        anim.SetBool("Grounded", true);
         base.Update();
-        detectedActors = GetDetectedActors();
+        if (CurrentState == State.Dead)
+            return;
+
         Debug.DrawRay(attackCenter.transform.position, transform.TransformDirection(Vector3.forward) * attackDistance, Color.red);
+
+        switch (CurrentState) {
+            case State.Idle:
+                Idle();
+                break;
+            case State.Patrolling:
+                Patrol();
+                break;
+            case State.Aggroed:
+                Aggroed();
+                break;
+            case State.InCombat:
+                InCombat();
+                break;
+        }
     }
 
-    protected virtual GameObject[] GetDetectedActors() {
-        List<GameObject> actorsInSight = new List<GameObject>();
-        Collider[] nearbyItemColliders = Physics.OverlapSphere(attackCenter.position, viewDistance, sightLayerMask);
-        RaycastHit hit;
+    private void OnTriggerStay(Collider col) {
+        if (col.gameObject != target.gameObject)
+            return;
 
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Vector3 direction = col.transform.position - transform.position;
+        float angle = Vector3.Angle(direction, transform.forward);
 
-        Vector3 directionToTarget = player.transform.position - transform.position;
-        if (Physics.Raycast(attackCenter.transform.position, directionToTarget, out hit, viewDistance, sightLayerMask)) {
-            if (hit.collider.tag != "Wall") {
-                actorsInSight.Add(player);
+        if (angle < fovAngle * 0.5f) {
+            RaycastHit hit;
+            if (Physics.Raycast(attackCenter.transform.position, direction.normalized, out hit, sightLayerMask)) {
+                if (hit.collider.gameObject == target.gameObject) {
+                    playerInSight = true;
+                    lastEnemySighting = target.transform.position;
+
+                    if (Vector3.Distance(transform.position, target.transform.position) <= attackDistance)
+                        CurrentState = State.InCombat;
+                    else 
+                        CurrentState = State.Aggroed;
+                }
             }
         }
-
-        return actorsInSight.ToArray();
     }
 
-    protected virtual void Roam() {
-        if (detectedActors.Length > 0) {
-            print("detected actors length: " + detectedActors.Length);
-            targetActor = detectedActors[0].GetComponent<Actor>();
-            print("targetActor: " + targetActor);
-            currentState = State.Aggroed;
-            return;
+    private void OnTriggerExit(Collider col) {
+        if(col.gameObject == target.gameObject) {
+            playerInSight = false;
+            CurrentState = State.Aggroed;
         }
+    }
 
+    //protected virtual GameObject[] GetDetectedActors() {
+    //    Collider[] nearbyItemColliders = Physics.OverlapSphere(attackCenter.position, viewDistance, sightLayerMask);
+    //    RaycastHit hit;
+    //    Vector3 directionToTarget = player.transform.position - transform.position;
+    //    if (Physics.Raycast(attackCenter.transform.position, directionToTarget, out hit, viewDistance, sightLayerMask)) {
+    //        if (hit.collider.tag != "Wall" && !actorsInSight.Contains(player.gameObject)) {
+    //            actorsInSight.Add(player.gameObject);
+    //        }
+    //    }
+    //    return actorsInSight.ToArray();
+    //}
+
+    protected virtual void Idle() {
         navAgent.OnTargetReachedEvent = delegate () {
-            print("target reached while roaming");
+            targetPosReached = true;
             navAgent.StopMoving();
-            targetReached = true;
             return;
         };
 
-        if(targetReached == false)
+        if (!targetPosReached) {
+            transform.SlowLookat(navAgent.StartPos, rotationSpeed);
             navAgent.MoveToTargetPosition(navAgent.StartPos);
+        }
     }
 
     protected virtual void Patrol() {
-        navAgent.MoveToTargetPosition(lastDetectedEnemyPosition);
+        //navAgent.MoveToTargetPosition(lastEnemySighting);
+        //move to waypoints
+    }
 
-        //lastDetectedEnemyPosition = controller.GetRandomNavPos();
+    protected virtual void Aggroed() {
+        transform.SlowLookat(lastEnemySighting, rotationSpeed);
+        navAgent.MoveToTargetPosition(lastEnemySighting);
         navAgent.OnTargetReachedEvent = delegate () {
-            navAgent.StopMoving();
-            print("targer reached while patrolling");
-            currentState = State.Roaming;
+            CurrentState = State.Idle;
             return;
         };
     }
 
-    protected virtual void Aggroed() {
-        //if targetactor == null, patroll
-
-        if (detectedActors.Length == 0) {
-            currentState = State.Patrolling;
-            targetActor = null;
-            return;
-        }
-
-        if (Vector3.Distance(transform.position, targetActor.transform.position) <= attackDistance) {
-            navAgent.StopMoving();
-            currentState = State.InCombat;
-            return;
-        }
-
-        lastDetectedEnemyPosition = targetActor.transform.position;
-        navAgent.MoveToTargetPosition(lastDetectedEnemyPosition);
+    protected virtual void InCombat() {
+        navAgent.StopMoving();
     }
-
 
     private void OnDamageTakenFunction(GameObject cause) {
         if (cause == null)
             return;
+        print("damage taken");
 
-        if (currentState == State.Roaming || currentState == State.Patrolling) { 
-            if (cause.GetComponent<Player>() != null) 
-                targetActor = cause.GetComponent<Player>();
-            else
-                currentState = State.Patrolling;
+        if (cause.GetComponent<Player>() != null) {
+            lastEnemySighting = cause.transform.position;
+            CurrentState = State.Aggroed;
         } 
     }
 }
