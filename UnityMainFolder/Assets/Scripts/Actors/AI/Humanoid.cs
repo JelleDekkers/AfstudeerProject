@@ -15,8 +15,6 @@ public class Humanoid : Actor {
     protected Vector3 lastEnemySighting;
     protected Actor target;
 
-    private List<GameObject> actorsInSight = new List<GameObject>();
-    private SphereCollider hearCollider;
     private bool playerInSight;
     private bool targetPosReached;
 
@@ -24,8 +22,6 @@ public class Humanoid : Actor {
         navAgent = GetComponent<HumanoidNavHandler>();
         animHandler = GetComponent<HumanoidAnimatorHandler>();
         OnDamageTaken += OnDamageTakenFunction;
-        hearCollider = GetComponent<SphereCollider>();
-        hearCollider.radius = viewDistance;
         target = Player.Instance;
         onStateChange = delegate () {
             targetPosReached = false;
@@ -41,6 +37,8 @@ public class Humanoid : Actor {
 
         Debug.DrawRay(attackCenter.transform.position, transform.TransformDirection(Vector3.forward) * attackDistance, Color.red);
 
+        DetectEnemiesWithSphereCast();
+
         switch (CurrentState) {
             case State.Idle:
                 Idle();
@@ -55,6 +53,41 @@ public class Humanoid : Actor {
                 InCombat();
                 break;
         }
+    }
+
+    private void DetectEnemiesWithSphereCast() {
+        RaycastHit hit;
+        Vector3 direction;
+        float angle;
+        LayerMask playerLayerMask = 1 << Layers.PLAYER_LAYER;
+        Collider[] hitColliders = Physics.OverlapSphere(attackCenter.position, viewDistance, playerLayerMask);
+
+        foreach (Collider col in hitColliders) {
+            if (col.gameObject == target.gameObject) {
+                direction = col.transform.position - transform.position;
+                angle = Vector3.Angle(direction, transform.forward);
+
+                if (angle < fovAngle * 0.5f) {
+                    playerInSight = true;
+                    lastEnemySighting = target.transform.position;
+
+                    if (Vector3.Distance(transform.position, target.transform.position) <= attackDistance)
+                        CurrentState = State.InCombat;
+                    else
+                        CurrentState = State.Aggroed;
+
+                    return;
+                }
+            } 
+        }
+
+        playerInSight = false;
+        CurrentState = State.Aggroed;
+    }
+
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackCenter.position, viewDistance);
     }
 
     private void OnTriggerStay(Collider col) {
@@ -86,18 +119,6 @@ public class Humanoid : Actor {
             CurrentState = State.Aggroed;
         }
     }
-
-    //protected virtual GameObject[] GetDetectedActors() {
-    //    Collider[] nearbyItemColliders = Physics.OverlapSphere(attackCenter.position, viewDistance, sightLayerMask);
-    //    RaycastHit hit;
-    //    Vector3 directionToTarget = player.transform.position - transform.position;
-    //    if (Physics.Raycast(attackCenter.transform.position, directionToTarget, out hit, viewDistance, sightLayerMask)) {
-    //        if (hit.collider.tag != "Wall" && !actorsInSight.Contains(player.gameObject)) {
-    //            actorsInSight.Add(player.gameObject);
-    //        }
-    //    }
-    //    return actorsInSight.ToArray();
-    //}
 
     protected virtual void Idle() {
         navAgent.OnTargetReachedEvent = delegate () {

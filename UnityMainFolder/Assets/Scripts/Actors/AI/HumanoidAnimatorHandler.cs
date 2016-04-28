@@ -21,8 +21,8 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
     protected int baseLayer_locoState = Animator.StringToHash("Base Layer.Locomotion");
     protected int baseLayer_staggerState = Animator.StringToHash("Base Layer.Stagger"); 
     protected int baseLayer_lungeState = Animator.StringToHash("Base Layer.Lunge");
-    protected int baseLayer_jumpState = Animator.StringToHash("Base Layer.Jump");
-    protected int baseLayer_inAirState = Animator.StringToHash("Base Layer.InAir");
+    protected int baseLayer_jumpState = Animator.StringToHash("Base Layer.Jumping.Jump");
+    protected int baseLayer_inAirState = Animator.StringToHash("Base Layer.Jumping.InAir");
     protected int UpperBodyLayer_flinchState = Animator.StringToHash("UpperBodyLayer.Flinch");
     protected int UpperBodyLayer_nothingState = Animator.StringToHash("UpperBodyLayer.Nothing");
     protected int UpperBodyLayer_LeftSwingState = Animator.StringToHash("UpperBodyLayer.Swing Left");

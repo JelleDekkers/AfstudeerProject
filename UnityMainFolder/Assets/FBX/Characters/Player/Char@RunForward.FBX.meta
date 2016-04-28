@@ -70,50 +70,19 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: "\nDefault bone length found in this file is different
-      form the one found in the source avatar:\n\t'Base HumanLThigh' : position error
-      = 6534.131348 mm\n\t'Base HumanLCalf' : position error = 11276.491211 mm\n\t'Base
-      HumanLFoot' : position error = 12272.474609 mm\n\t'Base HumanRThigh' : position
-      error = 6534.132324 mm\n\t'Base HumanRCalf' : position error = 11276.491211
-      mm\n\t'Base HumanRFoot' : position error = 12272.474609 mm\n\t'Base HumanSpine1'
-      : position error = 7967.331543 mm\n\t'Base HumanSpine2' : position error = 6777.557617
-      mm\n\t'Base HumanRibcage' : position error = 12186.035156 mm\n\t'Base HumanLCollarbone'
-      : position error = 8350.101563 mm\n\t'Base HumanLUpperarm' : position error
-      = 4871.523926 mm\n\t'Base HumanLForearm' : position error = 10661.196289 mm\n\t'Base
-      HumanLPalm' : position error = 13321.907227 mm\n\t'Base HumanRCollarbone' :
-      position error = 8350.100586 mm\n\t'Base HumanRUpperarm' : position error =
-      4871.522461 mm\n\t'Base HumanRForearm' : position error = 10661.194336 mm\n\t'Base
-      HumanRPalm' : position error = 13321.911133 mm\n\t'Base HumanNeck' : position
-      error = 145.502426 mm\n\t'Base HumanHead' : position error = 7424.518555 mm\n\nInbetween
-      bone default rotation found in this file is different from the one found in
-      the source avatar:\n\t'Base HumanSpine1' : rotation error = 4.218325 deg\n\t'Base
-      HumanSpine2' : rotation error = 13.645502 deg\n\t'Base HumanLCollarbone' : rotation
-      error = 0.734068 deg\n\t'Base HumanRCollarbone' : rotation error = 0.382614
-      deg\n\nClip 'Take 001' has import animation warnings that might lower retargeting
-      quality:\nNote: Activate translation DOF on avatar to improve retargeting quality.\n\t'Base
-      HumanLThigh' has translation animation that will be discarded.\n\t'Base HumanLCalf'
-      has translation animation that will be discarded.\n\t'Base HumanLFoot' has translation
-      animation that will be discarded.\n\t'Base HumanLFoot' has scale animation that
-      will be discarded.\n\t'Base HumanRThigh' has translation animation that will
-      be discarded.\n\t'Base HumanRCalf' has translation animation that will be discarded.\n\t'Base
-      HumanRFoot' has translation animation that will be discarded.\n\t'Base HumanSpine1'
-      has translation animation that will be discarded.\n\t'Base HumanSpine1' is inbetween
+    animationImportWarnings: "\nInbetween bone default rotation found in this file
+      is different from the one found in the source avatar:\n\t'Base HumanSpine1'
+      : rotation error = 4.218325 deg\n\t'Base HumanSpine2' : rotation error = 13.645502
+      deg\n\t'Base HumanLCollarbone' : rotation error = 0.734068 deg\n\t'Base HumanRCollarbone'
+      : rotation error = 0.382614 deg\n\nClip 'Take 001' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Base HumanLFoot' has scale animation that
+      will be discarded.\n\t'Base HumanSpine1' is inbetween humanoid transforms and
+      has rotation animation that will be discarded.\n\t'Base HumanSpine2' is inbetween
       humanoid transforms and has rotation animation that will be discarded.\n\t'Base
-      HumanSpine2' has translation animation that will be discarded.\n\t'Base HumanSpine2'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Base
-      HumanRibcage' has translation animation that will be discarded.\n\t'Base HumanLCollarbone'
-      has translation animation that will be discarded.\n\t'Base HumanLCollarbone'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Base
-      HumanLUpperarm' has translation animation that will be discarded.\n\t'Base HumanLForearm'
-      has translation animation that will be discarded.\n\t'Base HumanLPalm' has translation
-      animation that will be discarded.\n\t'Base HumanRCollarbone' has translation
-      animation that will be discarded.\n\t'Base HumanRCollarbone' is inbetween humanoid
-      transforms and has rotation animation that will be discarded.\n\t'Base HumanRUpperarm'
-      has translation animation that will be discarded.\n\t'Base HumanRForearm' has
-      translation animation that will be discarded.\n\t'Base HumanRPalm' has translation
-      animation that will be discarded.\n\t'Base HumanNeck' has translation animation
-      that will be discarded.\n\t'Base HumanHead' has translation animation that will
-      be discarded.\n"
+      HumanLCollarbone' is inbetween humanoid transforms and has rotation animation
+      that will be discarded.\n\t'Base HumanRCollarbone' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -130,7 +99,7 @@ ModelImporter:
       lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
-      level: -0.17
+      level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0

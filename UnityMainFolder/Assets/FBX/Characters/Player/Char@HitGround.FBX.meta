@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 20382cd281d389740b89b677e51d70a8
-timeCreated: 1454682136
+guid: 3465e33718d5fc746a149fd5b72eeb64
+timeCreated: 1461855535
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -53,7 +53,7 @@ ModelImporter:
     400042: Base HumanSpine1
     400044: Base HumanSpine2
     400046: //RootNode
-    7400000: RunBack
+    7400000: HitGround
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -66,19 +66,7 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: "\nInbetween bone default rotation found in this file
-      is different from the one found in the source avatar:\n\t'Base HumanSpine1'
-      : rotation error = 4.218325 deg\n\t'Base HumanSpine2' : rotation error = 13.645502
-      deg\n\t'Base HumanLCollarbone' : rotation error = 0.718673 deg\n\t'Base HumanRCollarbone'
-      : rotation error = 0.379554 deg\n\nClip 'Take 001' has import animation warnings
-      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'Base HumanLFoot' has scale animation that
-      will be discarded.\n\t'Base HumanSpine1' is inbetween humanoid transforms and
-      has rotation animation that will be discarded.\n\t'Base HumanSpine2' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'Base
-      HumanLCollarbone' is inbetween humanoid transforms and has rotation animation
-      that will be discarded.\n\t'Base HumanRCollarbone' is inbetween humanoid transforms
-      and has rotation animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
@@ -89,20 +77,20 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: RunBack
+      name: HitGround
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 100
+      lastFrame: 5
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
@@ -180,11 +168,11 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importBlendShapes: 0
+    importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 0
+    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     secondaryUVAngleDistortion: 8

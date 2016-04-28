@@ -1,23 +1,35 @@
+enemy ff nakijken, loopt te snel?
+
+player interactions bug oplossen
+
+player roll
+
+arm swing/neck swing verminderen bij attack from left to right
+
 camera peek fixen bij back wall face staat verkeerdom?
-destructable objects fixen zodat ze niet allemaal kapot gaan
+camera peek te dicht op de muur?
+destructable objects fixen zodat ze niet allemaal kapot gaan bij slaan?
+
+editor scripts maken voor gemakkelijk level in elkaar zetten
 
 grinder kapot na damage amount
 fire effect (continu damage) voor een bepaalde tijd
-
-volledige map, minimap uit wanneer volledige map aan, legende, kleuren icons voor deuren, pauzeren game
-map fog of war, shader?
 
 vijanden moeten kiten niet alleen stil staan
 vijanden moeten de speler omcirkelen/flanken
 enemy jump implementeren
 
-misschien kijken naar character controller ipv root motion???? vooral voor player jump
-ragdoll -> normaal voor knockdowns
+volledige map, minimap uit wanneer volledige map aan, legende, kleuren icons voor deuren, pauzeren game
+map fog of war, shader?
 
-inventory screen revamp, niet realtime doen
+ragdoll naar opstaan naar normaal voor knockdowns
+
+inventory screen revamp, niet realtime doen of niet via deze camera manier
 inventory filter werkend maken
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
+
+chromic abbreviation bij camera shake?? voorbeeld in controller package, ook kijken naar andere image effects
 
 outline shaders voor interactable objects
 betere Ineractable interface? ipv inherit en interface?, itemInfoPanel weg?
@@ -46,3 +58,6 @@ enemies droppen sigils/runes
 deze kunnen in een speciale kamer aan het einde van elk  level worden ingeleverd voor iets (scrolls/sigils?)
 Deze runes geven de speler een bonus/perk zoals sneller rennen, meer damage, meer resistance?
 Armor/Weapon pieces hebben sigil spot en kunnen er niet uit gehaald worden.
+
+
+speler kan alleen maar 1 zwaard en 1 schild, door items op te pakken kunnen deze gesmolten worden naar upgrade points voor de spelrs amror?

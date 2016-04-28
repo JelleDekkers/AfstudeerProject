@@ -69,8 +69,8 @@ ModelImporter:
     animationImportWarnings: "\nInbetween bone default rotation found in this file
       is different from the one found in the source avatar:\n\t'Base HumanSpine1'
       : rotation error = 4.218325 deg\n\t'Base HumanSpine2' : rotation error = 13.645502
-      deg\n\t'Base HumanLCollarbone' : rotation error = 0.721760 deg\n\t'Base HumanRCollarbone'
-      : rotation error = 0.376480 deg\n\nClip 'Take 001' has import animation warnings
+      deg\n\t'Base HumanLCollarbone' : rotation error = 0.734068 deg\n\t'Base HumanRCollarbone'
+      : rotation error = 0.382614 deg\n\nClip 'Take 001' has import animation warnings
       that might lower retargeting quality:\nNote: Activate translation DOF on avatar
       to improve retargeting quality.\n\t'Base HumanRFoot' has scale animation that
       will be discarded.\n\t'Base HumanSpine1' is inbetween humanoid transforms and
@@ -95,7 +95,7 @@ ModelImporter:
       lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
-      level: -0.17
+      level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0

@@ -5,16 +5,14 @@ public class PlayerController : HumanoidAnimatorHandler {
 
     private float xRotation = 0;
     private float yRotation = 0;
-    private float verticalInput;
-    private float horizontalInput;
     private Rigidbody rBody;
     private bool isGrounded = true;
     private bool isJumping;
     private RaycastHit hit;
-    private float groundCheckRayLength = 0.4f;
-
+   
     public bool enableJumping = true;
 
+    [SerializeField] private float groundCheckRayLength = 0.4f;
     [SerializeField] private float inAirMovementSpeed = 5;
     [SerializeField] private float rotationSpeed = 8;
     [SerializeField] private float jumpForce = 500;
@@ -61,7 +59,7 @@ public class PlayerController : HumanoidAnimatorHandler {
             GroundCheck();
 
             // While jumping:
-            if(isJumping) {
+            if(!isGrounded) {
                 InAirControl();
             }
 
@@ -72,42 +70,64 @@ public class PlayerController : HumanoidAnimatorHandler {
                 yRotation += 360;
             yRotation = Mathf.Clamp(yRotation, -60, 60);
 
-            //Moving Forward:
-            verticalInput = Input.GetAxis("Vertical");
-            horizontalInput = Input.GetAxis("Horizontal");
+            //Movement:
+            float verticalInput = Input.GetAxis("Vertical");
+            float horizontalInput = Input.GetAxis("Horizontal");
             anim.SetFloat("MovementZ", verticalInput);
             anim.SetFloat("MovementX", horizontalInput);
         }
     }
 
+    //private void Move() {
+    //    float verticalInput = Input.GetAxis("Vertical");
+    //    float horizontalInput = Input.GetAxis("Horizontal");
+       
+    //    if (verticalInput > 0)
+    //        verticalVelocityMultiplier = forwardVelocityMultiplier;
+    //    else
+    //        verticalVelocityMultiplier = backVelocityMultiplier;
+
+    //    // Normalized to prevent diagonal speed being too high
+    //    Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput).normalized;
+    //    movementDirection.x *= horizontalVelocityMultiplier;
+    //    movementDirection.z *= verticalVelocityMultiplier;
+    //    movementDirection = transform.TransformDirection(movementDirection);
+    //    rBody.velocity = movementDirection;
+
+    //    anim.SetFloat("MovementZ", movementDirection.z);
+    //    anim.SetFloat("MovementX", movementDirection.x);
+    //}
+    
     private void Jump() {
         if (isGrounded) {
+            anim.SetBool("Blocking", false);
             anim.SetTrigger("Jump");
             isJumping = true;
             rBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            rBody.constraints = RigidbodyConstraints.FreezeRotation;
-            //rBody.AddForce(transform.TransformDirection(Vector3.forward) * jumpForce, ForceMode.Impulse);
+            //rBody.constraints = RigidbodyConstraints.FreezeRotation;
+            rBody.AddForce(transform.TransformDirection(Vector3.forward) * jumpForce, ForceMode.Impulse);
         }
     }
 
     private void InAirControl() {
+        Vector3 velocity = rBody.velocity;
         float h = inAirMovementSpeed * Input.GetAxis("Horizontal");
         float v = inAirMovementSpeed * Input.GetAxis("Vertical");
         Vector3 pos = new Vector3(h, 0, v);
         rBody.AddRelativeForce(pos * inAirMovementSpeed, ForceMode.Force);
-        //transform.Translate(v, h, 0);
     }
 
     private void GroundCheck() {
         if (enableJumping) {
+            Debug.DrawRay(transform.position, Vector3.down * groundCheckRayLength, Color.red);
             if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckRayLength, groundCheckLayerMask)) {
                 if (isJumping == false) {
                     isGrounded = true;
-                    rBody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
+                    //rBody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
                 }
             } else {
                 isGrounded = false;
-                rBody.constraints = RigidbodyConstraints.FreezeRotation;
+                //rBody.constraints = RigidbodyConstraints.FreezeRotation;
             }
 
             if (baseLayerState.fullPathHash == baseLayer_inAirState)
