@@ -4,22 +4,21 @@ using System.Collections;
 
 public class HumanoidNavHandler : MonoBehaviour {
 
-    private NavMeshAgent navAgent;
-    private Vector3 targetPos;
-
     public Vector3 StartPos { get; private set; }
     public Action OnTargetReachedEvent;
 
-    private float stoppingDinstance;
+    private NavMeshAgent navAgent;
+    private Vector3 targetPos;
     private Actor actor;
     private Animator anim;
+    private float stoppingDinstance;
 
     private void Start() {
         actor = GetComponent<Actor>();
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         StartPos = transform.position;
-        stoppingDinstance = 1f;
+        stoppingDinstance = 4;
         actor.OnDeath += StopMoving;
     }
 
@@ -57,7 +56,7 @@ public class HumanoidNavHandler : MonoBehaviour {
     public void StopMoving() {
         navAgent.Stop();
 
-        float modifier = 2f;
+        float modifier = 4f;
         float z = anim.GetFloat("MovementZ");
         z = Mathf.MoveTowards(z, 0, modifier * Time.deltaTime);
         anim.SetFloat("MovementZ", z);

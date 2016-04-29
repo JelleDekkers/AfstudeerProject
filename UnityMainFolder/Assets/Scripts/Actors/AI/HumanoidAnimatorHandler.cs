@@ -20,7 +20,6 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
 
     protected int baseLayer_locoState = Animator.StringToHash("Base Layer.Locomotion");
     protected int baseLayer_staggerState = Animator.StringToHash("Base Layer.Stagger"); 
-    protected int baseLayer_lungeState = Animator.StringToHash("Base Layer.Lunge");
     protected int baseLayer_jumpState = Animator.StringToHash("Base Layer.Jumping.Jump");
     protected int baseLayer_inAirState = Animator.StringToHash("Base Layer.Jumping.InAir");
     protected int UpperBodyLayer_flinchState = Animator.StringToHash("UpperBodyLayer.Flinch");
@@ -58,8 +57,6 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
         //     anim.SetBool("Attacking", false);
         if (baseLayerState.fullPathHash == baseLayer_staggerState)
             anim.SetBool("Stagger", false);
-        if (baseLayerState.fullPathHash == baseLayer_lungeState)
-            anim.SetBool("Lunge", false);
         if (upperBodyLayerState.fullPathHash == UpperBodyLayer_flinchState) 
             anim.SetBool("Flinch", false);
 
@@ -94,11 +91,6 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
             nextAttackDirection = Direction.left;
         else
             nextAttackDirection = Direction.None;
-    }
-
-    public void LungeAttack() {
-        //if (upperBodyLayerState.fullPathHash != UpperBodyLayer_LeftSwingState)
-            anim.SetBool("Lunge", true);
     }
 
     public void DrawArrow() {

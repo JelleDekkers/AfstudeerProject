@@ -19,16 +19,23 @@ public class Soldier : Humanoid {
     }
 
     private IEnumerator RandomCombat() {
-        int combatActions = 3; //with lunge = 4
+        int combatActions = 3;
         int rndBehaviour = Random.Range(0, combatActions);
         float time = 0;
 
-        if(rndBehaviour == prevAction) {
-            if (rndBehaviour == combatActions - 1)
-                rndBehaviour = 0;
-            else
-                rndBehaviour++;
+        if (firstHit) {
+            animHandler.Attack();
+            rndBehaviour = 0;
+            firstHit = false;
+        } else {
+            if (rndBehaviour == prevAction) {
+                if (rndBehaviour == combatActions - 1)
+                    rndBehaviour = 0;
+                else
+                    rndBehaviour++;
+            }
         }
+
         prevAction = rndBehaviour;
         combatRoutineStarted = true;
 
@@ -50,11 +57,6 @@ public class Soldier : Humanoid {
                 break;
             case 2:
                 time = Random.Range(0.5f, 1.5f);
-                yield return new WaitForSeconds(time);
-                break;
-            case 3:
-                time = 2f;
-                animHandler.LungeAttack();
                 yield return new WaitForSeconds(time);
                 break;
         }

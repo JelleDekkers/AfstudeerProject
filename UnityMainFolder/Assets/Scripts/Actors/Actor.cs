@@ -120,6 +120,7 @@ public class Actor : MonoBehaviour {
     public virtual void AttackActor(Actor actorToAttack, float angle) {
         Vector3 particlePos = Vector3.zero;
         float weaponAttackPoints = Inventory.Weapon.Points;
+        // attack was blocked:
         if (actorToAttack.IsBlocking && angle < actorToAttack.Inventory.Shield.AttackAngle) {
             particlePos = actorToAttack.equippedItemManager.ShieldHolder.Item.transform.position;
             Instantiate(ParticleManager.Instance.Sparks, particlePos, Quaternion.identity);

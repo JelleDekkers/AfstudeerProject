@@ -22,6 +22,7 @@ public class Arrow : MonoBehaviour {
         rBody.useGravity = false;
         rBody.constraints = RigidbodyConstraints.FreezeAll;
         rBody.isKinematic = true;
+        GetComponent<Collider>().enabled = false;
     }
 
     public void Fire() {
@@ -31,6 +32,7 @@ public class Arrow : MonoBehaviour {
         rBody.constraints = RigidbodyConstraints.None;
         rBody.isKinematic = false;
         fwd = shooter.transform.TransformDirection(Vector3.forward);
+        GetComponent<Collider>().enabled = true;
         //TODO: add a small deviation in forward direction
         Destroy(gameObject, destroyTime);
     }

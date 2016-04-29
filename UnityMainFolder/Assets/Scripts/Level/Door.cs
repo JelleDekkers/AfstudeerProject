@@ -9,7 +9,7 @@ public class Door : MonoBehaviour {
     private float duration = 0.4f;
     private AudioSource audioSource;
 
-    [SerializeField] private bool isLocked;
+    private bool isLocked;
     [SerializeField] private ItemGameObject key;
     private ItemData keyData;
 
@@ -19,9 +19,11 @@ public class Door : MonoBehaviour {
         speed = Random.Range(speed - 20, speed + 20);
         duration = Random.Range(duration - 0.1f, duration + 0.1f);
         audioSource = GetComponent<AudioSource>();
-
-        if(key != null)
+        
+        if (key != null) {
+            isLocked = true;
             keyData = new ItemData(key.Name, key.Type, key.MeshName, key.Sprite, key.Points, key.WeaponLength, key.AttackAngle);
+        }
     }
 
     public void DoorTriggered(Actor actor, Vector3 direction) {

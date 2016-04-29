@@ -33,7 +33,7 @@ TagManager:
   - Body
   - InteractableTrigger
   - Particle
-  - Door
+  - Trigger
   - InteractableProp
   - MiniMapIcons
   - 

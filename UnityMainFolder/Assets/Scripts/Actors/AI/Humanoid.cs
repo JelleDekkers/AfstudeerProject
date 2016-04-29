@@ -14,8 +14,9 @@ public class Humanoid : Actor {
     protected HumanoidAnimatorHandler animHandler;
     protected Vector3 lastEnemySighting;
     protected Actor target;
+    protected bool firstHit;
 
-    private bool playerInSight;
+    private bool targetInSight;
     private bool targetPosReached;
 
     protected virtual void Start() {
@@ -61,15 +62,22 @@ public class Humanoid : Actor {
         float angle;
         LayerMask playerLayerMask = 1 << Layers.PLAYER_LAYER;
         Collider[] hitColliders = Physics.OverlapSphere(attackCenter.position, viewDistance, playerLayerMask);
+        bool targetIsNearby = false;
 
         foreach (Collider col in hitColliders) {
             if (col.gameObject == target.gameObject) {
-                direction = col.transform.position - transform.position;
-                angle = Vector3.Angle(direction, transform.forward);
+                targetIsNearby = true;
+            }
+        }
 
-                if (angle < fovAngle * 0.5f) {
-                    playerInSight = true;
-                    lastEnemySighting = target.transform.position;
+        if(targetIsNearby) {
+            direction = target.transform.position - transform.position;
+            angle = Vector3.Angle(direction, transform.forward);
+
+            if (Physics.Raycast(attackCenter.transform.position, target.transform.position - transform.position, out hit, viewDistance, sightLayerMask)) {
+                if (hit.collider.gameObject == target.gameObject && angle < fovAngle * 0.5f) {
+                    targetInSight = true;
+                    lastEnemySighting = hit.transform.position;
 
                     if (Vector3.Distance(transform.position, target.transform.position) <= attackDistance)
                         CurrentState = State.InCombat;
@@ -78,11 +86,10 @@ public class Humanoid : Actor {
 
                     return;
                 }
-            } 
+            }
         }
 
-        playerInSight = false;
-        CurrentState = State.Aggroed;
+        targetInSight = false;
     }
 
     private void OnDrawGizmos() {
@@ -90,37 +97,31 @@ public class Humanoid : Actor {
         Gizmos.DrawWireSphere(attackCenter.position, viewDistance);
     }
 
-    private void OnTriggerStay(Collider col) {
-        if (col.gameObject != target.gameObject)
-            return;
+    //private void OnTriggerStay(Collider col) {
+    //    if (col.gameObject != target.gameObject)
+    //        return;
 
-        Vector3 direction = col.transform.position - transform.position;
-        float angle = Vector3.Angle(direction, transform.forward);
+    //    Vector3 direction = col.transform.position - transform.position;
+    //    float angle = Vector3.Angle(direction, transform.forward);
 
-        if (angle < fovAngle * 0.5f) {
-            RaycastHit hit;
-            if (Physics.Raycast(attackCenter.transform.position, direction.normalized, out hit, sightLayerMask)) {
-                if (hit.collider.gameObject == target.gameObject) {
-                    playerInSight = true;
-                    lastEnemySighting = target.transform.position;
+    //    if (angle < fovAngle * 0.5f) {
+    //        RaycastHit hit;
+    //        if (Physics.Raycast(attackCenter.transform.position, direction.normalized, out hit, sightLayerMask)) {
+    //            if (hit.collider.gameObject == target.gameObject) {
+    //                targetInSight = true;
+    //                lastEnemySighting = target.transform.position;
 
-                    if (Vector3.Distance(transform.position, target.transform.position) <= attackDistance)
-                        CurrentState = State.InCombat;
-                    else 
-                        CurrentState = State.Aggroed;
-                }
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider col) {
-        if(col.gameObject == target.gameObject) {
-            playerInSight = false;
-            CurrentState = State.Aggroed;
-        }
-    }
+    //                if (Vector3.Distance(transform.position, target.transform.position) <= attackDistance)
+    //                    CurrentState = State.InCombat;
+    //                else 
+    //                    CurrentState = State.Aggroed;
+    //            }
+    //        }
+    //    }
+    //}
 
     protected virtual void Idle() {
+        firstHit = true;
         navAgent.OnTargetReachedEvent = delegate () {
             targetPosReached = true;
             navAgent.StopMoving();
@@ -139,16 +140,25 @@ public class Humanoid : Actor {
     }
 
     protected virtual void Aggroed() {
+        firstHit = true;
+        float facingAngle = 10;
         transform.SlowLookat(lastEnemySighting, rotationSpeed);
         navAgent.MoveToTargetPosition(lastEnemySighting);
         navAgent.OnTargetReachedEvent = delegate () {
-            CurrentState = State.Idle;
-            return;
+            Vector3 direction = target.transform.position - transform.position;
+            float angle = Vector3.Angle(direction, transform.forward);
+            if (angle < facingAngle) {
+                CurrentState = State.Idle;
+                return;
+            }
         };
     }
 
     protected virtual void InCombat() {
         navAgent.StopMoving();
+
+        if(!targetInSight) 
+            CurrentState = State.Aggroed;
     }
 
     private void OnDamageTakenFunction(GameObject cause) {

@@ -22,11 +22,15 @@ public class Player : Actor {
 
     public override void TakeDamage(GameObject sender, float amount) {
         base.TakeDamage(sender, amount);
-        print("taking damage");
-        if (sender != null && sender.GetComponent<Fire>() != null)
-            PlayerCamera.Instance.Shake(0.2f, 3, 3);
-        else if (PlayerCamera.Instance.isShaking == false)
-            PlayerCamera.Instance.Shake(0.2f, 3, 3);
+        float shakeModifier = 20;
+
+        if (sender != null) {
+            // prevent fire damage to continue shaking camera
+            if (sender.GetComponent<Fire>() != null)
+                PlayerCamera.Instance.Shake(0.2f, 3, 3);
+            else
+                PlayerCamera.Instance.Shake(0.2f, amount / shakeModifier, 3);
+        }
     }
 
     public override void Block(GameObject killer, float attackPoints) {

@@ -37,6 +37,10 @@ public class PlayerController : HumanoidAnimatorHandler {
                 yRotation -= Input.GetAxis("Mouse Y") * rotationSpeed;
             }
 
+            if(Input.GetKeyDown(KeyCode.R)) {
+                anim.SetTrigger("Roll");
+            }
+
             //if (Player.Inventory.GetWeapon != null) {
             // Attacking:
             if (Input.GetMouseButtonDown(PlayerInput.AttackButton)) {

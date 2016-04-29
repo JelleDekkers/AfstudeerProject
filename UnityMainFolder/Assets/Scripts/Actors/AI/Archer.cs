@@ -77,6 +77,7 @@ public class Archer : Humanoid {
         animHandler.DrawArrow();
     }
 
+    // Instantiate arrow in scene:
     public void ShowArrowOnActor() {
         arrowDrawn = Instantiate(arrowPrefab, arrowStartPos.position, Quaternion.identity) as Arrow;
         arrowDrawn.Init(transform, AttackPoints);
