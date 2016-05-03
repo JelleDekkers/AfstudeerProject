@@ -14,6 +14,10 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
     protected float animSpeed = 1;
     protected AnimatorStateInfo baseLayerState;
     protected AnimatorStateInfo upperBodyLayerState;
+    protected bool isGrounded = true;
+    protected bool isJumping;
+    protected bool isRolling;
+    protected CapsuleCollider col;
 
     protected int baseLayerIndex = 0;
     protected int upperBodyLayerIndex = 1;
@@ -22,6 +26,7 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
     protected int baseLayer_staggerState = Animator.StringToHash("Base Layer.Stagger"); 
     protected int baseLayer_jumpState = Animator.StringToHash("Base Layer.Jumping.Jump");
     protected int baseLayer_inAirState = Animator.StringToHash("Base Layer.Jumping.InAir");
+    protected int baseLayer_rollState = Animator.StringToHash("Base Layer.RollForward");
     protected int UpperBodyLayer_flinchState = Animator.StringToHash("UpperBodyLayer.Flinch");
     protected int UpperBodyLayer_nothingState = Animator.StringToHash("UpperBodyLayer.Nothing");
     protected int UpperBodyLayer_LeftSwingState = Animator.StringToHash("UpperBodyLayer.Swing Left");
@@ -30,10 +35,15 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
     private bool attackAgain;
     private Direction currentAttackDirection;
     private Direction nextAttackDirection;
+    private float colHeightOrigin;
+    private Vector3 colCenterOrigin;
 
     protected virtual void Start() {
         anim = GetComponent<Animator>();
         actor = GetComponent<Actor>();
+        col = GetComponent<CapsuleCollider>();
+        colHeightOrigin = col.height;
+        colCenterOrigin = col.center;
         anim.SetLayerWeight(upperBodyLayerIndex, 1);
     }
 
@@ -41,6 +51,15 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
         SetLayerStatesToAnimator();
         ResetOneTimeStates();
         HandleAttackLinks();
+
+        if (baseLayerState.fullPathHash == baseLayer_rollState) {
+            isRolling = true;
+            Rolling();
+        } else {
+            isRolling = false;
+            col.height = colHeightOrigin;
+            col.center = colCenterOrigin;
+        }
     }
 
     public void SetUpperBodyLayerWeight(int weight) {
@@ -115,5 +134,16 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
         anim.SetBool("Blocking", false);
         actor.DisableShieldCollider();
         actor.IsBlocking = false;
+    }
+
+    protected void Roll() {
+        if (isGrounded) {
+            anim.SetTrigger("Roll");
+        }
+    }
+
+    private void Rolling() {
+        col.height = anim.GetFloat("ColliderHeight");
+        col.center = new Vector3(0, anim.GetFloat("ColliderPosY"), 0);
     }
 }

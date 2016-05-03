@@ -92,6 +92,18 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
+  - m_Name: ColliderHeight
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: ColliderPosY
+    m_Type: 1
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -814,11 +826,11 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.7794118
+  m_TransitionDuration: 0.13623178
+  m_TransitionOffset: 0.034130473
+  m_ExitTime: 0.99
   m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -1696,15 +1708,15 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions:
     data:
+      first: {fileID: 110725190}
+      second:
+      - {fileID: 110998524}
+    data:
       first: {fileID: 110704270}
       second:
       - {fileID: 110980748}
       - {fileID: 110909808}
       - {fileID: 110944908}
-    data:
-      first: {fileID: 110725190}
-      second:
-      - {fileID: 110998524}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -324, y: -96, z: 0}
   m_EntryPosition: {x: -324, y: -36, z: 0}

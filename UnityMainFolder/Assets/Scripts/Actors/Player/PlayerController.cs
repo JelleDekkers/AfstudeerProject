@@ -6,8 +6,6 @@ public class PlayerController : HumanoidAnimatorHandler {
     private float xRotation = 0;
     private float yRotation = 0;
     private Rigidbody rBody;
-    private bool isGrounded = true;
-    private bool isJumping;
     private RaycastHit hit;
    
     public bool enableJumping = true;
@@ -37,35 +35,31 @@ public class PlayerController : HumanoidAnimatorHandler {
                 yRotation -= Input.GetAxis("Mouse Y") * rotationSpeed;
             }
 
-            if(Input.GetKeyDown(KeyCode.R)) {
-                anim.SetTrigger("Roll");
-            }
-
             //if (Player.Inventory.GetWeapon != null) {
             // Attacking:
-            if (Input.GetMouseButtonDown(PlayerInput.AttackButton)) {
+            if (Input.GetMouseButtonDown(PlayerInput.AttackButton)) 
                 Attack();
-            }
-
+            
             // Block:
-            if (Input.GetMouseButtonDown(PlayerInput.BlockButton)) {
+            if (Input.GetMouseButtonDown(PlayerInput.BlockButton)) 
                 Block();
-            } else if (Input.GetMouseButtonUp(PlayerInput.BlockButton)) {
+            else if (Input.GetMouseButtonUp(PlayerInput.BlockButton)) 
                 StopBlocking();
-            }
-
+            
             // Jump:
-            if(Input.GetKeyDown(PlayerInput.JumpButton) && enableJumping) {
+            if(Input.GetKeyDown(PlayerInput.JumpButton) && enableJumping) 
                 Jump();
-            }
+
+            // Roll:
+            if (Input.GetKeyDown(PlayerInput.RollButton) && (Input.GetAxis("Horizontal") > 0 || Input.GetAxis("Vertical") > 0))
+                Roll();
 
             // Check if grounded:
             GroundCheck();
 
             // While jumping:
-            if(!isGrounded) {
+            if(!isGrounded) 
                 InAirControl();
-            }
 
             // Prevent strange rotations:
             if (yRotation > 180)
@@ -137,7 +131,8 @@ public class PlayerController : HumanoidAnimatorHandler {
             if (baseLayerState.fullPathHash == baseLayer_inAirState)
                 isJumping = false;
 
-            anim.SetBool("Grounded", isGrounded);
+            if(!isRolling)
+                anim.SetBool("Grounded", isGrounded);
         } else {
             isGrounded = true;
             anim.SetBool("Grounded", isGrounded);

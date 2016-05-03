@@ -795,11 +795,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22431714, guid: 22e78b8cb1ab3e347849e92439badc77, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22431714, guid: 22e78b8cb1ab3e347849e92439badc77, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 14462538, guid: 22e78b8cb1ab3e347849e92439badc77, type: 2}
       propertyPath: m_ConnectedAnchor.x

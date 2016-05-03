@@ -1,8 +1,9 @@
-player roll
+player roll blend tree alle richtingen
 
 arm swing/neck swing verminderen bij attack from left to right
 
 player jump te lang in de lucht en tegen de zijkanten bij collisie met rigibodies (physics Material?)
+player hit ground upper body animatie?
 
 camera peek fixen bij back wall face staat verkeerdom?
 camera peek te dicht op de muur?
