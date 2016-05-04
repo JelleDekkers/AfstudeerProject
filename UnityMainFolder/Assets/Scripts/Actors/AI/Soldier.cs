@@ -4,6 +4,7 @@ using System.Collections;
 public class Soldier : Humanoid {
 
     private bool combatRoutineStarted;
+    private bool kiteRoutineStarted;
     private int prevAction = 0;
 
     protected override void Start() {
@@ -23,7 +24,7 @@ public class Soldier : Humanoid {
         int rndBehaviour = Random.Range(0, combatActions);
         float time = 0;
 
-        if (firstHit) {
+        if (firstHit && Random.Range(0, 2) == 1) {
             animHandler.Attack();
             rndBehaviour = 0;
             firstHit = false;
@@ -62,5 +63,10 @@ public class Soldier : Humanoid {
         }
 
         combatRoutineStarted = false;
+    }
+
+    private void Flank() {
+        Vector3 flankPos = new Vector3(transform.position.x + Random.Range(1, 3), transform.position.y, transform.position.z + Random.Range(1, 3));
+        navAgent.MoveToTargetPosition(flankPos);
     }
 }

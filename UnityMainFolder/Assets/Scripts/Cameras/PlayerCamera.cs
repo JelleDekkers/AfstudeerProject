@@ -73,11 +73,11 @@ public class PlayerCamera : MonoBehaviour {
         // Set the height of the camera
         transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
 
-        if (cameraRayCheck != null && Physics.Raycast(cameraRayCheck.position, Player.Instance.transform.position - cameraRayCheck.position, out hit, 100000, wallAvoidanceLayerMask)) {
-            distance = Mathf.Lerp(distance, minPeekDistance, Time.deltaTime * peekSpeed * 2);    
-        } else {
+        //if (cameraRayCheck != null && Physics.Raycast(cameraRayCheck.position, Player.Instance.transform.position - cameraRayCheck.position, out hit, 100000, wallAvoidanceLayerMask)) {
+        //    distance = Mathf.Lerp(distance, minPeekDistance, Time.deltaTime * peekSpeed * 2);    
+        //} else {
             distance = Mathf.Lerp(distance, wantedDistance, Time.deltaTime * peekSpeed);
-        }
+        //}
 
         transform.LookAt(target);
         //var targetRotation = Quaternion.LookRotation(targetObj.transform.position - transform.position);

@@ -60,7 +60,11 @@ public class Archer : Humanoid {
         };
 
         if(retreatPosSet == false) {
-            navAgent.MoveToTargetPosition(navAgent.GetRandomNavPosInDirection(transform.TransformDirection(Vector3.back)));
+            Vector3 retreatPos = navAgent.GetRandomNavPosInDirection(transform.TransformDirection(Vector3.back));
+            navAgent.MoveToTargetPosition(retreatPos);
+            GameObject test = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            test.transform.position = retreatPos;
+            Destroy(test.GetComponent<Collider>());
             retreatPosSet = true;
         }
     }

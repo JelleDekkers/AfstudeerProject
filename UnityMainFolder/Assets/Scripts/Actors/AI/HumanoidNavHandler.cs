@@ -13,6 +13,8 @@ public class HumanoidNavHandler : MonoBehaviour {
     private Animator anim;
     private float stoppingDinstance;
 
+    [SerializeField] private float maxSpeed = 0.9f;
+
     private void Start() {
         actor = GetComponent<Actor>();
         anim = GetComponent<Animator>();
@@ -47,9 +49,9 @@ public class HumanoidNavHandler : MonoBehaviour {
         float modifier = 2f;
         float z = anim.GetFloat("MovementZ");
         if (GetComponent<Soldier>())
-            z = Mathf.MoveTowards(z, 1, modifier * Time.deltaTime);
+            z = Mathf.MoveTowards(z, maxSpeed, modifier * Time.deltaTime);
         else
-            z = 1;
+            z = maxSpeed;
         anim.SetFloat("MovementZ", z);
     }
 
@@ -69,6 +71,40 @@ public class HumanoidNavHandler : MonoBehaviour {
         randAng = transform.rotation * randAng;                                         
         Vector3 spawnPos = transform.position + randAng * direction * 15;
         NavMesh.SamplePosition(spawnPos, out hit, radius, 1);
+        return hit.position;
+    }
+
+    private Vector3 minBoundsPoint;
+    private Vector3 maxBoundsPoint;
+    private float boundsSize = float.NegativeInfinity;
+    private Vector3 GetRandomTargetPoint() {
+        if (boundsSize < 0) {
+            minBoundsPoint = Vector3.one * float.PositiveInfinity;
+            maxBoundsPoint = -minBoundsPoint;
+            var vertices = NavMesh.CalculateTriangulation().vertices;
+            foreach (var point in vertices) {
+                if (minBoundsPoint.x > point.x)
+                    minBoundsPoint = new Vector3(point.x, minBoundsPoint.y, minBoundsPoint.z);
+                if (minBoundsPoint.y > point.y)
+                    minBoundsPoint = new Vector3(minBoundsPoint.x, point.y, minBoundsPoint.z);
+                if (minBoundsPoint.z > point.z)
+                    minBoundsPoint = new Vector3(minBoundsPoint.x, minBoundsPoint.y, point.z);
+                if (maxBoundsPoint.x < point.x)
+                    maxBoundsPoint = new Vector3(point.x, maxBoundsPoint.y, maxBoundsPoint.z);
+                if (maxBoundsPoint.y < point.y)
+                    maxBoundsPoint = new Vector3(maxBoundsPoint.x, point.y, maxBoundsPoint.z);
+                if (maxBoundsPoint.z < point.z)
+                    maxBoundsPoint = new Vector3(maxBoundsPoint.x, maxBoundsPoint.y, point.z);
+            }
+            boundsSize = Vector3.Distance(minBoundsPoint, maxBoundsPoint);
+        }
+        var randomPoint = new Vector3(
+            UnityEngine.Random.Range(minBoundsPoint.x, maxBoundsPoint.x),
+            UnityEngine.Random.Range(minBoundsPoint.y, maxBoundsPoint.y),
+            UnityEngine.Random.Range(minBoundsPoint.z, maxBoundsPoint.z)
+        );
+        NavMeshHit hit;
+        NavMesh.SamplePosition(randomPoint, out hit, boundsSize, 1);
         return hit.position;
     }
 }

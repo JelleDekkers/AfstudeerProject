@@ -1,8 +1,11 @@
+enemy jump implementeren
+
 player roll blend tree alle richtingen
 
 arm swing/neck swing verminderen bij attack from left to right
 
-player jump te lang in de lucht en tegen de zijkanten bij collisie met rigibodies (physics Material?)
+foot placement sound + dust particle?
+
 player hit ground upper body animatie?
 
 camera peek fixen bij back wall face staat verkeerdom?
@@ -14,10 +17,6 @@ editor scripts maken voor gemakkelijk level in elkaar zetten
 grinder kapot na damage amount
 firepit light uit wanneer gevallen op de grond
 fire effect (continu damage) voor een bepaalde tijd, gaat nu nogal overpowered
-
-vijanden moeten kiten niet alleen stil staan
-vijanden moeten de speler omcirkelen/flanken
-enemy jump implementeren
 
 Game UI scaling fixen
 

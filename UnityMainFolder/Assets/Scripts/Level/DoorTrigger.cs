@@ -10,6 +10,7 @@ public class DoorTrigger : MonoBehaviour {
 
 	public void OnTriggerEnter(Collider col) {
         if (col.GetComponent<Actor>()) {
+            if(transform.parent.GetComponent<Door>() != null && transform.parent.GetComponent<Door>().enabled)
             transform.parent.GetComponent<Door>().DoorTriggered(col.GetComponent<Actor>(), direction);
         }
     }

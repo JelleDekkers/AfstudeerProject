@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Humanoid : Actor {
 
     [SerializeField] private float viewDistance = 20;
+    [SerializeField] private float hearDistance = 10;
     [SerializeField] private float fovAngle = 110f;
     [SerializeField] protected float attackDistance = 1;
     [SerializeField] private LayerMask sightLayerMask;
@@ -38,7 +39,7 @@ public class Humanoid : Actor {
 
         Debug.DrawRay(attackCenter.transform.position, transform.TransformDirection(Vector3.forward) * attackDistance, Color.red);
 
-        DetectEnemiesWithSphereCast();
+        DetectEnemies();
 
         switch (CurrentState) {
             case State.Idle:
@@ -56,7 +57,7 @@ public class Humanoid : Actor {
         }
     }
 
-    private void DetectEnemiesWithSphereCast() {
+    private void DetectEnemies() {
         RaycastHit hit;
         Vector3 direction;
         float angle;
@@ -75,50 +76,31 @@ public class Humanoid : Actor {
             angle = Vector3.Angle(direction, transform.forward);
 
             if (Physics.Raycast(attackCenter.transform.position, target.transform.position - transform.position, out hit, viewDistance, sightLayerMask)) {
-                if (hit.collider.gameObject == target.gameObject && angle < fovAngle * 0.5f) {
-                    targetInSight = true;
-                    lastEnemySighting = hit.transform.position;
+                if (hit.collider.gameObject == target.gameObject) {
+                    // In sight of actor:
+                    if (angle < fovAngle * 0.5f) {
+                        targetInSight = true;
+                        lastEnemySighting = hit.transform.position;
 
-                    if (Vector3.Distance(transform.position, target.transform.position) <= attackDistance)
-                        CurrentState = State.InCombat;
-                    else
-                        CurrentState = State.Aggroed;
-
-                    return;
+                        if (Vector3.Distance(transform.position, target.transform.position) <= attackDistance)
+                            CurrentState = State.InCombat;
+                        else
+                            CurrentState = State.Aggroed;
+                    // in hearing distance:
+                    } else if(Vector3.Distance(transform.position, target.transform.position) <= hearDistance) {
+                        transform.SlowLookat(target.transform, rotationSpeed);
+                    }
+                } else {
+                    targetInSight = false;
                 }
             }
         }
-
-        targetInSight = false;
     }
 
     private void OnDrawGizmos() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackCenter.position, viewDistance);
     }
-
-    //private void OnTriggerStay(Collider col) {
-    //    if (col.gameObject != target.gameObject)
-    //        return;
-
-    //    Vector3 direction = col.transform.position - transform.position;
-    //    float angle = Vector3.Angle(direction, transform.forward);
-
-    //    if (angle < fovAngle * 0.5f) {
-    //        RaycastHit hit;
-    //        if (Physics.Raycast(attackCenter.transform.position, direction.normalized, out hit, sightLayerMask)) {
-    //            if (hit.collider.gameObject == target.gameObject) {
-    //                targetInSight = true;
-    //                lastEnemySighting = target.transform.position;
-
-    //                if (Vector3.Distance(transform.position, target.transform.position) <= attackDistance)
-    //                    CurrentState = State.InCombat;
-    //                else 
-    //                    CurrentState = State.Aggroed;
-    //            }
-    //        }
-    //    }
-    //}
 
     protected virtual void Idle() {
         firstHit = true;
@@ -171,5 +153,11 @@ public class Humanoid : Actor {
             lastEnemySighting = cause.transform.position;
             CurrentState = State.Aggroed;
         } 
+    }
+
+    private void Jump() {
+        // stop navagent
+
+        // continu navagent
     }
 }
