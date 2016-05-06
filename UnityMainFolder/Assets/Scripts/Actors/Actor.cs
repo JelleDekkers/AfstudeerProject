@@ -80,10 +80,6 @@ public class Actor : MonoBehaviour {
 
         if (CurrentHealthPoints <= 0)
             CurrentState = State.Dead;
-
-        if(Input.GetKeyDown(KeyCode.L)) {
-            audioSource.PlayOneShotWithRandomPitch(AudioManager.Instance.HitActorClip, 0.2f);
-        }
     }
 
     protected void UpdateStats() {
@@ -162,7 +158,8 @@ public class Actor : MonoBehaviour {
         CurrentHealthPoints = 0;
         humanoidController.SetUpperBodyLayerWeight(0);
         Vector3 direction = Common.GetDirection(killer.transform.position, transform.position);
-        Common.SetLayerRecursively(Layers.BODY_LAYER, transform);
+        Transform bodyParent = transform.FindChild("Base HumanPelvis");
+        Common.SetLayerRecursively(Layers.BODY_LAYER, bodyParent);
         ragdollController.ActivateRagDoll(direction, strikeForceAmount);
         equippedItemManager.DropAndApplyForceToEquippedWeapons(direction, strikeForceAmount);
         CurrentState = State.Dead;

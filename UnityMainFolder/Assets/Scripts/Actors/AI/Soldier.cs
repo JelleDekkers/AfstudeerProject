@@ -67,6 +67,6 @@ public class Soldier : Humanoid {
 
     private void Flank() {
         Vector3 flankPos = new Vector3(transform.position.x + Random.Range(1, 3), transform.position.y, transform.position.z + Random.Range(1, 3));
-        navAgent.MoveToTargetPosition(flankPos);
+        navHandler.MoveToTargetPosition(flankPos);
     }
 }

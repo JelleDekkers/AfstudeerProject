@@ -1,5 +1,3 @@
-enemy jump implementeren
-
 player roll blend tree alle richtingen
 
 arm swing/neck swing verminderen bij attack from left to right
@@ -25,7 +23,7 @@ map fog of war, shader?
 
 ragdoll naar opstaan naar normaal voor knockdowns
 
-inventory screen revamp, niet realtime doen of niet via deze camera manier
+inventory screen revamp, niet realtime doen / niet via deze camera manier
 inventory filter werkend maken
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is

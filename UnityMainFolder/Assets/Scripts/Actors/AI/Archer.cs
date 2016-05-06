@@ -54,14 +54,14 @@ public class Archer : Humanoid {
             return;
         } 
 
-        navAgent.OnTargetReachedEvent = delegate () {
+        navHandler.OnTargetReachedEvent = delegate () {
             print("target reached event");
             retreatPosSet = false;
         };
 
         if(retreatPosSet == false) {
-            Vector3 retreatPos = navAgent.GetRandomNavPosInDirection(transform.TransformDirection(Vector3.back));
-            navAgent.MoveToTargetPosition(retreatPos);
+            Vector3 retreatPos = navHandler.GetRandomNavPosInDirection(transform.TransformDirection(Vector3.back));
+            navHandler.MoveToTargetPosition(retreatPos);
             GameObject test = GameObject.CreatePrimitive(PrimitiveType.Cube);
             test.transform.position = retreatPos;
             Destroy(test.GetComponent<Collider>());

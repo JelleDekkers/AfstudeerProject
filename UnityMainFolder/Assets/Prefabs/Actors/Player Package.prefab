@@ -4322,6 +4322,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f549d63d9f4b6364c8ee32250881f78b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsGrounded: 1
+  IsJumping: 0
+  IsRolling: 0
   enableJumping: 1
   groundCheckRayLength: 0.7
   inAirMovementSpeed: 250

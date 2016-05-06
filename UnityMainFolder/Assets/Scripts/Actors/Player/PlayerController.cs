@@ -6,10 +6,7 @@ public class PlayerController : HumanoidAnimatorHandler {
     private float xRotation = 0;
     private float yRotation = 0;
     private Rigidbody rBody;
-    private RaycastHit hit;
    
-    public bool enableJumping = true;
-
     [SerializeField] private float groundCheckRayLength = 0.4f;
     [SerializeField] private float inAirMovementSpeed = 5;
     [SerializeField] private float rotationSpeed = 8;
@@ -47,7 +44,7 @@ public class PlayerController : HumanoidAnimatorHandler {
                 StopBlocking();
             
             // Jump:
-            if(Input.GetKeyDown(PlayerInput.JumpButton) && enableJumping) 
+            if(Input.GetKeyDown(PlayerInput.JumpButton)) 
                 Jump();
 
             // Roll:
@@ -58,7 +55,7 @@ public class PlayerController : HumanoidAnimatorHandler {
             GroundCheck();
 
             // While jumping:
-            if(!isGrounded) 
+            if(!IsGrounded) 
                 InAirControl();
 
             // Prevent strange rotations:
@@ -97,10 +94,10 @@ public class PlayerController : HumanoidAnimatorHandler {
     //}
     
     private void Jump() {
-        if (isGrounded) {
+        if (IsGrounded) {
             anim.SetBool("Blocking", false);
             anim.SetTrigger("Jump");
-            isJumping = true;
+            IsJumping = true;
             rBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             //rBody.constraints = RigidbodyConstraints.FreezeRotation;
             rBody.AddForce(transform.TransformDirection(Vector3.forward) * jumpForce, ForceMode.Impulse);
@@ -116,26 +113,18 @@ public class PlayerController : HumanoidAnimatorHandler {
     }
 
     private void GroundCheck() {
-        if (enableJumping) {
-            Debug.DrawRay(transform.position, Vector3.down * groundCheckRayLength, Color.red);
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckRayLength, groundCheckLayerMask)) {
-                if (isJumping == false) {
-                    isGrounded = true;
-                    //rBody.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotation;
-                }
-            } else {
-                isGrounded = false;
-                //rBody.constraints = RigidbodyConstraints.FreezeRotation;
-            }
+        RaycastHit hit;
+        Debug.DrawRay(transform.position, Vector3.down * groundCheckRayLength, Color.red);
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckRayLength, groundCheckLayerMask)) {
+            if (IsJumping == false)
+                IsGrounded = true;
+        } else
+            IsGrounded = false;
 
-            if (baseLayerState.fullPathHash == baseLayer_inAirState)
-                isJumping = false;
+        if (InAir())
+            IsJumping = false;
 
-            if(!isRolling)
-                anim.SetBool("Grounded", isGrounded);
-        } else {
-            isGrounded = true;
-            anim.SetBool("Grounded", isGrounded);
-        }
+        if(!IsRolling)
+            anim.SetBool("Grounded", IsGrounded);
     }
 }

@@ -12,11 +12,6 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
     protected Animator anim;
     protected Actor actor;
     protected float animSpeed = 1;
-    protected AnimatorStateInfo baseLayerState;
-    protected AnimatorStateInfo upperBodyLayerState;
-    protected bool isGrounded = true;
-    protected bool isJumping;
-    protected bool isRolling;
     protected CapsuleCollider col;
 
     protected int baseLayerIndex = 0;
@@ -38,6 +33,12 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
     private float colHeightOrigin;
     private Vector3 colCenterOrigin;
 
+    public bool IsGrounded = true;
+    public bool IsJumping;
+    public bool IsRolling;
+    public AnimatorStateInfo baseLayerState;
+    public AnimatorStateInfo upperBodyLayerState;
+
     protected virtual void Start() {
         anim = GetComponent<Animator>();
         actor = GetComponent<Actor>();
@@ -53,10 +54,10 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
         HandleAttackLinks();
 
         if (baseLayerState.fullPathHash == baseLayer_rollState) {
-            isRolling = true;
+            IsRolling = true;
             Rolling();
         } else {
-            isRolling = false;
+            IsRolling = false;
             col.height = colHeightOrigin;
             col.center = colCenterOrigin;
         }
@@ -112,6 +113,13 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
             nextAttackDirection = Direction.None;
     }
 
+    public bool InAir() {
+        if (baseLayerState.fullPathHash == baseLayer_inAirState)
+            return true;
+        else
+            return false;
+    }
+
     public void DrawArrow() {
         anim.SetBool("DrawArrow", true);
     }
@@ -137,7 +145,7 @@ public class HumanoidAnimatorHandler : MonoBehaviour {
     }
 
     protected void Roll() {
-        if (isGrounded) {
+        if (IsGrounded) {
             anim.SetTrigger("Roll");
         }
     }

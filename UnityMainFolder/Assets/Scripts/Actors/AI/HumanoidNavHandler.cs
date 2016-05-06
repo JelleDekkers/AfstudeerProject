@@ -11,6 +11,7 @@ public class HumanoidNavHandler : MonoBehaviour {
     private Vector3 targetPos;
     private Actor actor;
     private Animator anim;
+    private HumanoidAnimatorHandler animHandler;
     private float stoppingDinstance;
 
     [SerializeField] private float maxSpeed = 0.9f;
@@ -19,27 +20,36 @@ public class HumanoidNavHandler : MonoBehaviour {
         actor = GetComponent<Actor>();
         anim = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
+        animHandler = GetComponent<HumanoidAnimatorHandler>();
         StartPos = transform.position;
         stoppingDinstance = 4;
         actor.OnDeath += StopMoving;
+        actor.OnDeath += delegate () {
+            navAgent.enabled = false;
+        };
+
+        navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
     }
 
     private void Update() {
         if (actor.CurrentHealthPoints <= 0)
             return;
 
-        if (actor.CurrentState != State.Aggroed || actor.CurrentState != State.InCombat)
-            navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
-        else
-            navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        //if (actor.CurrentState != State.Aggroed || actor.CurrentState != State.InCombat)
+        //    navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
+        //else
+        //    navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
 
-        if(navAgent.remainingDistance < stoppingDinstance && OnTargetReachedEvent != null) {
+        if(navAgent.enabled && navAgent.remainingDistance < stoppingDinstance && OnTargetReachedEvent != null) {
             StopMoving();
             OnTargetReachedEvent();
         }
     }
 
     public void MoveToTargetPosition(Vector3 targetPos) {
+        if (navAgent.enabled == false)
+            return;
+
         if (this.targetPos != targetPos) {
             this.targetPos = targetPos;
             navAgent.SetDestination(targetPos);
@@ -56,6 +66,9 @@ public class HumanoidNavHandler : MonoBehaviour {
     }
 
     public void StopMoving() {
+        if (navAgent.enabled == false)
+            return;
+
         navAgent.Stop();
 
         float modifier = 4f;

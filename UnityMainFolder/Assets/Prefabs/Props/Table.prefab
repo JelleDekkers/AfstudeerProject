@@ -12,7 +12,8 @@ GameObject:
   - 23: {fileID: 2359340}
   - 64: {fileID: 6476618}
   - 54: {fileID: 5429176}
-  m_Layer: 0
+  - 208: {fileID: 20821934}
+  m_Layer: 10
   m_Name: Table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105420}
   m_LocalRotation: {x: -0.70584023, y: 0.042303428, z: 0.04230344, w: 0.70584023}
-  m_LocalPosition: {x: 24.49, y: 1.7924546, z: -16.25}
+  m_LocalPosition: {x: 4.4, y: 3.99, z: -6.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -72,8 +73,8 @@ Rigidbody:
   m_GameObject: {fileID: 105420}
   serializedVersion: 2
   m_Mass: 200
-  m_Drag: 50
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 10
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -85,12 +86,27 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 105420}
-  m_Material: {fileID: 13400000, guid: d03d9a9749896ce48b82eb4043165087, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 4300002, guid: 13408cb2bfdb8d74c9589744bda23fc8, type: 3}
+--- !u!208 &20821934
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105420}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 3.5600002, y: 2.535, z: 0.896}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.023000002, y: 0.025, z: -0.896}
+  m_TimeToStationary: 0.5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

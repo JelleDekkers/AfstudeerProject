@@ -1970,7 +1970,14 @@ MonoBehaviour:
   sightLayerMask:
     serializedVersion: 2
     m_Bits: 4352
+  jumpableObjectsLayerMask:
+    serializedVersion: 2
+    m_Bits: 786432
   rotationSpeed: 3
+  jumpForce: 1300
+  groundCheckLayerMask:
+    serializedVersion: 2
+    m_Bits: 13373184
   arrowPrefab: {fileID: 11436588, guid: ffab065086f3b20478b3663f97468eff, type: 2}
   arrowStartPos: {fileID: 460474}
   safeDistance: 6
@@ -2024,6 +2031,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44bb6e43b854e2646b237734aad18041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsGrounded: 1
+  IsJumping: 0
+  IsRolling: 0
 --- !u!114 &11488540
 MonoBehaviour:
   m_ObjectHideFlags: 1
