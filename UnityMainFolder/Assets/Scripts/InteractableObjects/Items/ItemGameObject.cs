@@ -2,12 +2,9 @@
 using System.Collections;
 using System;
 
-public class ItemGameObject : InteractableObject {
+public class ItemGameObject : MonoBehaviour, IInteractable {
 
-    protected virtual void OnPickedUp() {
-        //play sound?
-    }
-
+    public string Name;
     public ItemType Type;
     public Sprite Sprite;
     public float Points;
@@ -22,6 +19,14 @@ public class ItemGameObject : InteractableObject {
     private void Awake() {
         if(MeshName == null)
             MeshName = gameObject.name;
+    }
+
+    public void Interact() {
+        OnPickedUp();
+    }
+
+    protected void OnPickedUp() {
+        //play sound?
     }
 
     public static void InstantiateFromResourcesFolder(ItemData item) {

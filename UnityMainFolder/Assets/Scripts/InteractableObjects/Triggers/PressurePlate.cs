@@ -33,7 +33,6 @@ namespace AfstudeerProject.Triggers {
                     InteractWrapper();
                     break;
             }
-           
         }
 
         private void InteractWrapper() {

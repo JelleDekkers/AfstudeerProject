@@ -127,8 +127,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 144456}
-  m_LocalRotation: {x: 0.0000022649765, y: -0.7071068, z: -0.7071068, w: 0.0000022687018}
-  m_LocalPosition: {x: 25, y: 51, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: -0.0000039301817, z: -0.0000039376323, w: -0.7071068}
+  m_LocalPosition: {x: 25, y: 70, z: 0}
   m_LocalScale: {x: 1.0627885, y: 1, z: 1}
   m_Children:
   - {fileID: 400054}
@@ -289,7 +289,7 @@ MeshCollider:
   m_GameObject: {fileID: 165212}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 674b9ca6d8c627249b03175f8a1ecb07, type: 3}

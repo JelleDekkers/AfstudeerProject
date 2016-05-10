@@ -1,19 +1,13 @@
 ﻿using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 
 public class PlayerInteractions : MonoBehaviour {
 
     private float interactionMaxRange = 4;
-    private InteractableObject nearestItem = null;
+    private GameObject nearestInteractableItem = null;
     private Collider[] nearbyItemColliders;
     private AudioSource audioSource;
 
     [SerializeField] private LayerMask layerMask;
-
-    public static event Action<InteractableObject> OnNearbyItemSelectable;
-    public static event Action OnNoNearbyItemSelectable;
 
     private void Start() {
         audioSource = GetComponent<AudioSource>();
@@ -24,45 +18,41 @@ public class PlayerInteractions : MonoBehaviour {
         nearbyItemColliders = Physics.OverlapSphere(transform.position, interactionMaxRange, layerMask);
 
         if (nearbyItemColliders.Length > 0) {
-            if (nearestItem != GetNearestItem()) {
-                nearestItem = GetNearestItem();
-                OnNearbyItemSelectable(nearestItem);
+            if (nearestInteractableItem != GetNearestItem()) {
+                nearestInteractableItem = GetNearestItem();
             }
             if (Input.GetKeyDown(PlayerInput.InteractButton)) {
-                Interact(nearestItem);
-                nearestItem = GetNearestItem();
-                OnNoNearbyItemSelectable();
-                nearestItem = null;
+                Interact(nearestInteractableItem);
+                nearestInteractableItem = GetNearestItem();
+                nearestInteractableItem = null;
             }
         } else {
-            if (nearestItem != null) {
-                OnNoNearbyItemSelectable();
-                nearestItem = null;
+            if (nearestInteractableItem != null) {
+                nearestInteractableItem = null;
             }
         }
     }
 
-    private InteractableObject GetNearestItem() {
+    private GameObject GetNearestItem() {
         if (nearbyItemColliders.Length == 0) {
-            OnNoNearbyItemSelectable();
             return null;
         }
-        InteractableObject nearestItem = null;
+        GameObject nearestItem = null;
         float closestDistanceSqr = Mathf.Infinity;
         foreach (Collider col in nearbyItemColliders) {
             Vector3 directionToTarget = col.gameObject.transform.position - transform.position;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
             if (dSqrToTarget < closestDistanceSqr) {
                 closestDistanceSqr = dSqrToTarget;
-                nearestItem = col.GetComponent<InteractableObject>();
+                nearestItem = col.gameObject;
             }
         }
         return nearestItem;
     }
 
-    private void Interact(InteractableObject item) {
-        item.Interact();
-        //pickup:
+    private void Interact(GameObject item) {
+        item.GetComponent<IInteractable>().Interact();
+
         if (item.GetComponent<ItemGameObject>()) 
             PickUpItem(item.GetComponent<ItemGameObject>());
         

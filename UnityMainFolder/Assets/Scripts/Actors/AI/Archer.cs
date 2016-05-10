@@ -62,9 +62,9 @@ public class Archer : Humanoid {
         if(retreatPosSet == false) {
             Vector3 retreatPos = navHandler.GetRandomNavPosInDirection(transform.TransformDirection(Vector3.back));
             navHandler.MoveToTargetPosition(retreatPos);
-            GameObject test = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            test.transform.position = retreatPos;
-            Destroy(test.GetComponent<Collider>());
+            //GameObject test = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            //test.transform.position = retreatPos;
+            //Destroy(test.GetComponent<Collider>());
             retreatPosSet = true;
         }
     }

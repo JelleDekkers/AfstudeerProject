@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Chest : InteractableObject {
+public class Chest : MonoBehaviour, IInteractable {
 
     private ItemGameObject itemInChest;
     private bool isOpen;
@@ -20,7 +20,7 @@ public class Chest : InteractableObject {
         itemInChest.GetComponent<Collider>().enabled = false;
     }
 
-    public override void Interact() {
+    public void Interact() {
         if (!isOpen)
             OpenChest();
     }

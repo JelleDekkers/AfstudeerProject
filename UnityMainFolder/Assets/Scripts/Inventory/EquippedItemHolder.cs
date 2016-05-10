@@ -25,8 +25,8 @@ public class EquippedItemHolder : MonoBehaviour {
                 c.enabled = false;
             }
 
-            if (g.GetComponent<InteractableObject>())
-                Destroy(g.GetComponent<InteractableObject>());
+            if ((Component)g.GetComponent<IInteractable>())
+                Destroy((Component)g.GetComponent<IInteractable>());
 
             g.transform.SetParent(transform, true);
             g.transform.localPosition = Vector3.zero;

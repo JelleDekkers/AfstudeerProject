@@ -11,7 +11,7 @@ GameObject:
   - 33: {fileID: 3326490}
   - 23: {fileID: 2341294}
   - 65: {fileID: 6583002}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pillar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,8 +24,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 171192}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 50, y: 0, z: 0}
+  m_LocalRotation: {x: 0.00000008318491, y: 0.00000000844677, z: -1, w: 0.000002324581}
+  m_LocalPosition: {x: 9.70536, y: -0.0000019073486, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

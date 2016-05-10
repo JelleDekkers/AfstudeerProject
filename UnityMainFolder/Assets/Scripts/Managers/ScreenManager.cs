@@ -30,8 +30,10 @@ public class ScreenManager : MonoBehaviour {
         }
 
         if(GameOverFadeComplete && Player.Instance.CurrentState == State.Dead) {
-            if (Input.anyKey) 
+            if (Input.anyKey) {
+                Time.timeScale = 1;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
     }
 

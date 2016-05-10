@@ -1,12 +1,19 @@
 player roll blend tree alle richtingen
 
+player weapons scalen naar speler size?
+
+systeem voor interactable shader die makkelijk aan/uit kunnen en gemakkelijk over het object kan zonder dubble materials
+
+end screen level done laten zien met secrets found en kills
+
+archer cirkelen bug fixen
+
 arm swing/neck swing verminderen bij attack from left to right
 
 foot placement sound + dust particle?
 
 player hit ground upper body animatie?
 
-camera peek fixen bij back wall face staat verkeerdom?
 camera peek te dicht op de muur?
 destructable objects fixen zodat ze niet allemaal kapot gaan bij slaan?
 
@@ -27,11 +34,6 @@ inventory screen revamp, niet realtime doen / niet via deze camera manier
 inventory filter werkend maken
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
-
-chromic abbreviation bij camera shake?? voorbeeld in controller package, ook kijken naar andere image effects
-
-outline shaders voor interactable objects
-betere Ineractable interface? ipv inherit en interface?, itemInfoPanel weg?
 
 blood splatter op de grond bij hits
 

@@ -8,14 +8,14 @@ namespace AfstudeerProject.Triggers {
         Toggle
     }
 
-    public abstract class Trigger : InteractableObject {
+    public abstract class Trigger : MonoBehaviour, IInteractable {
 
         public TriggerType Type;
         public bool CanBeTriggered = true;
 
         public TriggerEvent[] triggeredObjects;
 
-        public override void Interact() {
+        public virtual void Interact() {
             if (Type == TriggerType.Once) {
                 gameObject.layer = 0; // Default Layer
                 CanBeTriggered = false;
