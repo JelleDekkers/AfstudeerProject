@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public class PlayerInteractions : MonoBehaviour {
 
@@ -19,15 +20,17 @@ public class PlayerInteractions : MonoBehaviour {
 
         if (nearbyItemColliders.Length > 0) {
             if (nearestInteractableItem != GetNearestItem()) {
+                OnNearestItemChanged(nearestInteractableItem, GetNearestItem());
                 nearestInteractableItem = GetNearestItem();
             }
             if (Input.GetKeyDown(PlayerInput.InteractButton)) {
                 Interact(nearestInteractableItem);
-                nearestInteractableItem = GetNearestItem();
-                nearestInteractableItem = null;
+                //nearestInteractableItem = GetNearestItem();
+                //nearestInteractableItem = null;
             }
         } else {
             if (nearestInteractableItem != null) {
+                OnNearestItemChanged(nearestInteractableItem, null);
                 nearestInteractableItem = null;
             }
         }
@@ -75,4 +78,11 @@ public class PlayerInteractions : MonoBehaviour {
     //    Gizmos.color = Color.red;
     //    Gizmos.DrawWireSphere(transform.position, interactionMaxRange);
     //}
+
+    private void OnNearestItemChanged(GameObject from, GameObject to) {
+        if (from != null)
+            OutlineMaterialManager.ChangeMatsToItemMats(from);
+        if (to != null)
+            OutlineMaterialManager.ChangeMatsToSelectionMats(to);
+    }
 }

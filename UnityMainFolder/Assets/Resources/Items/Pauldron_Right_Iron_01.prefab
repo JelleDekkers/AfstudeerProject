@@ -12,7 +12,7 @@ GameObject:
   - 23: {fileID: 2305184}
   - 54: {fileID: 5411048}
   - 64: {fileID: 6460300}
-  - 114: {fileID: 11464680}
+  - 114: {fileID: 11414772}
   m_Layer: 14
   m_Name: Pauldron_Right_Iron_01
   m_TagString: Untagged
@@ -27,8 +27,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 139374}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -3.47, y: 2.8107913, z: 2.86}
-  m_LocalScale: {x: 1.268285, y: 1.2682846, z: 1.2682846}
+  m_LocalPosition: {x: -9.72, y: 2.8107913, z: 3.57}
+  m_LocalScale: {x: 3.843115, y: 3.843115, z: 3.843115}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -42,7 +42,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 92026bff133dc5a448c0ea967b40b409, type: 2}
+  - {fileID: 2100000, guid: fb125b647dd360840a921f2bb7324c48, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -92,7 +92,7 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 4300010, guid: 3b6d60f577c838e41955bb2824742bd2, type: 3}
---- !u!114 &11464680
+--- !u!114 &11414772
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -100,10 +100,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 139374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 238f7c23f3c738843aadb45ce3e30297, type: 3}
+  m_Script: {fileID: 11500000, guid: 58451e0fb63569440b9218c60016b0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: Iron Right Pauldron
+  Name: Iron Right Pauldron
   Type: 3
   Sprite: {fileID: 21300000, guid: c2cd1c22d76645c47b65582b9f2ff16d, type: 3}
   Points: 3
@@ -123,6 +123,23 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Name
+      value: Iron Right Pauldron
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c2cd1c22d76645c47b65582b9f2ff16d,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: Points
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

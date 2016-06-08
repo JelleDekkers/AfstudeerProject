@@ -117,7 +117,7 @@ public class Inventory {
     }
 
     private bool CompareItems(ItemData originalItem, ItemData itemToCompare) {
-        Debug.Log("Original item: " + originalItem.Name + " compared item: " + itemToCompare.Name);
+        //Debug.Log("Original item: " + originalItem.Name + " compared item: " + itemToCompare.Name);
         if (originalItem.Name != itemToCompare.Name)
             return false;
         else if(originalItem.Type != itemToCompare.Type)

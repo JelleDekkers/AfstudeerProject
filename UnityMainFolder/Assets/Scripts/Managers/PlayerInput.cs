@@ -10,4 +10,5 @@ public class PlayerInput {
     public static KeyCode JumpButton = KeyCode.Space;
     public static KeyCode RollButton = KeyCode.F;
     public static KeyCode MapButton = KeyCode.M;
+    public static KeyCode InventoryButton = KeyCode.I;
 }

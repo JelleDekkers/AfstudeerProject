@@ -29,14 +29,14 @@ public class ItemGameObject : MonoBehaviour, IInteractable {
         //play sound?
     }
 
-    public static void InstantiateFromResourcesFolder(ItemData item) {
-        GameObject droppedItem = Instantiate(Resources.Load("Items/" + item.MeshName)) as GameObject;
-        Vector3 playerPos = Player.Instance.transform.position;
-        droppedItem.transform.position = new Vector3(playerPos.x + UnityEngine.Random.Range(-1, 1), 
-                                                     playerPos.y + 1, 
-                                                     playerPos.z + UnityEngine.Random.Range(-1, 1));
-        float rndRot = UnityEngine.Random.Range(0, 360);
-        droppedItem.transform.rotation = Quaternion.Euler(rndRot, rndRot, rndRot);
-        //droppedItem.GetComponent<ItemGameObject>().CopySettingsFromItem(item);
-    }
+    //public static void InstantiateFromResourcesFolder(ItemData item) {
+    //    GameObject droppedItem = Instantiate(Resources.Load("Items/" + item.MeshName)) as GameObject;
+    //    Vector3 playerPos = Player.Instance.transform.position;
+    //    droppedItem.transform.position = new Vector3(playerPos.x + UnityEngine.Random.Range(-1, 1), 
+    //                                                 playerPos.y + 1, 
+    //                                                 playerPos.z + UnityEngine.Random.Range(-1, 1));
+    //    float rndRot = UnityEngine.Random.Range(0, 360);
+    //    droppedItem.transform.rotation = Quaternion.Euler(rndRot, rndRot, rndRot);
+    //    //droppedItem.GetComponent<ItemGameObject>().CopySettingsFromItem(item);
+    //}
 }

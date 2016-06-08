@@ -1,23 +1,18 @@
-player roll blend tree alle richtingen
 
-player weapons scalen naar speler size?
-
-systeem voor interactable shader die makkelijk aan/uit kunnen en gemakkelijk over het object kan zonder dubble materials
+player wat lichter maken in inventory scherm, misschien lampje aan/uit zetten wanneer in inventory
 
 end screen level done laten zien met secrets found en kills
 
 archer cirkelen bug fixen
 
-arm swing/neck swing verminderen bij attack from left to right
+player roll blend tree alle richtingen
+
+Level editor
 
 foot placement sound + dust particle?
 
-player hit ground upper body animatie?
-
 camera peek te dicht op de muur?
 destructable objects fixen zodat ze niet allemaal kapot gaan bij slaan?
-
-editor scripts maken voor gemakkelijk level in elkaar zetten
 
 grinder kapot na damage amount
 firepit light uit wanneer gevallen op de grond
@@ -30,7 +25,6 @@ map fog of war, shader?
 
 ragdoll naar opstaan naar normaal voor knockdowns
 
-inventory screen revamp, niet realtime doen / niet via deze camera manier
 inventory filter werkend maken
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is

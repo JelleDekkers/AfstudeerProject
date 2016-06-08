@@ -12,7 +12,7 @@ GameObject:
   - 23: {fileID: 2349362}
   - 54: {fileID: 5496092}
   - 64: {fileID: 6486666}
-  - 114: {fileID: 11469744}
+  - 114: {fileID: 11410082}
   m_Layer: 14
   m_Name: Shield_Iron_01
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 170330}
   m_LocalRotation: {x: 0.058007658, y: -0.998287, z: 0.00064069015, w: 0.007597862}
   m_LocalPosition: {x: -7.872181, y: 2.306322, z: 0.029105663}
-  m_LocalScale: {x: 1.4590714, y: 0.07361277, z: 1.4590738}
+  m_LocalScale: {x: 1.8017805, y: 0.09090306, z: 1.8017834}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -42,7 +42,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: fe93b384f0bf50a46aab5f28e5f03cb0, type: 2}
+  - {fileID: 2100000, guid: fb125b647dd360840a921f2bb7324c48, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -79,7 +79,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!64 &6486666
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -92,7 +92,7 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &11469744
+--- !u!114 &11410082
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -100,13 +100,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 170330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51f2cda53d8e7be42a0b21adb73205dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 58451e0fb63569440b9218c60016b0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: Round Iron Shield
+  Name: Iron Shield
   Type: 7
-  Sprite: {fileID: 21300000, guid: 1ad08b02f8bcf2c4c9610fcf6b063aa6, type: 3}
-  Points: 5
+  Sprite: {fileID: 21300000, guid: b97c91e8b348f3f4ebdc11f5c82182cd, type: 3}
+  Points: 10
   WeaponLength: 1
   AttackAngle: 30
 --- !u!1001 &100100000

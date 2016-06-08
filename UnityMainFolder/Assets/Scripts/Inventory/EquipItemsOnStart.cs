@@ -12,7 +12,7 @@ public class EquipItemsOnStart : MonoBehaviour {
     }
 
     public void EquipItems() {
-        EquippedItemHolderManager manager = GetComponent<EquippedItemHolderManager>();
+        //EquippedItemHolderManager manager = GetComponent<EquippedItemHolderManager>();
         Actor actor = GetComponent<Actor>();
         foreach (ItemGameObject i in itemsToEquip) {
             if (i != null) {

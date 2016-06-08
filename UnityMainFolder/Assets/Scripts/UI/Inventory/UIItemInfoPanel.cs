@@ -15,7 +15,7 @@ namespace AfstudeerProject.UI {
             nameTxt.text = item.Name;
             pointsTxt.text = item.Points.ToString();
             img.sprite = IconManager.GetItemTypeIcon(item);
-            discardBtn.SetActive(showDiscardedBtn);
+            //discardBtn.SetActive(showDiscardedBtn);
         }
     }
 }

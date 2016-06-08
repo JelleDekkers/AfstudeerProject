@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58451e0fb63569440b9218c60016b0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: Purple Key
+  Name: Key
   Type: 8
   Sprite: {fileID: 21300000, guid: f979c8e9348274147ae31b06d73b537d, type: 3}
   Points: 0
@@ -99,7 +99,11 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: Name
+      value: Key
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 118200}

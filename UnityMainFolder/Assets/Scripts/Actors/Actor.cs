@@ -90,6 +90,9 @@ public class Actor : MonoBehaviour {
 
     public virtual void AttackAnimationEvent() {
         ItemData weapon = Inventory.Weapon;
+        if (weapon == null)
+            return;
+
         Collider[] objectsInRange = Physics.OverlapSphere(attackCenter.position, weapon.WeaponLength, attackLayerMask).Where(c => !c.isTrigger).ToArray();
         GameObject objectHit = null;
 

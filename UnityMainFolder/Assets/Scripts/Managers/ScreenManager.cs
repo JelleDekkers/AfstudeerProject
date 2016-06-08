@@ -6,6 +6,7 @@ using System.Collections;
 public class ScreenManager : MonoBehaviour {
 
     [SerializeField] private GameObject inventoryScreen;
+    [SerializeField] private GameObject inventoryCamera;
     [SerializeField] private GameObject gameUI;
     [SerializeField] private bool fadeInOnStart;
     [SerializeField] private bool hideCursor;
@@ -22,7 +23,7 @@ public class ScreenManager : MonoBehaviour {
 
     private void Update() {
         // Inventory:
-        if (Input.GetKeyDown(KeyCode.I)) {
+        if (Input.GetKeyDown(PlayerInput.InventoryButton)) {
             if (PlayerState.State == playerState.InGame)
                 OpenInventory();
             else if(PlayerState.State == playerState.InInventory)
@@ -43,6 +44,7 @@ public class ScreenManager : MonoBehaviour {
         inventoryScreen.SetActive(true);
         gameUI.SetActive(false);
         Player.Instance.OnDamageTaken += CloseInventory;
+        inventoryCamera.SetActive(true);
     }
 
     private void CloseInventory() {
@@ -50,6 +52,7 @@ public class ScreenManager : MonoBehaviour {
         PlayerState.SetState(playerState.InGame);
         inventoryScreen.SetActive(false);
         gameUI.SetActive(true);
+        inventoryCamera.SetActive(false);
     }
 
     private void CloseInventory(GameObject damage) {

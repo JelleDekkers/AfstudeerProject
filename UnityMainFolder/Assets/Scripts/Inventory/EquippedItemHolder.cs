@@ -5,9 +5,6 @@ public class EquippedItemHolder : MonoBehaviour {
     public ItemType Type;
     public GameObject Item;
 
-    private int equippedItemLayer = 13;
-    private int shieldLayer = 16;
-
 	public void UpdateHolder(ItemData item, Actor wielder) {
         // instantiate item
         if (transform.childCount > 0) {
@@ -17,6 +14,8 @@ public class EquippedItemHolder : MonoBehaviour {
 
         if (item != null) {
             GameObject g = Instantiate(Resources.Load("Items/" + item.MeshName)) as GameObject;
+
+            OutlineMaterialManager.ChangeMatsToNormalMat(g);
 
             if (g.GetComponent<Rigidbody>())
                 Destroy(g.GetComponent<Rigidbody>());
@@ -31,10 +30,10 @@ public class EquippedItemHolder : MonoBehaviour {
             g.transform.SetParent(transform, true);
             g.transform.localPosition = Vector3.zero;
             g.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            g.layer = equippedItemLayer;
+            Common.SetLayerRecursively(Layers.EQUIPPED_ITEM_LAYER, g.transform);
 
             if (g.GetComponent<ItemGameObject>().Type == ItemType.Shield) {
-                g.layer = shieldLayer;
+                g.layer = Layers.SHIELD_LAYER;
             }
 
             Item = g;
