@@ -1,41 +1,47 @@
+outline shader verbeteren, overleggen met sieb over property names
+applyOutlineOnStart op alle items toe passen
 
-player wat lichter maken in inventory scherm, misschien lampje aan/uit zetten wanneer in inventory
+ui gekke scaling bij build?
 
-end screen level done laten zien met secrets found en kills
+ui flicker oplossen
+
+geluiden voor dynamisch harder en zachte impact
+
+level finished implementeren
+end screen level done met level nr
+secrets found en kills laten zien
+
+camera peek te dicht op de muur?
+
+firepit light uit wanneer gevallen op de grond
 
 archer cirkelen bug fixen
 
-player roll blend tree alle richtingen
+inventory filter werkend maken
+inventory volledig grid in item list,
+inventory scrollbaar list wanneer scherm vol is
 
 Level editor
 
+player roll blend tree alle richtingen
+
 foot placement sound + dust particle?
 
-camera peek te dicht op de muur?
-destructable objects fixen zodat ze niet allemaal kapot gaan bij slaan?
+destructable objects fixen zodat ze niet allemaal tegelijk kapot gaan bij slaan?
 
 grinder kapot na damage amount
-firepit light uit wanneer gevallen op de grond
-fire effect (continu damage) voor een bepaalde tijd, gaat nu nogal overpowered
 
-Game UI scaling fixen
+fire effect (continu damage) voor een bepaalde tijd, gaat nu nogal overpowered
 
 volledige map, minimap uit wanneer volledige map aan, legende, kleuren icons voor deuren, pauzeren game
 map fog of war, shader?
 
 ragdoll naar opstaan naar normaal voor knockdowns
 
-inventory filter werkend maken
-inventory volledig grid in item list,
-inventory scrollbaar list wanneer scherm vol is
-
 blood splatter op de grond bij hits
-
-zand particle bij ground shake
 
 //- sounds -//
 geluiden: slaan, death, vase break, deur unlock
-geluiden voor dynamisch harder en zachte impact
 
 //- traps -//
 rond zwaaiende bijlen die je moet ontwijken

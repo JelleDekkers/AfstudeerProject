@@ -45,6 +45,7 @@ public class ScreenManager : MonoBehaviour {
         gameUI.SetActive(false);
         Player.Instance.OnDamageTaken += CloseInventory;
         inventoryCamera.SetActive(true);
+        Time.timeScale = 0;
     }
 
     private void CloseInventory() {
@@ -53,6 +54,7 @@ public class ScreenManager : MonoBehaviour {
         inventoryScreen.SetActive(false);
         gameUI.SetActive(true);
         inventoryCamera.SetActive(false);
+        Time.timeScale = 1;
     }
 
     private void CloseInventory(GameObject damage) {
