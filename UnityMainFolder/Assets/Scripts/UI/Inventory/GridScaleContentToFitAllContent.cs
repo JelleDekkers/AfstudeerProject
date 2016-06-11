@@ -16,7 +16,7 @@ namespace AfstudeerProject.UI {
         private GridLayoutGroup grid;
         private Rect rect;
 
-        private void OnEnable() {
+        private void Start() {
             itemAmount = transform.childCount;
             grid = GetComponent<GridLayoutGroup>();
             rect = GetComponentInChildren<RectTransform>().rect;

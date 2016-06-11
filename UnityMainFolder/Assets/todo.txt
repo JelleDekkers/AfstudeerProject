@@ -1,9 +1,6 @@
 outline shader verbeteren, overleggen met sieb over property names
-applyOutlineOnStart op alle items toe passen
 
-ui gekke scaling bij build?
-
-ui flicker oplossen
+image effect op minimap testen
 
 geluiden voor dynamisch harder en zachte impact
 

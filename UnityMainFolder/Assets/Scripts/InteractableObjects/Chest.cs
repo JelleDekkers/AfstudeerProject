@@ -31,6 +31,8 @@ public class Chest : MonoBehaviour, IInteractable {
 
         if (itemInChest != null)
             itemInChest.gameObject.SetActive(true);
+
+        OutlineMaterialManager.SwitchToBumpedDiffuse(gameObject);
     }
 
     public void MakeObjectPickable() {

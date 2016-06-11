@@ -1,4 +1,4 @@
-Initialize engine version: 5.3.2f1 (e87ab445ead0)
+Initialize engine version: 5.3.5f1 (960ebf59018a)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 10.1]
@@ -14,14 +14,14 @@ Platform assembly: C:\Users\Jelle\Documents\School\GLU\Jaar 4\AfstudeerProject\B
 Loading C:\Users\Jelle\Documents\School\GLU\Jaar 4\AfstudeerProject\Builds\test_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: C:\Users\Jelle\Documents\School\GLU\Jaar 4\AfstudeerProject\Builds\test_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\Jelle\Documents\School\GLU\Jaar 4\AfstudeerProject\Builds\test_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.060 seconds
+- Completed reload, in  0.143 seconds
 Platform assembly: C:\Users\Jelle\Documents\School\GLU\Jaar 4\AfstudeerProject\Builds\test_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Jelle\Documents\School\GLU\Jaar 4\AfstudeerProject\Builds\test_Data\Managed\System.dll (this message is harmless)
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.709685 ms
+UnloadTime: 0.948813 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 1b74 -> priority: 1 
-  Thread -> id: 2160 -> priority: 1 
+  Thread -> id: dfc -> priority: 1 
+  Thread -> id: 1420 -> priority: 1 

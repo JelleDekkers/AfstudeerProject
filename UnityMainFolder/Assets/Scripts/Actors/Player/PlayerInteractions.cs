@@ -81,8 +81,8 @@ public class PlayerInteractions : MonoBehaviour {
 
     private void OnNearestItemChanged(GameObject from, GameObject to) {
         if (from != null)
-            OutlineMaterialManager.ChangeMatsToItemMats(from);
+            OutlineMaterialManager.ChangeMatsToNormalColor(from);
         if (to != null)
-            OutlineMaterialManager.ChangeMatsToSelectionMats(to);
+            OutlineMaterialManager.ChangeMatsToSelectionColor(to);
     }
 }

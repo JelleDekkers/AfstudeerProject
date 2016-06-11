@@ -15,7 +15,7 @@ public class EquippedItemHolder : MonoBehaviour {
         if (item != null) {
             GameObject g = Instantiate(Resources.Load("Items/" + item.MeshName)) as GameObject;
 
-            OutlineMaterialManager.ChangeMatsToNormalMat(g);
+            OutlineMaterialManager.SwitchToBumpedDiffuse(g);
 
             if (g.GetComponent<Rigidbody>())
                 Destroy(g.GetComponent<Rigidbody>());

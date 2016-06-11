@@ -4,7 +4,7 @@ using System.Collections;
 public class ApplyOutlineOnStart : MonoBehaviour {
 
 	void Awake() {
-        OutlineMaterialManager.ChangeMatsToItemMats(gameObject);
+        OutlineMaterialManager.SwitchToOutlineMat(gameObject);
         Destroy(this);
 	}
 }
