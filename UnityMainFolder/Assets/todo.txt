@@ -1,9 +1,5 @@
 outline shader verbeteren, overleggen met sieb over property names
 
-image effect op minimap testen
-
-geluiden voor dynamisch harder en zachte impact
-
 level finished implementeren
 end screen level done met level nr
 secrets found en kills laten zien

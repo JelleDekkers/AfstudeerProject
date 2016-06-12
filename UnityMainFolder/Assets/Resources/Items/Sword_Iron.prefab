@@ -44,6 +44,9 @@ GameObject:
   - 54: {fileID: 5477174}
   - 65: {fileID: 6583960}
   - 114: {fileID: 11494310}
+  - 82: {fileID: 8241884}
+  - 114: {fileID: 11412928}
+  - 114: {fileID: 11460938}
   m_Layer: 14
   m_Name: Sword_Iron
   m_TagString: Untagged
@@ -60,6 +63,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.30482414, y: 0.42405033, z: 0.06278482}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 499634}
   m_RootOrder: 0
@@ -72,6 +76,7 @@ Transform:
   m_LocalRotation: {x: 0.49999997, y: 0.49999997, z: 0.50000006, w: 0.50000006}
   m_LocalPosition: {x: 1.2753363, y: 0.84483796, z: 0.0040264013}
   m_LocalScale: {x: 1, y: 1, z: 0.84783703}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 499634}
   m_RootOrder: 1
@@ -81,9 +86,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186566}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.46, y: 0.56, z: 9.47}
+  m_LocalRotation: {x: 0, y: -0.44178453, z: 0, w: 0.8971212}
+  m_LocalPosition: {x: -13.66, y: 4.91, z: 5.04}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalEulerAnglesHint: {x: 0, y: -52.4356, z: 0}
   m_Children:
   - {fileID: 483774}
   - {fileID: 494964}
@@ -99,7 +105,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: fb125b647dd360840a921f2bb7324c48, type: 2}
+  - {fileID: 2100000, guid: fe93b384f0bf50a46aab5f28e5f03cb0, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -147,8 +153,107 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.63, y: 0.13, z: 0.64}
+  m_Size: {x: 5.63, y: 0.52, z: 0.64}
   m_Center: {x: -2.44, y: 0, z: 0}
+--- !u!82 &8241884
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186566}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+--- !u!114 &11412928
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955ec974ae870524bbfc9ab79beeb33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11460938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79891c06d71c6ad47b49b1b9f7853670, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: bab4aea771f207640bdbf5ee5cb09a2e, type: 3}
+  - {fileID: 8300000, guid: bcd70d6c9bf8c4b4e9fad73a4b38815c, type: 3}
 --- !u!114 &11481900
 MonoBehaviour:
   m_ObjectHideFlags: 1

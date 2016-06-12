@@ -13,6 +13,7 @@ GameObject:
   - 64: {fileID: 6486078}
   - 54: {fileID: 5416898}
   - 114: {fileID: 11438554}
+  - 114: {fileID: 11411744}
   m_Layer: 14
   m_Name: Health Potion
   m_TagString: Untagged
@@ -29,6 +30,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -4.81, y: 1.384, z: 4.82}
   m_LocalScale: {x: 1.6789061, y: 1.6789066, z: 1.6789066}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -42,8 +44,8 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: fb125b647dd360840a921f2bb7324c48, type: 2}
-  - {fileID: 2100000, guid: fb125b647dd360840a921f2bb7324c48, type: 2}
+  - {fileID: 2100000, guid: 894b9dd7cdc259d499abe96c8dad2b9c, type: 2}
+  - {fileID: 2100000, guid: e280779ff850eff4ab6dbc8c3a6073fa, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -93,6 +95,17 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 0958af655028b384b94818503f1cc97d, type: 3}
+--- !u!114 &11411744
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955ec974ae870524bbfc9ab79beeb33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11438554
 MonoBehaviour:
   m_ObjectHideFlags: 1
