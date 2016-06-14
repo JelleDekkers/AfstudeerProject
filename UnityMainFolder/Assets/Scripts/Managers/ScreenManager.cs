@@ -11,7 +11,7 @@ public class ScreenManager : MonoBehaviour {
     [SerializeField] private bool fadeInOnStart;
     [SerializeField] private bool hideCursor;
 
-    public static bool GameOverFadeComplete;
+    public static bool fadeComplete;
 
     private void Start() {
         //Cursor.visible = false;
@@ -30,10 +30,11 @@ public class ScreenManager : MonoBehaviour {
                 CloseInventory();
         }
 
-        if(GameOverFadeComplete && Player.Instance.CurrentState == State.Dead) {
+        if(fadeComplete) {
             if (Input.anyKey) {
                 Time.timeScale = 1;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                fadeComplete = false;
             }
         }
     }

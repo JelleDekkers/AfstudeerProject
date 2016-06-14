@@ -1,12 +1,12 @@
 outline shader verbeteren, overleggen met sieb over property names
 
-level finished implementeren
-end screen level done met level nr
-secrets found en kills laten zien
-
 camera peek te dicht op de muur?
 
 firepit light uit wanneer gevallen op de grond
+smallfire gaat niet weg?
+camera shake gaat ook niet weg?
+
+Level editor
 
 archer cirkelen bug fixen
 
@@ -14,7 +14,8 @@ inventory filter werkend maken
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
 
-Level editor
+
+-------
 
 player roll blend tree alle richtingen
 

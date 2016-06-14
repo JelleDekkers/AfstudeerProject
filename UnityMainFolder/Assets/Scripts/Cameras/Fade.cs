@@ -13,12 +13,14 @@ public class Fade : MonoBehaviour {
     private bool fading;
     private CanvasGroup fadeGroup;
     private CanvasGroup gameOverGroup;
+    private Text text;
 
     private void Start() {
         if (Instance == null)
             Instance = this;
         fadeGroup = transform.GetChild(0).GetComponent<CanvasGroup>();
         gameOverGroup = fadeGroup.transform.GetChild(1).GetComponent<CanvasGroup>();
+        text = gameOverGroup.transform.GetChild(0).GetComponent<Text>();
     }
 
     public void FadeIn() {
@@ -27,11 +29,12 @@ public class Fade : MonoBehaviour {
         StartCoroutine(FadeInCoRoutine());
     }
 
-    public void FadeOut(bool showGameOver) {
+    public void FadeOut(string textOnScreen) {
         if (fading == true)
             return;
-        StartCoroutine(FadeOutCoRoutine(showGameOver));
-        gameOverGroup.gameObject.SetActive(showGameOver);
+        StartCoroutine(FadeOutCoRoutine());
+        gameOverGroup.gameObject.SetActive(true);
+        text.text = textOnScreen;
     }
 
     private IEnumerator FadeInCoRoutine() {
@@ -47,7 +50,7 @@ public class Fade : MonoBehaviour {
         yield return null;
     }
 
-    private IEnumerator FadeOutCoRoutine(bool showGameOverEvent) {
+    private IEnumerator FadeOutCoRoutine() {
         fading = true;
         fadeGroup.gameObject.SetActive(true);
         fadeGroup.alpha = 0;
@@ -56,8 +59,7 @@ public class Fade : MonoBehaviour {
             yield return new WaitForEndOfFrame();
         }
         fading = false;
-        if (showGameOverEvent)
-            ScreenManager.GameOverFadeComplete = true;
+        ScreenManager.fadeComplete = true;
         yield return null;
     }
 }

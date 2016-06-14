@@ -47,6 +47,6 @@ public class Player : Actor {
         float timeScale = 0.5f;
         float seconds = 1;
         StartCoroutine(TimeController.SlowTimeForSeconds(timeScale, seconds));
-        Fade.Instance.FadeOut(true);
+        Fade.Instance.FadeOut("Game Over");
     }
 }
