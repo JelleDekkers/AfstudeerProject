@@ -6,13 +6,13 @@ public class PlayerCamera : MonoBehaviour {
     [SerializeField] private Transform target;
     [SerializeField] private LayerMask wallAvoidanceLayerMask;
 
-    public float distance = 10.0f;
+    public float currentDistance = 20.0f;
+    public float wantedDistance = 20;
     public float heightDamping = 2.0f;
     public float minPeekDistance = 4.5f;
     public float peekSpeed = 3f;
     public bool isShaking;
 
-    private float wantedDistance;
     private float wantedRotationAngle;
     private float wantedHeight;
     private float currentRotationAngle;
@@ -31,8 +31,6 @@ public class PlayerCamera : MonoBehaviour {
             Instance = this;
 
         wantedHeight = transform.position.y;
-        wantedDistance = distance;
-
         StartCoroutine(Wait(1));        
     }
 
@@ -68,16 +66,16 @@ public class PlayerCamera : MonoBehaviour {
 
         // Set the position of the camera on the x-z plane
         transform.position = target.position;
-        transform.position -= currentRotation * Vector3.forward * distance;
+        transform.position -= currentRotation * Vector3.forward * currentDistance;
 
         // Set the height of the camera
         transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
 
         // If player is obstructed:
         if (cameraRayCheck != null && Physics.Raycast(cameraRayCheck.position, Player.Instance.transform.position - cameraRayCheck.position, out hit, 100000, wallAvoidanceLayerMask)) {
-            distance = Mathf.Lerp(distance, minPeekDistance, Time.deltaTime * peekSpeed * 2);
+            currentDistance = Mathf.Lerp(currentDistance, minPeekDistance, Time.deltaTime * peekSpeed * 2);
         } else {
-            distance = Mathf.Lerp(distance, wantedDistance, Time.deltaTime * peekSpeed);
+            currentDistance = Mathf.Lerp(currentDistance, wantedDistance, Time.deltaTime * peekSpeed);
         }
 
         transform.LookAt(target);
@@ -99,13 +97,17 @@ public class PlayerCamera : MonoBehaviour {
     }
 
     public void Shake(float time, float strength, float posMinifier) {
-        isShaking = true;
         shakeStrength = strength;
+        if (isShaking)
+            return;
+
         shakeTime += time;
         if (posMinifier != 0)
             shakeMinifier = posMinifier;
         else
             shakeMinifier = 1;
+
+        isShaking = true;
     }
 
     private IEnumerator ShakeCoRoutine(float strength) {

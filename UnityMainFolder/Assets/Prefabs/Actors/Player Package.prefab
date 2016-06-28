@@ -2508,7 +2508,7 @@ Transform:
   m_LocalRotation: {x: -0.0000014810521, y: 0.9415329, z: -0.3369211, w: -0.0000041388303}
   m_LocalPosition: {x: 7.26, y: 20.71, z: -1.9700003}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 39.3788, y: -179.9995, z: 0}
   m_Children: []
   m_Father: {fileID: 435936}
   m_RootOrder: 2
@@ -5176,9 +5176,10 @@ MonoBehaviour:
   wallAvoidanceLayerMask:
     serializedVersion: 2
     m_Bits: 4096
-  distance: 20
+  currentDistance: 20
+  wantedDistance: 20
   heightDamping: 2
-  minPeekDistance: 4.5
+  minPeekDistance: 10
   peekSpeed: 3
   isShaking: 0
 --- !u!114 &11459674

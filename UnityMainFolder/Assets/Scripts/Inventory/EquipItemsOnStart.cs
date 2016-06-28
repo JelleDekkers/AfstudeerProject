@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using AfstudeerProject.UI;
 
 [RequireComponent(typeof(EquippedItemHolderManager))]
 public class EquipItemsOnStart : MonoBehaviour {
 
-    [SerializeField]
-    private ItemGameObject[] itemsToEquip;
+    public ItemGameObject[] itemsToEquip;
 
     private void Start() {
         EquipItems();

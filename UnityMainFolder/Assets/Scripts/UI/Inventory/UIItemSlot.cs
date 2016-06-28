@@ -18,6 +18,16 @@ namespace AfstudeerProject.UI {
             emptySlotSprite = slotImage.sprite;
             if (equippedItem == null)
                 slotImage.sprite = emptySlotSprite;
+
+            //if(Player.Instance.GetComponent<EquipItemsOnStart>() != null) {
+            //    ItemGameObject[] items = Player.Instance.GetComponent<EquipItemsOnStart>().itemsToEquip;
+            //    foreach (ItemGameObject i in items) {
+            //        if (i != null && i.Type == itemType) {
+            //            ItemData itemData = new ItemData(i.Name, i.Type, i.MeshName, i.Sprite, i.Points, i.WeaponLength, i.AttackAngle);
+            //            UpdateSlot(itemData);
+            //        }
+            //    }
+            //}
         }
 
         public void UpdateSlot(ItemData item) {

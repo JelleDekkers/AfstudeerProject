@@ -19,8 +19,8 @@ public class EditorCollisionCheck : MonoBehaviour {
         if (Bounds != null) {
             Bounds.center = transform.position + offSet;
             
-            if (LevelBuilder.ShowWireBox)
-                Gizmos.DrawWireCube(Bounds.center, Bounds.size);
+            //if (LevelBuilder.ShowWireBox)
+            //    Gizmos.DrawWireCube(Bounds.center, Bounds.size);
         }
     }
 }

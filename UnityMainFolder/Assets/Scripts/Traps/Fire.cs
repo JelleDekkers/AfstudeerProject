@@ -33,7 +33,9 @@ public class Fire : MonoBehaviour, ITrap {
 
     public void Extinquish() {
         GetComponent<BoxCollider>().enabled = false;
-        GetComponent<ParticleSystem>().enableEmission = false; 
+        GetComponent<ParticleSystem>().enableEmission = false;
+        if (GetComponent<Light>())
+            GetComponent<Light>().enabled = false;
     }
 
     public void ExtinquishAfterDelay(float delay) {

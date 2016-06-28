@@ -1,14 +1,14 @@
 outline shader verbeteren, overleggen met sieb over property names
 
-camera peek te dicht op de muur?
-
-firepit light uit wanneer gevallen op de grond
-smallfire gaat niet weg?
-camera shake gaat ook niet weg?
-
 Level editor
+dingen kunnen copien en pasten door shift ingedrukt houden? 
+grid size aan kunnen passen, code heb ik al
+collisie checken, code heb ik al deels
 
 archer cirkelen bug fixen
+
+
+
 
 inventory filter werkend maken
 inventory volledig grid in item list,

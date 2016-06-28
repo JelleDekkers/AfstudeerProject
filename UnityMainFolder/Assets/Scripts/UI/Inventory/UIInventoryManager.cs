@@ -20,16 +20,17 @@ namespace AfstudeerProject.UI {
         [SerializeField] private UIItemInfoPanel itemInfoPanel;
 
         private ItemData currentSelectedItem;
+        private UIItemSlot[] itemSlots;
 
-        private static UIInventoryManager instance;
+        public static UIInventoryManager Instance;
 
         public static shownItemsCategory ShownCategory = shownItemsCategory.All;
         public static List<InventoryItem> itemsInGrid;
         public static event Action OnSelectedItemIsNull;
 
         private void Awake() {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
         }
 
         private void OnEnable() {
@@ -58,11 +59,11 @@ namespace AfstudeerProject.UI {
         }
 
         public static void OnItemMovedFunction() {
-            instance.HideItemInfo();
+            Instance.HideItemInfo();
         }
 
         public static void ActivateOnItemSelected(ItemData item, bool showDiscardedBtn) {
-            instance.ShowItemInfo(item, showDiscardedBtn);
+            Instance.ShowItemInfo(item, showDiscardedBtn);
         }
 
         public void ShowItemsInGrid(List<InventoryItem> items) {
@@ -70,9 +71,9 @@ namespace AfstudeerProject.UI {
         }
 
         public static void UpdateItemsGrid() { 
-            instance.HideItemInfo();
+            Instance.HideItemInfo();
             // TODO: dynamisch maken via cat tabs
-            instance.inventoryGrid.ShowItemsInGrid(Player.Instance.Inventory.Items);
+            Instance.inventoryGrid.ShowItemsInGrid(Player.Instance.Inventory.Items);
         }
 
         private void ShowItemInfo(ItemData item, bool showDiscardedBtn) {

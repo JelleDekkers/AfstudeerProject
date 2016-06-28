@@ -9,6 +9,7 @@ public class Firepit : MonoBehaviour, IHittable {
     private GameObject mainFire;
     private float force = 1000;
     private List<GameObject> fires;
+    private bool fallen;
 
     private void Start() {
         mainFire = transform.GetChild(0).gameObject;
@@ -26,6 +27,7 @@ public class Firepit : MonoBehaviour, IHittable {
         float extinquishDelayMax = 6f;
         int circleRadius = 2;
 
+        fallen = true;
         fires = new List<GameObject>();
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
         Vector3 circle = colPoint + fwd;
@@ -44,10 +46,12 @@ public class Firepit : MonoBehaviour, IHittable {
                 delay = 0;
             yield return new WaitForSeconds(delay);
         }
+
+        Destroy(GetComponent<Firepit>());
     }
 
     public void Hit(Actor actor, Vector3 direction, float force) {
-        if (actor.GetType() != typeof(Player))
+        if (actor.GetType() != typeof(Player) || fallen)
             return;
 
         Rigidbody rigidBody = GetComponent<Rigidbody>();

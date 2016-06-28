@@ -18,6 +18,7 @@ public class FirepitTrigger : MonoBehaviour {
                 firePit.StartCoroutine(firePit.DistributeFire(hit.point));
             }
             fireParticle.GetComponent<Fire>().Extinquish();
+            gameObject.SetActive(false);
         }
     }
 }
