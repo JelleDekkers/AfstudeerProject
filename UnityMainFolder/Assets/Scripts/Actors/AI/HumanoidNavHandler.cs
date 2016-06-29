@@ -28,7 +28,7 @@ public class HumanoidNavHandler : MonoBehaviour {
             navAgent.enabled = false;
         };
 
-        navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
+        //navAgent.obstacleAvoidanceType = ObstacleAvoidanceType.MedQualityObstacleAvoidance;
     }
 
     private void Update() {

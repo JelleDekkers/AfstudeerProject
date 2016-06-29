@@ -34,8 +34,8 @@ public class Archer : Humanoid {
         }
 
         float distanceToPlayer = Vector3.Distance(transform.position, target.transform.position);
-        if (distanceToPlayer < safeDistance)
-            isRetreating = true;
+        //if (distanceToPlayer < safeDistance)
+        //    isRetreating = true;
 
         if (isRetreating == false) {
             DrawArrow();
@@ -47,24 +47,25 @@ public class Archer : Humanoid {
     }
 
     private void RetreatToSafeDistance() {
+        Debug.Log("retreating");
         float distanceToPlayer = Vector3.Distance(transform.position, target.transform.position);
         if (distanceToPlayer > (safeDistance + attackDistance) / 2) {
             isRetreating = false;
             retreatPosSet = false;
             return;
         } 
-
+        
         navHandler.OnTargetReachedEvent = delegate () {
-            print("target reached event");
             retreatPosSet = false;
         };
 
         if(retreatPosSet == false) {
             Vector3 retreatPos = navHandler.GetRandomNavPosInDirection(transform.TransformDirection(Vector3.back));
             navHandler.MoveToTargetPosition(retreatPos);
-            //GameObject test = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            //test.transform.position = retreatPos;
-            //Destroy(test.GetComponent<Collider>());
+            GameObject test = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            test.transform.position = retreatPos;
+            Destroy(test.GetComponent<Collider>());
+            test.GetComponent<Renderer>().material.color = Color.red;
             retreatPosSet = true;
         }
     }
