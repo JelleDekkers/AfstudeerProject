@@ -1,381 +1,136 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace AfstudeerProject.LevelEditor {
 
-    [CustomEditor(typeof(LevelBuilder))]
-    public class LevelEditor : Editor {
+#if UNITY_EDITOR
+    [InitializeOnLoad]
+#endif
+    public static class LevelEditor {
 
-        private LevelBuilder levelBuilder;
-        private Vector3 mousePos;
-        private RaycastHit hit;
+        private const KeyCode DRAG_KEY = KeyCode.D;
 
-        public override void OnInspectorGUI() {
-            levelBuilder = (LevelBuilder)target;
-            if (levelBuilder == null)
-                return;
+        private static GameObject currentlyActiveGameObject;
+        private static Vector3 mousePos;
+        private static RaycastHit hit;
+        private static Vector3 startPos;
+        private static Vector3 endPos;
+        private static Stack draggedObjectsStack = new Stack();
+        private static float snap = 10;
+        private static bool isDragging;
+        private static GameObject[] originalItems;
+        private static LayerMask rayDetectorLayerMask = 1 << 31;
 
-            //EditorGUILayout.LabelField("Place items in scene: ", EditorStyles.boldLabel);
-            //FocusOnSceneView();
-            //Tools.current = Tool.View;
-            //GUILayout.Space(10);
-            //EditorGUILayout.LabelField("Options: ", EditorStyles.boldLabel);
-            //snapping = EditorGUILayout.Toggle("Snap Items", snapping);
-            //LevelBuilder.ShowWireBox = EditorGUILayout.Toggle("Show Items Wire Box", LevelBuilder.ShowWireBox);
-
-            base.OnInspectorGUI();
+        static LevelEditor() {
+            SceneView.onSceneGUIDelegate += Update;
         }
 
-        private void OnSceneGUI() {
-            if (levelBuilder == null)
-                return;
+        public static void Update(SceneView view) {
+            Event e = Event.current;
 
+            if (Selection.activeGameObject == null || e.type == EventType.MouseUp)
+                currentlyActiveGameObject = null;
+
+
+            if (SceneView.currentDrawingSceneView != EditorWindow.focusedWindow) {
+                if (isDragging)
+                    StopDragging();
+                return;
+            }
             Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
             hit = new RaycastHit();
-            Event e = Event.current;
             var controlID = GUIUtility.GetControlID(FocusType.Passive);
             var eventType = e.GetTypeForControl(controlID);
 
-           
-            if (Physics.Raycast(ray, out hit, 100000f)) {
-                mousePos = new Vector3(hit.point.x, hit.point.y, hit.point.z);
-
-                
-                //if (Event.current.keyCode == LevelBuilder.DRAG_KEY) {
-                //    DragMultipleItems();
-                //} 
-
-
-                //if (e.keyCode == LevelBuilder.CANCEL_KEY)
-                //    CancelDragging();
-
-                //if (e.button == 0 && eventType == EventType.MouseUp) {
-                //    bool placeMore = e.shift;
-                //    PlaceCurrentItem(placeMore);
-                //} else {
-                //    DragCurrentItem();
-                //}
+            if (e.button == 0 && e.keyCode == DRAG_KEY && Selection.activeGameObject != null) {
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, rayDetectorLayerMask)) {
+                    mousePos = new Vector3(hit.point.x, hit.point.y, hit.point.z);
+                    if (!isDragging)
+                        StartDragging(Selection.gameObjects);
+                    else
+                        DragItems(Selection.activeGameObject, mousePos);
+                }
             }
-            
 
-            //if (Tools.current == Tool.Rotate && levelBuilder.prevPlacedGameObject != null) {
-            //    Selection.activeGameObject = levelBuilder.prevPlacedGameObject;
-            //}
-
-            SceneViewGUI();
-            SceneView.RepaintAll();
+            if (isDragging && e.type == EventType.KeyUp && e.keyCode == DRAG_KEY) 
+                StopDragging();
         }
 
-        private void SceneViewGUI() {
-            Handles.BeginGUI();
-            GUIStyle style = new GUIStyle();
-            style.normal.textColor = Color.white;
-            List<string> GUIMessages = new List<string>();
-            //GUIMessages.Add("Snapping: " + snapping);
-
-            //if (itemCurrentlyPlacing != null) {
-            //    if (snapping)
-            //        GUIMessages.Add("Current snap values: " + itemCurrentlyPlacing.SnappingValues.ToString());
-
-            //    GUIMessages.Add("Press " + "'" + LevelBuilder.CANCEL_KEY.ToString() + "'" + " to cancel");
-
-            //    if (isPlacingMultiple == false)
-            //        GUIMessages.Add("Hold " + "'" + "Shift" + "'" + " to place multiple");
-            //}
-
-            //for (int i = 0; i < GUIMessages.Count; i++)
-            //    GUI.Label(new Rect(10, 10 + (10 * i), 10000, 100), GUIMessages[i], style);
-
-            Handles.EndGUI();
+        private static void StartDragging(GameObject[] item) {
+            isDragging = true;
+            originalItems = item;
+            draggedObjectsStack.Push(originalItems);
         }
 
-        //public void SpawnItem(EditorItem item) {
-        //    if (itemCurrentlyPlacing != null)
-        //        DestroyImmediate(gameObjectCurrentlyPlacing);
+        private static void DragItems(GameObject item, Vector3 mousePos) {
+            Vector3 dragDirection = (item.transform.position - mousePos).normalized;
+            if (Mathf.Abs(dragDirection.x) >= Mathf.Abs(dragDirection.z)) {
+                if (dragDirection.x > 0)
+                    dragDirection = new Vector3(-1, 0, 0);
+                else
+                    dragDirection = new Vector3(1, 0, 0);
+            } else {
+                if(dragDirection.z > 0)
+                    dragDirection = new Vector3(0, 0, -1);
+                else
+                    dragDirection = new Vector3(0, 0, 1);
+            }
 
-        //    itemCurrentlyPlacing = item;
-        //    gameObjectCurrentlyPlacing = Instantiate(itemCurrentlyPlacing.Obj);
-        //    gameObjectCurrentlyPlacing.name = "Selection: " + itemCurrentlyPlacing.Obj.name;
-        //    gameObjectCurrentlyPlacing.AddComponent<EditorCollisionCheck>().Init(itemCurrentlyPlacing.BoundsOffset, itemCurrentlyPlacing.BoundsSize);
+            float itemAmount = (int)(Vector3.Distance(item.transform.position, mousePos) / snap);
 
-        //    if (levelBuilder.prevPlacedGameObject != null) {
-        //        if (itemCurrentlyPlacing.rndRot90Degrees) {
-        //            Vector3 rot = gameObjectCurrentlyPlacing.transform.eulerAngles;
-        //            gameObjectCurrentlyPlacing.transform.eulerAngles = new Vector3(rot.x, rot.y + (90 * Random.Range(0, 4)), rot.z);
-        //        } else {
-        //            gameObjectCurrentlyPlacing.transform.eulerAngles = levelBuilder.prevPlacedGameObject.transform.eulerAngles;
-        //        }
-        //    }
-        //}
-
-        //private void DragCurrentItem() {
-        //    if (itemCurrentlyPlacing == null || gameObjectCurrentlyPlacing == null)
-        //        return;
-
-        //    //if (hit.collider.gameObject != gameObjectCurrentlyPlacing && hit.collider.GetComponent<EditorCollisionCheck>()) {
-        //    //    Bounds objBounds = gameObjectCurrentlyPlacing.GetComponent<EditorCollisionCheck>().Bounds;
-        //    //    Bounds otherBounds = hit.collider.GetComponent<EditorCollisionCheck>().Bounds;
-
-        //    //    Debug.Log(objBounds.Intersects(otherBounds));
-        //    //}
-
-        //    //TODO: dit bij de spawn doen, samen met de box collider en gizmos
-        //    //TODO: dit door geven aan EditorCollisionCheck en dan de gizmos rood of groen maken
-        //    Vector3 colSize = itemCurrentlyPlacing.BoundsSize / 2;
-        //    float offset = 0.5f;
-        //    if (colSize.x > offset)
-        //        colSize.x -= offset;
-        //    if (colSize.y > offset)
-        //        colSize.y -= offset;
-        //    if (colSize.z > offset)
-        //        colSize.z -= offset;
-
-        //    Collider[] cols = Physics.OverlapBox(gameObjectCurrentlyPlacing.transform.position, colSize);
-        //    foreach (Collider col in cols) {
-        //        if (col.transform != levelBuilder.RayCatchPlane && col.transform.IsChildOf(gameObjectCurrentlyPlacing.transform) == false)
-        //            Debug.Log(col.name);
-        //    }
-
-        //    Vector3 pos = mousePos;
-        //    if (snapping)
-        //        pos = Snap(itemCurrentlyPlacing.SnappingValues);
-
-        //    if (itemCurrentlyPlacing.YisAlwaysZero)
-        //        pos = new Vector3(pos.x, 0, pos.z);
-
-        //    gameObjectCurrentlyPlacing.transform.position = pos;
-        //}
-
-        //private void PlaceCurrentItem(bool placeAgain) {
-        //    gameObjectCurrentlyPlacing.transform.parent = levelBuilder.LevelParent;
-        //    levelBuilder.prevPlacedGameObject = gameObjectCurrentlyPlacing;
-        //    gameObjectCurrentlyPlacing.name = itemCurrentlyPlacing.Obj.name;
-        //    Selection.activeGameObject = levelBuilder.gameObject;
-        //    Undo.RegisterCreatedObjectUndo(gameObjectCurrentlyPlacing, "Create " + gameObjectCurrentlyPlacing.name);
-        //    gameObjectCurrentlyPlacing = null;
-
-        //    if (placeAgain)
-        //        SpawnItem(itemCurrentlyPlacing);
-        //    else
-        //        itemCurrentlyPlacing = null;
-        //}
-
-        //private void CancelDragging() {
-        //    DestroyImmediate(gameObjectCurrentlyPlacing);
-        //    itemCurrentlyPlacing = null;
-        //}
-
-        private void FocusOnSceneView() {
-            SceneView view = (SceneView)SceneView.sceneViews[0];
-            view.Focus();
+            if (itemAmount != 1 && itemAmount < draggedObjectsStack.Count) {
+                //Debug.Log("destroying last item because: itemAmount: " + itemAmount + " stack: " + draggedObjectsStack.Count);
+                DestroyLastItemsInStack();
+            } else if (itemAmount > draggedObjectsStack.Count) {
+                //Debug.Log("creating new item because: itemAmount: " + itemAmount + " stack: " + draggedObjectsStack.Count);
+                CreateNewItems(dragDirection);
+            }
         }
 
-        private Vector3 Snap(Vector3 snapValues) {
-            Vector3 pos = new Vector3(Round(mousePos.x, snapValues.x), Round(mousePos.y, snapValues.y), Round(mousePos.z, snapValues.z));
-            return pos;
+        private static void StopDragging() {
+            //remove items from stack
+            isDragging = false;
+            List<GameObject> selection = new List<GameObject>();
+            foreach (Object obj in Selection.objects)
+                selection.Add((GameObject)obj);
+
+            while (draggedObjectsStack.Count != 0) {
+                GameObject[] arr = (GameObject[])draggedObjectsStack.Pop();
+                foreach (GameObject g in arr) {
+                    selection.Add(g);
+
+                    if(draggedObjectsStack.Count > 0)
+                        Undo.RegisterCreatedObjectUndo(g, "Create " + g.name);
+                }
+            }
+            Selection.objects = selection.ToArray();
+            draggedObjectsStack.Clear();
+           
+            //Debug.Log("stop dragging");
         }
 
-        private float Round(float pos, float snapValue) {
-            return snapValue * Mathf.Round((pos / snapValue));
+        private static void DestroyLastItemsInStack() {
+            if (draggedObjectsStack.Count == 1)
+                return;
+
+            GameObject[] items = (GameObject[])draggedObjectsStack.Pop();
+            foreach(GameObject g in items)
+                Object.DestroyImmediate(g);
+        }
+
+        private static void CreateNewItems(Vector3 direction) {
+            GameObject[] items = (GameObject[])draggedObjectsStack.Peek();
+            GameObject[] newItems = new GameObject[items.Length];
+            for(int i = 0; i < items.Length; i++) {
+                GameObject g = Object.Instantiate(items[i]);
+                g.name = items[i].name;
+                g.transform.parent = items[i].transform.parent;
+                g.transform.position = items[i].transform.position + (direction * (1) * snap);
+                newItems[i] = g;
+            }
+            draggedObjectsStack.Push(newItems);
         }
     }
 }
-
-/*
-
-    [CustomEditor(typeof(LevelBuilder))]
-    public class LevelEditor : Editor {
-
-        private LevelBuilder levelBuilder;
-        private EditorItem itemCurrentlyPlacing;
-        private GameObject gameObjectCurrentlyPlacing;
-        private Vector3 mousePos;
-        private bool isPlacingMultiple;
-        private bool snapping = true;
-        private RaycastHit hit;
-
-        public override void OnInspectorGUI() {
-            levelBuilder = (LevelBuilder)target;
-
-            if (levelBuilder == null)
-                return;
-
-            EditorGUILayout.LabelField("Place items in scene: ", EditorStyles.boldLabel);
-
-            foreach (EditorItem item in levelBuilder.EditorItems) {
-                if (item.Obj != null) {
-                    if (GUILayout.Button(item.Obj.name)) {
-                        SpawnItem(item);
-                        FocusOnSceneView();
-                        Tools.current = Tool.View;
-                    }
-                }
-            }
-
-            GUILayout.Space(10);
-            EditorGUILayout.LabelField("Options: ", EditorStyles.boldLabel);
-            snapping = EditorGUILayout.Toggle("Snap Items", snapping);
-            LevelBuilder.ShowWireBox = EditorGUILayout.Toggle("Show Items Wire Box", LevelBuilder.ShowWireBox);
-
-            GUILayout.Space(20);
-            base.OnInspectorGUI();
-        }
-
-        private void OnSceneGUI() {
-            if (levelBuilder == null)
-                return;
-
-            Ray ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
-            hit = new RaycastHit();
-            Event e = Event.current;
-            var controlID = GUIUtility.GetControlID(FocusType.Passive);
-            var eventType = e.GetTypeForControl(controlID);
-
-            if (itemCurrentlyPlacing != null) {
-                if (Physics.Raycast(ray, out hit, 100000f)) {
-                    mousePos = new Vector3(hit.point.x, hit.point.y, hit.point.z);
-
-                    //if (Event.current.keyCode == LevelBuilder.DRAG_KEY) {
-                    //    DragMultipleItems();
-                    //} 
-
-
-                    if (e.keyCode == LevelBuilder.CANCEL_KEY)
-                        CancelDragging();
-
-                    if (e.button == 0 && eventType == EventType.MouseUp) {
-                        bool placeMore = e.shift;
-                        PlaceCurrentItem(placeMore);
-                    } else {
-                        DragCurrentItem();
-                    }
-                }
-            }
-
-            if (Tools.current == Tool.Rotate && levelBuilder.prevPlacedGameObject != null) {
-                Selection.activeGameObject = levelBuilder.prevPlacedGameObject;
-            }
-
-            SceneViewGUI();
-            SceneView.RepaintAll();
-        }
-
-        private void SceneViewGUI() {
-            Handles.BeginGUI();
-            GUIStyle style = new GUIStyle();
-            style.normal.textColor = Color.white;
-            List<string> GUIMessages = new List<string>();
-            GUIMessages.Add("Snapping: " + snapping);
-
-            if (itemCurrentlyPlacing != null) {
-                if (snapping)
-                    GUIMessages.Add("Current snap values: " + itemCurrentlyPlacing.SnappingValues.ToString());
-
-                GUIMessages.Add("Press " + "'" + LevelBuilder.CANCEL_KEY.ToString() + "'" + " to cancel");
-
-                if (isPlacingMultiple == false)
-                    GUIMessages.Add("Hold " + "'" + "Shift" + "'" + " to place multiple");
-            }
-
-            for (int i = 0; i < GUIMessages.Count; i++)
-                GUI.Label(new Rect(10, 10 + (10 * i), 10000, 100), GUIMessages[i], style);
-
-            Handles.EndGUI();
-        }
-
-        public void SpawnItem(EditorItem item) {
-            if (itemCurrentlyPlacing != null)
-                DestroyImmediate(gameObjectCurrentlyPlacing);
-
-            itemCurrentlyPlacing = item;
-            gameObjectCurrentlyPlacing = Instantiate(itemCurrentlyPlacing.Obj);
-            gameObjectCurrentlyPlacing.name = "Selection: " + itemCurrentlyPlacing.Obj.name;
-            gameObjectCurrentlyPlacing.AddComponent<EditorCollisionCheck>().Init(itemCurrentlyPlacing.BoundsOffset, itemCurrentlyPlacing.BoundsSize);
-
-            if (levelBuilder.prevPlacedGameObject != null) {
-                if (itemCurrentlyPlacing.rndRot90Degrees) {
-                    Vector3 rot = gameObjectCurrentlyPlacing.transform.eulerAngles;
-                    gameObjectCurrentlyPlacing.transform.eulerAngles = new Vector3(rot.x, rot.y + (90 * Random.Range(0, 4)), rot.z);
-                } else {
-                    gameObjectCurrentlyPlacing.transform.eulerAngles = levelBuilder.prevPlacedGameObject.transform.eulerAngles;
-                }
-            }
-        }
-
-        private void DragCurrentItem() {
-            if (itemCurrentlyPlacing == null || gameObjectCurrentlyPlacing == null)
-                return;
-
-            //if (hit.collider.gameObject != gameObjectCurrentlyPlacing && hit.collider.GetComponent<EditorCollisionCheck>()) {
-            //    Bounds objBounds = gameObjectCurrentlyPlacing.GetComponent<EditorCollisionCheck>().Bounds;
-            //    Bounds otherBounds = hit.collider.GetComponent<EditorCollisionCheck>().Bounds;
-
-            //    Debug.Log(objBounds.Intersects(otherBounds));
-            //}
-
-            //TODO: dit bij de spawn doen, samen met de box collider en gizmos
-            //TODO: dit door geven aan EditorCollisionCheck en dan de gizmos rood of groen maken
-            Vector3 colSize = itemCurrentlyPlacing.BoundsSize / 2;
-            float offset = 0.5f;
-            if (colSize.x > offset)
-                colSize.x -= offset;
-            if (colSize.y > offset)
-                colSize.y -= offset;
-            if (colSize.z > offset)
-                colSize.z -= offset;
-
-            Collider[] cols = Physics.OverlapBox(gameObjectCurrentlyPlacing.transform.position, colSize);
-            foreach (Collider col in cols) {
-                if (col.transform != levelBuilder.RayCatchPlane && col.transform.IsChildOf(gameObjectCurrentlyPlacing.transform) == false)
-                    Debug.Log(col.name);
-            }
-
-            Vector3 pos = mousePos;
-            if (snapping)
-                pos = Snap(itemCurrentlyPlacing.SnappingValues);
-
-            if (itemCurrentlyPlacing.YisAlwaysZero)
-                pos = new Vector3(pos.x, 0, pos.z);
-
-            gameObjectCurrentlyPlacing.transform.position = pos;
-        }
-
-        private void PlaceCurrentItem(bool placeAgain) {
-            gameObjectCurrentlyPlacing.transform.parent = levelBuilder.LevelParent;
-            levelBuilder.prevPlacedGameObject = gameObjectCurrentlyPlacing;
-            gameObjectCurrentlyPlacing.name = itemCurrentlyPlacing.Obj.name;
-            Selection.activeGameObject = levelBuilder.gameObject;
-            Undo.RegisterCreatedObjectUndo(gameObjectCurrentlyPlacing, "Create " + gameObjectCurrentlyPlacing.name);
-            gameObjectCurrentlyPlacing = null;
-
-            if (placeAgain)
-                SpawnItem(itemCurrentlyPlacing);
-            else
-                itemCurrentlyPlacing = null;
-        }
-
-        private void DragMultipleItems() {
-
-        }
-
-        private void CancelDragging() {
-            DestroyImmediate(gameObjectCurrentlyPlacing);
-            itemCurrentlyPlacing = null;
-        }
-
-        private void FocusOnSceneView() {
-            SceneView view = (SceneView)SceneView.sceneViews[0];
-            view.Focus();
-        }
-
-        private Vector3 Snap(Vector3 snapValues) {
-            Vector3 pos = new Vector3(Round(mousePos.x, snapValues.x), Round(mousePos.y, snapValues.y), Round(mousePos.z, snapValues.z));
-            return pos;
-        }
-
-        private float Round(float pos, float snapValue) {
-            return snapValue * Mathf.Round((pos / snapValue));
-        }
-    }
-*/
