@@ -45,7 +45,7 @@ GameObject:
   m_Layer: 14
   m_Name: ItemInChestParent
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -60,6 +60,7 @@ GameObject:
   - 95: {fileID: 9564500}
   - 65: {fileID: 6547300}
   - 114: {fileID: 11407866}
+  - 114: {fileID: 11413572}
   m_Layer: 14
   m_Name: Chest
   m_TagString: Untagged
@@ -93,6 +94,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0.037955046, y: 0.8568407, z: -0.11755998}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 491322}
   m_RootOrder: 2
@@ -105,6 +107,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0.021451404, y: 0, z: -0.1198375}
   m_LocalScale: {x: 0.895439, y: 0.79242647, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 491322}
   m_RootOrder: 0
@@ -117,6 +120,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.78, z: -0.176}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 491322}
   m_RootOrder: 3
@@ -129,6 +133,7 @@ Transform:
   m_LocalRotation: {x: -0.7071062, y: -0.0009473268, z: 0.000947271, w: 0.7071062}
   m_LocalPosition: {x: 0.6814343, y: 1.0183291, z: -0.1198375}
   m_LocalScale: {x: 0.9271106, y: 0.8204546, z: 0.99999994}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 491322}
   m_RootOrder: 1
@@ -139,8 +144,9 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 184704}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 76.04, y: -0.57000005, z: 3.64}
+  m_LocalPosition: {x: 26.46, y: 0.00000020454445, z: -3.92}
   m_LocalScale: {x: 2.2326384, y: 2.2326381, z: 2.2326381}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 421458}
   - {fileID: 455396}
@@ -287,7 +293,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92f178ece6185ec4697333467822e446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectName: Old Chest
+--- !u!114 &11413572
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955ec974ae870524bbfc9ab79beeb33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

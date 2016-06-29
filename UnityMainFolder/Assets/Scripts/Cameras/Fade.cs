@@ -21,6 +21,8 @@ public class Fade : MonoBehaviour {
         fadeGroup = transform.GetChild(0).GetComponent<CanvasGroup>();
         gameOverGroup = fadeGroup.transform.GetChild(1).GetComponent<CanvasGroup>();
         text = gameOverGroup.transform.GetChild(0).GetComponent<Text>();
+
+        FadeIn();
     }
 
     public void FadeIn() {

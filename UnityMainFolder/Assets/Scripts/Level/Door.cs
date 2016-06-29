@@ -29,11 +29,10 @@ public class Door : MonoBehaviour {
     public void DoorTriggered(Actor actor, Vector3 direction) {
         if (isOpen)
             return;
-
-       if(isLocked && key != null && actor.Inventory.Contains(keyData)) {
+        if(isLocked && keyData != null && actor.Inventory.Contains(keyData)) {
             isLocked = false;
             // play sound
-        }
+        } 
 
         if (!isLocked) {
             StartCoroutine(Open(direction));
@@ -42,7 +41,11 @@ public class Door : MonoBehaviour {
         }
     }
 
-    private IEnumerator Open(Vector3 direction) {
+    public void ForceOpenDoor(Vector3 direction) {
+        StartCoroutine(Open(direction));
+    }
+
+    public IEnumerator Open(Vector3 direction) {
         float elapsed = 0f;
         audioSource.PlayOneShotNormalPitch(AudioManager.Instance.DoorOpeningClip);
         isOpen = true;

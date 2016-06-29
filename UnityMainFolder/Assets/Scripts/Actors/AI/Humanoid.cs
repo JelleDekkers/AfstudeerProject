@@ -147,10 +147,10 @@ public class Humanoid : Actor {
         }
     }
 
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackCenter.position, viewDistance);
-    }
+    //private void OnDrawGizmos() {
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(attackCenter.position, viewDistance);
+    //}
 
     protected virtual void Idle() {
         firstHit = true;

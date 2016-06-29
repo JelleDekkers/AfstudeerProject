@@ -3,7 +3,7 @@ using System;
 
 public class PlayerInteractions : MonoBehaviour {
 
-    private float interactionMaxRange = 4;
+    private float interactionMaxRange = 6;
     private GameObject nearestInteractableItem = null;
     private Collider[] nearbyItemColliders;
     private AudioSource audioSource;

@@ -1,14 +1,13 @@
 outline shader verbeteren, overleggen met sieb over property names
 
 
-archer cirkelen bug fixen
-
-
+doorloop
 
 
 inventory filter werkend maken
 inventory volledig grid in item list,
 inventory scrollbaar list wanneer scherm vol is
+
 
 
 -------

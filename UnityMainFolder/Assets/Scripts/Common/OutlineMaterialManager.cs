@@ -6,7 +6,7 @@ public static class OutlineMaterialManager {
     public static Material outlineMat, selectionMat, normalMat;
 
     private static bool initialized;
-    private const string COLOR_PROPERTY = "_node_5860";
+    private const string COLOR_PROPERTY = "_coloroutline";
     private static Color normalColor = Color.yellow;
     private static Color selectionColor = Color.green;
 
@@ -83,7 +83,7 @@ public static class OutlineMaterialManager {
         mainTex = r.material.GetTexture("_MainTex");
         normal = r.material.GetTexture("_BumpMap");
         r.material = newMat;
-        r.material.SetTexture("_Albedo", mainTex);
+        r.material.SetTexture("_Diffuse", mainTex);
         r.material.SetTexture("_Normal", normal);
     }
 }
