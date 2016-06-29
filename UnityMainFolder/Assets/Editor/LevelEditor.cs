@@ -126,6 +126,7 @@ namespace AfstudeerProject.LevelEditor {
             for(int i = 0; i < items.Length; i++) {
                 GameObject g = Object.Instantiate(items[i]);
                 g.name = items[i].name;
+                g.transform.eulerAngles = items[i].transform.eulerAngles;
                 g.transform.parent = items[i].transform.parent;
                 g.transform.position = items[i].transform.position + (direction * (1) * snap);
                 newItems[i] = g;
