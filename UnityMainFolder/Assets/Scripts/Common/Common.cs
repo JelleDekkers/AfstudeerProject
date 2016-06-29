@@ -28,4 +28,14 @@ public class Common : MonoBehaviour {
         pos.z = center.z + radius * Mathf.Cos(ang * Mathf.Deg2Rad);
         return pos;
     }
+
+    /// <summary>
+    /// Rounds value to nearest rounding, i.e:100 gets rounded to 90 and 170 to 180
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="rounding"></param>
+    /// <returns></returns>
+    public static int RoundToNearest(float value, int rounding) {
+        return (int)Mathf.Round(value / rounding) * rounding;
+    }
 }
