@@ -1,9 +1,5 @@
 outline shader verbeteren, overleggen met sieb over property names
 
-Level editor
-dingen kunnen copien en pasten door shift ingedrukt houden? 
-grid size aan kunnen passen, code heb ik al
-collisie checken, code heb ik al deels
 
 archer cirkelen bug fixen
 

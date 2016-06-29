@@ -57,4 +57,5 @@ public class Firepit : MonoBehaviour, IHittable {
         Rigidbody rigidBody = GetComponent<Rigidbody>();
         rigidBody.AddTorque(direction * this.force, ForceMode.Impulse);
     }
+
 }

@@ -9,7 +9,7 @@ public class Spikes : MonoBehaviour, ITrap {
     private Transform spikesParent;
     private List<GameObject> spikes = new List<GameObject>();
     private Vector3 spikesOriginalPos;
-    private int spikesYOffset = 1;
+    private int spikesYOffset = 2;
     private bool triggered;
     private float spikesTimerMax = 3f;
     public float spikesTimer = 3f;

@@ -28,4 +28,9 @@ public class Grinder : MonoBehaviour, ITrap {
         else
             actor.TakeDamage(gameObject, aIDamage);
     }
+
+     public void OnCollisionEnter(Collision col) {
+        if (col.transform.GetComponent<Actor>())
+            OnTriggered(col.transform.GetComponent<Actor>());
+    }
 }
