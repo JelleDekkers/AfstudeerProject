@@ -1,7 +1,10 @@
 outline shader verbeteren, overleggen met sieb over property names
 
 
+minder lights
+restart error fixen
 doorloop
+build testen
 
 
 inventory filter werkend maken

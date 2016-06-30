@@ -34,11 +34,11 @@ public class PlayerController : HumanoidAnimatorHandler {
 
             //if (Player.Inventory.GetWeapon != null) {
             // Attacking:
-            if (Input.GetMouseButtonDown(PlayerInput.AttackButton)) 
+            if (Input.GetMouseButtonDown(PlayerInput.AttackButton) && Player.Instance.Inventory.Weapon != null) 
                 Attack();
             
             // Block:
-            if (Input.GetMouseButtonDown(PlayerInput.BlockButton)) 
+            if (Input.GetMouseButtonDown(PlayerInput.BlockButton) && Player.Instance.Inventory.Shield != null) 
                 Block();
             else if (Input.GetMouseButtonUp(PlayerInput.BlockButton)) 
                 StopBlocking();

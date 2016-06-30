@@ -14,14 +14,162 @@ Platform assembly: C:\Users\Jelle\Documents\School\GLU\Jaar 4\AfstudeerProject\B
 Loading C:\Users\Jelle\Documents\School\GLU\Jaar 4\AfstudeerProject\Builds\test_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: C:\Users\Jelle\Documents\School\GLU\Jaar 4\AfstudeerProject\Builds\test_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\Jelle\Documents\School\GLU\Jaar 4\AfstudeerProject\Builds\test_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.143 seconds
+- Completed reload, in  0.060 seconds
 Platform assembly: C:\Users\Jelle\Documents\School\GLU\Jaar 4\AfstudeerProject\Builds\test_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Jelle\Documents\School\GLU\Jaar 4\AfstudeerProject\Builds\test_Data\Managed\System.dll (this message is harmless)
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.948813 ms
+WARNING: Shader Unsupported: 'Outlined/Silhouetted Diffuse' - Pass 'OUTLINE' has no vertex shader
+WARNING: Shader Unsupported: 'Outlined/Silhouetted Bumped Diffuse' - Pass 'OUTLINE' has no vertex shader
+UnloadTime: 0.656821 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: dfc -> priority: 1 
-  Thread -> id: 1420 -> priority: 1 
+  Thread -> id: 11ac -> priority: 1 
+  Thread -> id: dd0 -> priority: 1 
+damage taken by: Player
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+damage taken by: Player
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+damage taken by: Player
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+damage taken by: Player
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+damage taken by: Player
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+damage taken by: Player
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+damage taken by: Player
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+damage taken by: Player
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 37)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 7.634523 ms
+
+Unloading 124 unused Assets to reduce memory usage. Loaded Objects now: 7660.
+Total: 2.407661 ms (FindLiveObjects: 0.470037 ms CreateObjectMapping: 0.154968 ms MarkObjects: 1.508123 ms  DeleteObjects: 0.274017 ms)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Component:get_gameObject ()
+  at CameraManager.ShowCorrectCam (playerState state) [0x00000] in <filename unknown>:0 
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at PlayerState.SetState (playerState state) [0x00000] in <filename unknown>:0 
+  at ScreenManager.OpenInventory () [0x00000] in <filename unknown>:0 
+  at ScreenManager.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Component:get_gameObject ()
+  at CameraManager.ShowCorrectCam (playerState state) [0x00000] in <filename unknown>:0 
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at PlayerState.SetState (playerState state) [0x00000] in <filename unknown>:0 
+  at ScreenManager.CloseInventory () [0x00000] in <filename unknown>:0 
+  at ScreenManager.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Component:get_gameObject ()
+  at CameraManager.ShowCorrectCam (playerState state) [0x00000] in <filename unknown>:0 
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at PlayerState.SetState (playerState state) [0x00000] in <filename unknown>:0 
+  at ScreenManager.OpenInventory () [0x00000] in <filename unknown>:0 
+  at ScreenManager.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Component:get_gameObject ()
+  at CameraManager.ShowCorrectCam (playerState state) [0x00000] in <filename unknown>:0 
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at PlayerState.SetState (playerState state) [0x00000] in <filename unknown>:0 
+  at ScreenManager.CloseInventory () [0x00000] in <filename unknown>:0 
+  at ScreenManager.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Component:get_gameObject ()
+  at CameraManager.ShowCorrectCam (playerState state) [0x00000] in <filename unknown>:0 
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at PlayerState.SetState (playerState state) [0x00000] in <filename unknown>:0 
+  at ScreenManager.OpenInventory () [0x00000] in <filename unknown>:0 
+  at ScreenManager.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Component:get_gameObject ()
+  at CameraManager.ShowCorrectCam (playerState state) [0x00000] in <filename unknown>:0 
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at PlayerState.SetState (playerState state) [0x00000] in <filename unknown>:0 
+  at ScreenManager.CloseInventory () [0x00000] in <filename unknown>:0 
+  at ScreenManager.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Component:get_gameObject ()
+  at CameraManager.ShowCorrectCam (playerState state) [0x00000] in <filename unknown>:0 
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at PlayerState.SetState (playerState state) [0x00000] in <filename unknown>:0 
+  at ScreenManager.OpenInventory () [0x00000] in <filename unknown>:0 
+  at ScreenManager.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Component:get_gameObject ()
+  at CameraManager.ShowCorrectCam (playerState state) [0x00000] in <filename unknown>:0 
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at PlayerState.SetState (playerState state) [0x00000] in <filename unknown>:0 
+  at ScreenManager.CloseInventory () [0x00000] in <filename unknown>:0 
+  at ScreenManager.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Component:get_gameObject ()
+  at CameraManager.ShowCorrectCam (playerState state) [0x00000] in <filename unknown>:0 
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at (wrapper delegate-invoke) System.Action`1<playerState>:invoke_void__this___playerState (playerState)
+  at PlayerState.SetState (playerState state) [0x00000] in <filename unknown>:0 
+  at ScreenManager.OpenInventory () [0x00000] in <filename unknown>:0 
+  at ScreenManager.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
