@@ -38,6 +38,14 @@ namespace AfstudeerProject.UI {
             ShowItemsInGrid(Player.Instance.Inventory.Items);
         }
 
+        private void OnDisable() {
+            OnSelectedItemIsNull -= OnSelectedItemIsNullFunction;
+        }
+
+        private void OnDestroy() {
+            OnSelectedItemIsNull = null;
+        }
+
         private void Update() { 
             if (Input.GetMouseButtonUp(0)) {
                 if (!EventSystem.current.IsPointerOverGameObject()) {

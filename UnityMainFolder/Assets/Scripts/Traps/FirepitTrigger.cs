@@ -20,6 +20,7 @@ public class FirepitTrigger : MonoBehaviour {
             }
             //fireParticle.GetComponent<Fire>().Extinquish();
             fireFX.gameObject.SetActive(false);
+            Destroy(this);
         }
     }
 }

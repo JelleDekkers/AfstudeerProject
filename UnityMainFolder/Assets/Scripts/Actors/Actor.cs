@@ -229,6 +229,14 @@ public class Actor : MonoBehaviour {
         isRegenerating = false;
     }
 
+    private void OnDestroy() {
+        OnDeath = null;
+        OnDamageTaken = null;
+        OnStaggered = null;
+        onStateChange = null;
+    }
+}
+
     //public void SetOnFire() {
     //    if (fire == null) {
     //        GameObject f = ParticleManager.InstantiateParticle(ParticleManager.Instance.Fire, attackCenter.position);
@@ -246,4 +254,3 @@ public class Actor : MonoBehaviour {
 
     //    HealthPoints -= Time.deltaTime * fire.playerDamage / 2;
     //}
-}

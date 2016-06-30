@@ -15,6 +15,10 @@ namespace AfstudeerProject.UI {
             UpdateText();
         }
         
+        private void OnDisable() {
+            UIItemSlot.OnItemSlotChanged -= UpdateText;
+        }
+
         private void UpdateText() {
             armorPointsText.text = Player.Instance.ArmorPoints.ToString();
             attackPointsText.text = Player.Instance.AttackPoints.ToString();

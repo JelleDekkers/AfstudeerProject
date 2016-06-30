@@ -26,4 +26,8 @@ public class PlayerState : MonoBehaviour {
     private void StateChange(playerState state) {
         anim.SetInteger("GameState", (int)state);
     }
+
+    private void OnDestroy() {
+        OnStateChanged -= StateChange;
+    }
 }

@@ -120,4 +120,8 @@ public class HumanoidNavHandler : MonoBehaviour {
         NavMesh.SamplePosition(randomPoint, out hit, boundsSize, 1);
         return hit.position;
     }
+
+    private void OnDestroy() {
+        OnTargetReachedEvent = null;
+    }
 }

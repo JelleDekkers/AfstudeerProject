@@ -20,10 +20,10 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.021572238, g: 0.063967854, b: 0.1544118, a: 1}
+  m_AmbientSkyColor: {r: 0.42825478, g: 0.50043255, b: 0.6544118, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0.28
   m_AmbientMode: 0
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -3170,6 +3170,10 @@ Prefab:
       propertyPath: m_ConnectedAnchor.z
       value: -0.1660744
       objectReference: {fileID: 0}
+    - target: {fileID: 11481604, guid: 22e78b8cb1ab3e347849e92439badc77, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 22e78b8cb1ab3e347849e92439badc77, type: 2}
   m_IsPrefabParent: 0
@@ -3969,7 +3973,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_Children: []
   m_Father: {fileID: 591150908}
-  m_RootOrder: 132
+  m_RootOrder: 131
 --- !u!65 &286668315
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8724,8 +8728,8 @@ Transform:
   - {fileID: 347869774}
   - {fileID: 383360136}
   - {fileID: 1388817288}
-  - {fileID: 201417490}
   - {fileID: 286668314}
+  - {fileID: 201417490}
   - {fileID: 541277150}
   - {fileID: 632798577}
   - {fileID: 1540744968}
@@ -8768,7 +8772,7 @@ Transform:
   - {fileID: 353471911}
   - {fileID: 324321168}
   m_Father: {fileID: 0}
-  m_RootOrder: 49
+  m_RootOrder: 38
 --- !u!1001 &594258162
 Prefab:
   m_ObjectHideFlags: 0

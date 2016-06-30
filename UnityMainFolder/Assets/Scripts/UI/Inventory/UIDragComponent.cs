@@ -14,7 +14,6 @@ namespace AfstudeerProject.UI {
         private RectTransform m_DraggingPlane;
 
         public static event Action<ItemData> OnBeginDragEvent; //highlight correct itemslots
-        public static event Action OnEndEventDrag;
 
         public void OnBeginDrag(PointerEventData eventData) {
             if (GetComponent<UIItemSlot>() && GetComponent<UIItemSlot>().equippedItem == null)
